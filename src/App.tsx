@@ -10,6 +10,7 @@ const App = () => {
       </div> */}
       <nav>
         <ul>
+          <li><a href="#">Home</a></li>
           <li><a href="#">Log In</a></li>
         </ul>
       </nav>

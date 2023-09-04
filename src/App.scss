@@ -31,15 +31,19 @@ header {
     letter-spacing: 2px;
     position: relative;
     z-index: 1;
+    justify-content: flex-end;
     nav {
         ul {
             display: flex;
             list-style: none;
+            flex-direction: row;
             li {
                 margin-left: 20px;
+                float: right;
                 a {
                     text-decoration: none;
                     color: white;
+                    cursor: pointer;
                     &:hover {
                         color: rgb(246, 0, 0);
                     }
