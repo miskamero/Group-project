@@ -8,39 +8,37 @@ Kuka haluaa tehdä mitä (kirjottakaa nimi jonnekin tehtävän kohtaan)
 
 **Lainaukset** - (userTeam):
 
-Näytä lista lainauksista. Jokaisella lainauksella tulee olla ainakin teksti ja kirjoittaja. - **Jooa**
+Näytä lista lainauksista. Jokaisella lainauksella tulee olla ainakin teksti ja kirjoittaja.
 
 **Lainauksen lisääminen** - (adminTeam):
 
 Mahdollisuus lisätä uusia lainauksia sovellukseen admin-tunnuksella admin-paneelin lomakkeen kautta.
 
-**Sakke Minkkinen**
+**Lainauksen tietojen näyttäminen** - (userTeam): Käyttäjä voi tarkastella yksittäisen lainauksen tietoja. (esim. Näytä lainauksen teksti ja kirjoittaja)
 
-**Lainauksen tietojen näyttäminen** - (userTeam): Käyttäjä voi tarkastella yksittäisen lainauksen tietoja. (esim. Näytä lainauksen teksti ja kirjoittaja) - **Jooa**
-
-**Responsiivisuus** - (userTeam, adminTeam): Sovellus toimii hyvin eri näyttökokoluokissa, mukaan lukien mobiililaitteilla. **Verneri Pelho, Miska**
+**Responsiivisuus** - (userTeam, adminTeam): Sovellus toimii hyvin eri näyttökokoluokissa, mukaan lukien mobiililaitteilla.
 
 **Yksinkertainen käyttöliittymä** - (userTeam, adminTeam):
 
-Käyttöliittymä on helppokäyttöinen ja intuitiivinen. Vältä tarpeetonta monimutkaisuutta. Selkeä ja houkutteleva käyttöliittymä helpottaa lainausten selailua. **Miska**
+Käyttöliittymä on helppokäyttöinen ja intuitiivinen. Vältä tarpeetonta monimutkaisuutta. Selkeä ja houkutteleva käyttöliittymä helpottaa lainausten selailua.
 
 **Perustoiminnallisuudet** - (userTeam):
 
-Käyttäjä voi selata lainauksia hakusanoilla tai suodattaa niitä esimerkiksi kirjoittajan tai aiheen perusteella. Kirjautuminen ja käyttäjätilit: Käyttäjät voivat luoda käyttäjätilin (GR-tunnus), joka mahdollistaa lainauksen. **Julia**
+Käyttäjä voi selata lainauksia hakusanoilla tai suodattaa niitä esimerkiksi kirjoittajan tai aiheen perusteella. Kirjautuminen ja käyttäjätilit: Käyttäjät voivat luoda käyttäjätilin (GR-tunnus), joka mahdollistaa lainauksen.
 
-**Koodin ylläpito ja selkeys** - (userTeam, adminTeam): Koodin tulisi olla selkeää ja helposti ymmärrettävää. Pilko koodi pieniin komponentteihin ja hyödynnä Reactin ominaisuuksia. **Miska** (user-puoli)
+**Koodin ylläpito ja selkeys** - (userTeam, adminTeam): Koodin tulisi olla selkeää ja helposti ymmärrettävää. Pilko koodi pieniin komponentteihin ja hyödynnä Reactin ominaisuuksia.
 
 **Perusvisuaalinen suunnittelu** - (userTeam,adminTeam):
 
-Käytä yksinkertaista visuaalista suunnittelua, joka houkuttelee sovelluksen käyttäjiä. **Julia**
+Käytä yksinkertaista visuaalista suunnittelua, joka houkuttelee sovelluksen käyttäjiä.
 
-**Dokumentaatio** - (userTeam, adminTeam): Luo yksinkertainen dokumentaatio, joka selittää sovelluksen toiminnan ja kuinka sitä käytetään. **Verneri Pelho, Miska**
+**Dokumentaatio** - (userTeam, adminTeam): Luo yksinkertainen dokumentaatio, joka selittää sovelluksen toiminnan ja kuinka sitä käytetään.
 
-**Testaus** - (userTeam, adminTeam): Testaa sovelluksen perustoiminnallisuudet varmistaaksesi, että ne toimivat odotetusti. - **Jooa, Verneri Pelho**
+**Testaus** - (userTeam, adminTeam): Testaa sovelluksen perustoiminnallisuudet varmistaaksesi, että ne toimivat odotetusti.
 
-**Tietoturva** - (userTeam, adminTeam): Varmista tietoturva käyttäjätietojen osalta. **Julia**
+**Tietoturva** - (userTeam, adminTeam): Varmista tietoturva käyttäjätietojen osalta.
 
-**Tallennus ja tietokanta** - (userTeam, adminTeam): Lainaukset ja muut tiedot on tallennettava johonkin tietokantaan tai tiedostoon, JSON-muotoon. Kannattaa tehdä kaksi erillistä JSON-tiedostoa. Ensimmäinen sisältää lainaukset ja niiden tiedot, kuten teksti ja kirjoittaja. Toinen sisältää käyttäjätilien tiedot, kuten käyttäjänimi ja salasana. - **Jooa**
+**Tallennus ja tietokanta** - (userTeam, adminTeam): Lainaukset ja muut tiedot on tallennettava johonkin tietokantaan tai tiedostoon, JSON-muotoon. Kannattaa tehdä kaksi erillistä JSON-tiedostoa. Ensimmäinen sisältää lainaukset ja niiden tiedot, kuten teksti ja kirjoittaja. Toinen sisältää käyttäjätilien tiedot, kuten käyttäjänimi ja salasana.
 
 ### Vastuu Järjestys:
 
