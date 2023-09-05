@@ -1,13 +1,12 @@
 import './App.scss'
+import ReactDOM from 'react-dom';
+import {QRCodeSVG} from 'qrcode.react';
 
-const App = () => {
+const App = () => { 
   return (
     <>
     <div>
     <header>
-      {/* <div className="logo">
-        <img src="https://i.imgur.com/8nKXQ8o.png" alt="logo" />
-      </div> */}
       <nav>
         <ul>
           <li><a href="#">Home</a></li>
@@ -39,6 +38,7 @@ const App = () => {
             GitHub Project Site
             </a>
         </p>
+        <QRCodeSVG value="https://reactjs.org/" />
       </div>
     </>
   )
