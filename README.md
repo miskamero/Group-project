@@ -1,8 +1,8 @@
-**Ryhmä Project**
+# Ryhmä Project
 
-**Projektipäällikkö:** Akonpelto Jooa
+## Projektipäällikkö: Akonpelto Jooa
 
-**Vastuut:**
+### Vastuut:
 
 Kuka haluaa tehdä mitä (kirjottakaa nimi jonnekin tehtävän kohtaan)
 
@@ -22,11 +22,7 @@ Mahdollisuus lisätä uusia lainauksia sovellukseen admin-tunnuksella admin-pane
 
 **Yksinkertainen käyttöliittymä** - (userTeam, adminTeam):
 
-Käyttöliittymä on helppokäyttöinen ja intuitiivinen.
-
-Vältä tarpeetonta monimutkaisuutta. Selkeä ja houkutteleva käyttöliittymä helpottaa lainausten selailua.
-
-**Miska**
+Käyttöliittymä on helppokäyttöinen ja intuitiivinen. Vältä tarpeetonta monimutkaisuutta. Selkeä ja houkutteleva käyttöliittymä helpottaa lainausten selailua. **Miska**
 
 **Perustoiminnallisuudet** - (userTeam):
 
@@ -46,7 +42,7 @@ Käytä yksinkertaista visuaalista suunnittelua, joka houkuttelee sovelluksen k�
 
 **Tallennus ja tietokanta** - (userTeam, adminTeam): Lainaukset ja muut tiedot on tallennettava johonkin tietokantaan tai tiedostoon, JSON-muotoon. Kannattaa tehdä kaksi erillistä JSON-tiedostoa. Ensimmäinen sisältää lainaukset ja niiden tiedot, kuten teksti ja kirjoittaja. Toinen sisältää käyttäjätilien tiedot, kuten käyttäjänimi ja salasana. - **Jooa**
 
-**Vastuu Järjestys:**
+### Vastuu Järjestys:
 
 kaikille oma vastuu alue ja sopikaa tehtävistä tiimin muiden jäsenten kanssa
 
@@ -64,11 +60,11 @@ Talletus ja tietokanta ja tietoturva
 
 QR-koodi:
 
-**AIKATAULU:**
+## AIKATAULU:
 
 aluksi viikkotasolla (vko1, vko2, vko3, vko4), mieti sen jälkeen vähän tarkempi aikataulu päivätasolla
 
-**Viikko 1:**
+### Viikko 1:
 
 **Komponenttien luominen:**
 
@@ -82,7 +78,7 @@ aluksi viikkotasolla (vko1, vko2, vko3, vko4), mieti sen jälkeen vähän tarkem
 
 - Käytä tilaa (state) komponenteissa hallitaksesi lainauksia.
 
-**Viikko 2:**
+### Viikko 2:
 
 **Lainauslistan näyttäminen:**
 
@@ -96,7 +92,7 @@ aluksi viikkotasolla (vko1, vko2, vko3, vko4), mieti sen jälkeen vähän tarkem
 
 - Kun käyttäjä lähettää lomakkeen, lisätään uusi lainaus JSON-tiedostoon tai poistetaan.
 
-**Viikko 3:**
+### Viikko 3:
 
 **Hakutoiminnot:**
 
@@ -108,7 +104,7 @@ aluksi viikkotasolla (vko1, vko2, vko3, vko4), mieti sen jälkeen vähän tarkem
 
 - Suunnittele käyttäjäystävällinen käyttöliittymä, käytä CSS:ää ulkoasun parantamiseen.
 
-**Viikko 4:**
+### Viikko 4:
 
 **Hakutoiminnot:**
 
@@ -120,7 +116,7 @@ aluksi viikkotasolla (vko1, vko2, vko3, vko4), mieti sen jälkeen vähän tarkem
 
 - Kun sovellus on valmis, voit julkaista sen verkossa esimerkiksi GitHub Pagesilla.
 
-**Riskit:**
+## Riskit:
 
 - JSON-tietokanta
 - Kirjautuminen ja käyttäjätilit
@@ -130,7 +126,7 @@ aluksi viikkotasolla (vko1, vko2, vko3, vko4), mieti sen jälkeen vähän tarkem
 - Henkilöriskit (sairaudet, poissaolot)
 - aikataulu
 
-**Implementointi:**
+### Implementointi:
 
 **JSON-tietokanta:**
 
