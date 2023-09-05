@@ -1,6 +1,7 @@
 # Ryhmä Project
 
-## Projektipäällikkö: Akonpelto Jooa
+## Projekti"päällikkö": Akonpelto Jooa
+# Käytännössä oikea päällikko : Mero Miska
 
 ### Vastuut:
 
