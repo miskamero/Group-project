@@ -10,13 +10,13 @@
       "id": 2,
       "nimi": "Harry Potter ja salaisuuksien kammio",
       "kirjoittaja": "J.K. Rowling",
-      "kpl": 6
+      "kpl": 2
     },
     {
       "id": 3,
       "nimi": "Harry Potter ja Azkabanin vanki",
       "kirjoittaja": "J.K. Rowling",
-      "kpl": 0
+      "kpl": 2
     }
   ]
 }
