@@ -52,6 +52,9 @@ const Lainaukset: React.FC = () => {
     // if the id is found in the tuotteet, it will return
     if (user && user.tuoteet.includes(kirjaID)) {
       setError('Kirja on jo lainattu. :(');
+      setTimeout(() => {
+        setError('');
+      }, 1500);
       return;
     }
 
