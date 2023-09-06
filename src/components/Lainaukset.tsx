@@ -8,9 +8,16 @@ interface Book {
   kpl: number;
 }
 
+interface Lainaus {
+  id: string;
+  tuoteet: [];
+}
+
 const Lainaukset: React.FC = () => {
   const [kirjaID, setKirjaID] = useState<string>('');
   const [books, setBooks] = useState<Book[]>([]);
+  const [users, setUsers] = useState<Lainaus[]>([]);
+  const userName: string = "gr123456"
 
   useEffect(() => {
     axios
@@ -21,7 +28,17 @@ const Lainaukset: React.FC = () => {
       .catch((error) => {
         console.log(error);
       });
-  }, []);
+
+    axios
+      .get<Lainaus[]>('http://localhost:3002/lainaukset/')
+      .then((response) => {
+        setUsers(response.data);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }
+  , []);
 
   const lainaaKirja = () => {
     const book = books.find((book) => book.id === Number(kirjaID));
@@ -40,6 +57,24 @@ const Lainaukset: React.FC = () => {
               )
             );
           });
+
+          // find userName varibale from lainaukset.json and add kirjaID to tuoteet array
+          const user = users.find((user) => user.id === userName);
+          if (user) {
+            const updatedUser = {
+              ...user,
+              tuoteet: [...user.tuoteet, kirjaID],
+            };
+            axios
+              .put<Lainaus>(`http://localhost:3002/lainaukset/${userName}`, updatedUser)
+              .then((response) => {
+                setUsers(
+                  users.map((user) =>
+                    user.id !== userName ? user : response.data
+                  )
+                );
+              });
+          }          
       }
       return;
     } else {
@@ -57,7 +92,7 @@ const Lainaukset: React.FC = () => {
           </li>
         ))}
       </ul>
-
+      <h1>käyttäjä</h1>
       <input
         type="text"
         placeholder="Kirjan kirjaID"
