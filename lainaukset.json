@@ -1,16 +1,14 @@
 {
-  "users": {
-    "gr123456": {
-        "lainaukset" : []
+  "lainaukset": [
+    {
+      "id": "gr111111",
+      "tuoteet": []
     },
-    "gr123457": {
-        "lainaukset" : []
-    },
-    "gr123458": {
-        "lainaukset" : []
-    },
-    "gr123459": {
-        "lainaukset" : []
+    {
+      "id": "gr123456",
+      "tuoteet": [
+        "1"
+      ]
     }
-  }
+  ]
 }
