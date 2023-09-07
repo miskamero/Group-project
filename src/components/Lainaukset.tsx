@@ -37,6 +37,7 @@ const Lainaukset: React.FC = () => {
 
   const saveUsernameToLocalStorage = (username: string) => {
     secureLocalStorage.setItem("username", username);
+    setUserName(username);
   };
 
   useEffect(() => {
@@ -189,7 +190,8 @@ const Lainaukset: React.FC = () => {
       <input type="text"
         placeholder="Käyttäjänimi"
         value={userName}
-        onChange={(e) => setUserName(e.target.value)}
+        onChange={(e) => saveUsernameToLocalStorage(e.target.value)}
+
       />
       <br />
       <h1>Käyttäjä: <GetUserName /></h1>
