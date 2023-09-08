@@ -37,11 +37,21 @@ const Lainaukset: React.FC = () => {
   const [userName, setUserName] = useState<string>('');
   const [error, setError] = useState<string>('');
   const [search, setSearch] = useState<string>('');
+
   // Function to save the username to secure local storage and set it in state
   const saveUsernameToLocalStorage = (username: string) => {
       secureLocalStorage.setItem("username", username);
       setUserName(username);
   };
+
+  const displayError = (message: string) => {
+    setError(message);
+    document.getElementById('error-message')!.style.opacity = '1';
+    setTimeout(() => {
+      document.getElementById('error-message')!.style.opacity = '0';
+    }, 2500); // Adjust the delay as needed
+  };
+
 
   // useEffect hook to perform side effects when the component mounts
   useEffect(() => {
@@ -78,7 +88,7 @@ const Lainaukset: React.FC = () => {
   const lainaaKirja = () => {
     const usernamePattern = /^gr\d{6}$/;
     if (!usernamePattern.test(userName)) {
-      setError('Invalid username format. It should start with "gr" followed by 6 numbers.');
+      displayError('Invalid username format. It should start with "gr" followed by 6 numbers.');
       return;
     }
     // Find the selected book by its ID
@@ -88,10 +98,7 @@ const Lainaukset: React.FC = () => {
 
     // Check if the book is already borrowed by the user
     if (user && user.tuoteet.includes(kirjaID)) {
-      setError('Kirja on jo lainattu. :(');
-      setTimeout(() => {
-        setError('');
-      }, 1500);
+      displayError('Book already borrowed by the user');
       return;
     }
 
@@ -132,12 +139,12 @@ const Lainaukset: React.FC = () => {
             );
           })
           .catch((error) => {
-            setError('Error updating user lending information');
+            displayError('Error updating user lending information');
             console.log(error);
           });
       }
     } else {
-      setError('Book not found or not available');
+      displayError('Book not found or not available');
     }
   };
 
@@ -145,7 +152,7 @@ const Lainaukset: React.FC = () => {
   const ReturnBooks = () => {
     const usernamePattern = /^gr\d{6}$/;
     if (!usernamePattern.test(userName)) {
-      setError('Invalid username format. It should start with "gr" followed by 6 numbers.');
+      displayError('Invalid username format. It should start with "gr" followed by 6 numbers.');
       return;
     }
     // Find the user by their username
@@ -153,7 +160,7 @@ const Lainaukset: React.FC = () => {
 
     // Check if the book is not found or not borrowed by the user
     if (user && !user.tuoteet.includes(returnBooks)) {
-      setError('Book not found or not available');
+      displayError('Book not found or not borrowed by the user');
       return;
     }
 
@@ -177,7 +184,7 @@ const Lainaukset: React.FC = () => {
           console.log(error);
         });
     } else {
-      setError('Book not found or not available');
+      displayError('Book not found or not available');
     }
 
     // Update the book's availability by incrementing its count
@@ -217,7 +224,7 @@ const Lainaukset: React.FC = () => {
         <br />
         <div className='lainaa'>
           <h1>Käyttäjä: <GetUserName /></h1>
-          {error && <p>Error: {error}</p>}
+          <p id={"error-message"}>Error: <span>{error}</span></p>
           <input
             type="text"
             placeholder="Kirjan kirjan ID"
