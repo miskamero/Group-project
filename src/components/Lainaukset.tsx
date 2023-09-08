@@ -36,7 +36,7 @@ const Lainaukset: React.FC = () => {
   const [users, setUsers] = useState<Lainaus[]>([]);
   const [userName, setUserName] = useState<string>('');
   const [error, setError] = useState<string>('');
-
+  const [search, setSearch] = useState<string>('');
   // Function to save the username to secure local storage and set it in state
   const saveUsernameToLocalStorage = (username: string) => {
       secureLocalStorage.setItem("username", username);
@@ -249,17 +249,22 @@ const Lainaukset: React.FC = () => {
           </ul>
         </div>
         <div className="search-box">
-          <input type="text" className="input-search" placeholder="Kirjoita hakusana..."/>
-          <button>Hae</button>
+          <input type="text" 
+          className="input-search"
+          placeholder="Kirjoita hakusana..."
+          onChange={(e) => setSearch(e.target.value)}
+          />
         </div>
         <div className='kirjat'>
           <h1>Kirjat:</h1>
           <ul>
-            {books.map((book) => (
-              <li key={book.id}>
-                {book.id} {book.nimi} | {book.kirjoittaja} | {book.kpl}
-              </li>
-            ))}
+            {books
+              .filter((book) => book.nimi.toLowerCase().includes(search.toLowerCase()))
+              .map((book) => (
+                <li key={book.id}>
+                  {book.id} {book.nimi} {book.kirjoittaja} {book.kpl}
+                </li>
+              ))}
           </ul>
         </div>
           {error && <p>Error: {error}</p>}
