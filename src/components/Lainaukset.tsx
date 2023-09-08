@@ -253,6 +253,10 @@ const Lainaukset: React.FC = () => {
       <button onClick={ReturnBooks}>Palauta Kirja</button>
 
       {error && <p>Error: {error}</p>}
+      <div className="search-box">
+        <button className="btn-search"><i className="fa fa-search" style={{color: "ffffff"}}>Text</i></button>
+        <input type="text" className="input-search" placeholder="Kirjoita hakusana..."/>
+      </div>
     </div>
   );
 };
