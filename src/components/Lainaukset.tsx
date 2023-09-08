@@ -1,5 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import {
+  useParams
+} from "react-router-dom";
+import  secureLocalStorage  from  "react-secure-storage";
 
 interface Book {
   id: number;
@@ -13,15 +17,36 @@ interface Lainaus {
   tuoteet: string[]; // Assuming tuoteet is an array of strings (book IDs)
 }
 
+const GetUserName: React.FC = () => {
+  const username: string | null = secureLocalStorage.getItem('username') as string;
+  
+  return (
+    <div>
+      {username}
+    </div>
+  );
+}
+
 const Lainaukset: React.FC = () => {
   const [kirjaID, setKirjaID] = useState<string>('');
   const [books, setBooks] = useState<Book[]>([]);
   const [returnBooks, setReturnBooks] = useState<string>('');
   const [users, setUsers] = useState<Lainaus[]>([]);
-  const [userName, setUserName] = useState<string>('gr123456');
+  const [userName, setUserName] = useState<string>('');
   const [error, setError] = useState<string>('');
 
+  const saveUsernameToLocalStorage = (username: string) => {
+    secureLocalStorage.setItem("username", username);
+    setUserName(username);
+  };
+
   useEffect(() => {
+    // Fetch the username from local storage when the component mounts
+    const storedUsername: string | null = secureLocalStorage.getItem('username') as string;
+    if (storedUsername) {
+      setUserName(storedUsername);
+    }
+
     // Fetch books
     axios
       .get<Book[]>('http://localhost:3001/kirjat')
@@ -160,15 +185,16 @@ const Lainaukset: React.FC = () => {
       }
   };
 
-  return (
+ return (
     <div>
       <input type="text"
         placeholder="Käyttäjänimi"
         value={userName}
-        onChange={(e) => setUserName(e.target.value)}
+        onChange={(e) => saveUsernameToLocalStorage(e.target.value)}
+
       />
       <br />
-      <h1>Käyttäjä: {userName}</h1>
+      <h1>Käyttäjä: <GetUserName /></h1>
       <h1>Lainaukset</h1>
       <ul>
         {books.map((book) => (
