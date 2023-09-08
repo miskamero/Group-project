@@ -207,55 +207,62 @@ const Lainaukset: React.FC = () => {
 
   // Render the component's UI
   return (
-    <div>
-      <input type="text"
-        placeholder="Käyttäjänimi"
-        value={userName}
-        onChange={(e) => saveUsernameToLocalStorage(e.target.value)}
-      />
-      <br />
-      <h1>Käyttäjä: <GetUserName /></h1>
-      <h1>Lainaukset</h1>
-      <ul>
-        {books.map((book) => (
-          <li key={book.id}>
-            {book.id} {book.nimi} | {book.kirjoittaja} | {book.kpl}
-          </li>
-        ))}
-      </ul>
+    <div className='container'>
+      <div className='contain'>
+        <input type="text" className='username'
+          placeholder="Käyttäjänimi"
+          value={userName}
+          onChange={(e) => saveUsernameToLocalStorage(e.target.value)}
+        />
+        <br />
+        <div className='lainaa'>
+          <h1>Käyttäjä: <GetUserName /></h1>
+          <input
+            type="text"
+            placeholder="Kirjan kirjan ID"
+            value={kirjaID}
+            onChange={(e) => setKirjaID(e.target.value)}
+          />
+          <button onClick={lainaaKirja}>Lainaa kirja</button>
+          <br />
+          
+          <input type="text"
+            placeholder="Palautettavan kirjan ID"
+            value={returnBooks}
+            onChange={(e) => setReturnBooks(e.target.value)}
+          />
+          <button onClick={ReturnBooks}>Palauta Kirja</button>
 
-      <h1>Käyttäjän lainaukset:</h1>
-      <ul>
-        {userName &&
-          users
-            .filter((user) => user.id === userName)
-            .map((user) => (
-              <li key={user.id}>
-                {user.id} {user.tuoteet.join(', ')}
+          {error && <p>Error: {error}</p>}
+        </div>
+        <div className='lainaukset'>
+          <h1>Käyttäjän lainaukset:</h1>
+          <ul>
+            {userName &&
+              users
+                .filter((user) => user.id === userName)
+                .map((user) => (
+                  <li key={user.id}>
+                    {user.id} {user.tuoteet.join(', ')}
+                  </li>
+                ))}
+          </ul>
+        </div>
+        <div className="search-box">
+          <input type="text" className="input-search" placeholder="Kirjoita hakusana..."/>
+          <button>Hae</button>
+        </div>
+        <div className='kirjat'>
+          <h1>Kirjat:</h1>
+          <ul>
+            {books.map((book) => (
+              <li key={book.id}>
+                {book.id} {book.nimi} | {book.kirjoittaja} | {book.kpl}
               </li>
             ))}
-      </ul>
-
-      <input
-        type="text"
-        placeholder="Kirjan kirjan ID"
-        value={kirjaID}
-        onChange={(e) => setKirjaID(e.target.value)}
-      />
-      <button onClick={lainaaKirja}>Lainaa kirja</button>
-      <br />
-      
-      <input type="text"
-        placeholder="Palautettavan kirjan ID"
-        value={returnBooks}
-        onChange={(e) => setReturnBooks(e.target.value)}
-      />
-      <button onClick={ReturnBooks}>Palauta Kirja</button>
-
-      {error && <p>Error: {error}</p>}
-      <div className="search-box">
-        <button className="btn-search"><i className="fa fa-search" style={{color: "ffffff"}}>Text</i></button>
-        <input type="text" className="input-search" placeholder="Kirjoita hakusana..."/>
+          </ul>
+        </div>
+          {error && <p>Error: {error}</p>}
       </div>
     </div>
   );
