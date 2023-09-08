@@ -2,18 +2,11 @@
   "lainaukset": [
     {
       "id": "gr111111",
-      "tuoteet": [
-        "1",
-        "2",
-        "3"
-      ]
+      "tuoteet": []
     },
     {
       "id": "gr123456",
-      "tuoteet": [
-        "3",
-        "2"
-      ]
+      "tuoteet": []
     }
   ]
 }
