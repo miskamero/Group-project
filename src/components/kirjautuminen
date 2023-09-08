@@ -1,0 +1,116 @@
+<div class="container">
+        <div class="forms">
+            <div class="form login">
+                <span class="title">Kirjaudu sisään</span>
+
+                <form action="#">
+                    <div class="input-field">
+                        <input type="text" placeholder="gr******@gradia.fi" required>
+                        <i class="uil uil-envelope icon"></i>
+                    </div>
+                    <div class="input-field">
+                        <input type="password" class="password" placeholder="Salasana" required>
+                        <i class="uil uil-lock icon"></i>
+                        <i class="uil uil-eye-slash showHidePw"></i>
+                    </div>
+
+                    <div class="checkbox-text">
+                        <div class="checkbox-content">
+                            <input type="checkbox" id="logCheck">
+                            <label for="logCheck" class="text">Muista minut</label>
+                        </div>
+                        
+                        <a href="#" class="text">Salasana unohtunut?</a>
+                    </div>
+
+                    <div class="input-field button">
+                        <input type="button" value="Kirjaudu">
+                    </div>
+                </form>
+
+                <div class="login-signup">
+                    <span class="text">Ei tiliä? 
+                        <a href="#" class="text signup-link">Luo käyttäjä</a>
+                    </span>
+                </div>
+            </div>
+
+            <!-- rekisteröintilomake -->
+            <div class="form signup">
+                <span class="title">Rekisteröidy</span>
+
+            <form action="#">
+                <div class="input-field">
+                    <input type="text" placeholder="Koko nimi" required>
+                    <i class="uil uil-user"></i>
+                </div>
+                <div class="input-field">
+                    <input type="text" placeholder="gr******@gradia.fi" required>
+                    <i class="uil uil-envelope icon"></i>
+                </div>
+                <div class="input-field">
+                    <input type="password" class="password" placeholder="Salasana" required>
+                    <i class="uil uil-lock icon"></i>
+                </div>
+                <div class="input-field">
+                    <input type="password" class="password" placeholder="Vahvista salasana" required>
+                    <i class="uil uil-lock icon"></i>
+                    <i class="uil uil-eye-slash showHidePw"></i>
+                </div>
+
+                <div class="checkbox-text">
+                    <div class="checkbox-content">
+                        <input type="checkbox" id="termCon">
+                        <label for="termCon" class="text">Hyväksyn käyttöehdot</label>
+                    </div>
+                </div>
+
+                <div class="input-field button">
+                    <input type="button" value="Luo tili">
+                </div>
+            </form>
+
+            <div class="login-signup">
+                <span class="text">Oletko jo rekisteröitynyt? 
+                    <a href="#" class="text login-link">Kirjaudu sisään</a>
+                </span>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+const container = document.querySelector(".container"),
+      pwShowHide = document.querySelectorAll(".showHidePw"),
+      pwFields = document.querySelectorAll(".password"),
+      signUp = document.querySelector(".signup-link"),
+      login = document.querySelector(".login-link");
+
+    //  js näytä/piilota salasana ja vaihda ikonia
+    pwShowHide.forEach(eyeIcon =>{
+        eyeIcon.addEventListener("click", ()=>{
+            pwFields.forEach(pwField =>{
+                if(pwField.type ==="password"){
+                    pwField.type = "text";
+
+                    pwShowHide.forEach(icon =>{
+                        icon.classList.replace("uil-eye-slash", "uil-eye");
+                    })
+                }else{
+                    pwField.type = "password";
+
+                    pwShowHide.forEach(icon =>{
+                        icon.classList.replace("uil-eye", "uil-eye-slash");
+                    })
+                }
+            }) 
+        })
+    })
+
+    // js näyttää kirjautumis- ja rekisteröitymislomakkeet 
+    signUp.addEventListener("click", ( )=>{
+        container.classList.add("active");
+    });
+    login.addEventListener("click", ( )=>{
+        container.classList.remove("active");
+    });
+</script> 
