@@ -6,6 +6,7 @@ body {
     color: white;
     margin: 0;
 }
+
 .container {
     display: flex;
     flex-direction: column;
@@ -29,7 +30,7 @@ body {
             font-size: 1rem;
             text-align: center;
         }
-    
+
         .lainaa {
             display: flex;
             flex-direction: column;
@@ -38,7 +39,7 @@ body {
             text-align: center;
             margin-top: 1rem;
             align-items: center;
-            
+
             input {
                 width: 100%;
                 padding: 0.5rem;
@@ -47,7 +48,7 @@ body {
                 margin-top: 1rem;
                 font-size: 1rem;
             }
-    
+
             button {
                 width: 100%;
                 padding: 0.5rem;
@@ -61,29 +62,61 @@ body {
                 cursor: pointer;
             }
         }
-    
+
         .kirjat {
             color: rgb(255, 255, 255);
             text-shadow: 2px 2px 2px black;
             text-align: center;
             margin-top: 1rem;
-    
+
             ul {
                 list-style-type: none;
                 padding: 0;
             }
         }
-    
+
         .lainaukset {
             color: rgb(255, 255, 255);
             text-shadow: 2px 2px 2px black;
             text-align: center;
             margin-top: 1rem;
-    
+
             // no dots in list
             ul {
                 list-style-type: none;
                 padding: 0;
+            }
+        }
+
+        .search-box {
+            display: flex;
+            flex-direction: column;
+            color: rgb(255, 255, 255);
+            text-shadow: 2px 2px 2px black;
+            text-align: center;
+            margin-top: 1rem;
+            align-items: center;
+
+            input {
+                width: 100%;
+                padding: 0.5rem;
+                border: none;
+                border-radius: 0.5rem;
+                margin-top: 1rem;
+                font-size: 1rem;
+            }
+
+            button {
+                width: 100%;
+                padding: 0.5rem;
+                border: none;
+                border-radius: 0.5rem;
+                margin-top: 1rem;
+                font-size: 1rem;
+                background: rgb(255, 255, 255);
+                color: rgb(0, 0, 0);
+                font-weight: bold;
+                cursor: pointer;
             }
         }
     }
