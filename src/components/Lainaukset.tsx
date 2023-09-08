@@ -217,6 +217,7 @@ const Lainaukset: React.FC = () => {
         <br />
         <div className='lainaa'>
           <h1>Käyttäjä: <GetUserName /></h1>
+          {error && <p>Error: {error}</p>}
           <input
             type="text"
             placeholder="Kirjan kirjan ID"
@@ -232,8 +233,6 @@ const Lainaukset: React.FC = () => {
             onChange={(e) => setReturnBooks(e.target.value)}
           />
           <button onClick={ReturnBooks}>Palauta Kirja</button>
-
-          {error && <p>Error: {error}</p>}
         </div>
         <div className='lainaukset'>
           <h1>Käyttäjän lainaukset:</h1>
@@ -243,7 +242,7 @@ const Lainaukset: React.FC = () => {
                 .filter((user) => user.id === userName)
                 .map((user) => (
                   <li key={user.id}>
-                    {user.id} {user.tuoteet.join(', ')}
+                    {user.id}<b>:</b> {user.tuoteet.join(', ')}
                   </li>
                 ))}
           </ul>
@@ -267,7 +266,6 @@ const Lainaukset: React.FC = () => {
               ))}
           </ul>
         </div>
-          {error && <p>Error: {error}</p>}
       </div>
     </div>
   );

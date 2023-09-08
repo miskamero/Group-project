@@ -20,6 +20,7 @@ body {
         border-radius: 0 0 1rem 1rem;
         padding: 2rem;
         margin-bottom: 2rem;
+        width: clamp(300px, 50%, 600px);
 
         .username {
             width: 95%;
