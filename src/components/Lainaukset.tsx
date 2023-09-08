@@ -254,6 +254,11 @@ const Lainaukset: React.FC = () => {
 
       {error && <p>Error: {error}</p>}
     </div>
+// 
+    <div class="search-box">
+      <button class="btn-search"><i class="fa fa-search" style="color: #ffffff;"></i></button>
+      <input type="text" class="input-search" placeholder="Kirjoita hakusana...">
+    </div>
   );
 };
 
