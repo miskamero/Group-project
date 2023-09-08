@@ -36,7 +36,7 @@ const Lainaukset: React.FC = () => {
   const [users, setUsers] = useState<Lainaus[]>([]);
   const [userName, setUserName] = useState<string>('');
   const [error, setError] = useState<string>('');
-
+  const [search, setSearch] = useState<string>('');
   // Function to save the username to secure local storage and set it in state
   const saveUsernameToLocalStorage = (username: string) => {
       secureLocalStorage.setItem("username", username);
@@ -217,6 +217,7 @@ const Lainaukset: React.FC = () => {
         <br />
         <div className='lainaa'>
           <h1>Käyttäjä: <GetUserName /></h1>
+          {error && <p>Error: {error}</p>}
           <input
             type="text"
             placeholder="Kirjan kirjan ID"
@@ -232,8 +233,6 @@ const Lainaukset: React.FC = () => {
             onChange={(e) => setReturnBooks(e.target.value)}
           />
           <button onClick={ReturnBooks}>Palauta Kirja</button>
-
-          {error && <p>Error: {error}</p>}
         </div>
         <div className='lainaukset'>
           <h1>Käyttäjän lainaukset:</h1>
@@ -243,26 +242,30 @@ const Lainaukset: React.FC = () => {
                 .filter((user) => user.id === userName)
                 .map((user) => (
                   <li key={user.id}>
-                    {user.id} {user.tuoteet.join(', ')}
+                    {user.id}<b>:</b> {user.tuoteet.join(', ')}
                   </li>
                 ))}
           </ul>
         </div>
         <div className="search-box">
-          <input type="text" className="input-search" placeholder="Kirjoita hakusana..."/>
-          <button>Hae</button>
+          <input type="text" 
+          className="input-search"
+          placeholder="Kirjoita hakusana..."
+          onChange={(e) => setSearch(e.target.value)}
+          />
         </div>
         <div className='kirjat'>
           <h1>Kirjat:</h1>
           <ul>
-            {books.map((book) => (
-              <li key={book.id}>
-                {book.id} {book.nimi} | {book.kirjoittaja} | {book.kpl}
-              </li>
-            ))}
+            {books
+              .filter((book) => book.nimi.toLowerCase().includes(search.toLowerCase()))
+              .map((book) => (
+                <li key={book.id}>
+                  {book.id} {book.nimi} {book.kirjoittaja} {book.kpl}
+                </li>
+              ))}
           </ul>
         </div>
-          {error && <p>Error: {error}</p>}
       </div>
     </div>
   );

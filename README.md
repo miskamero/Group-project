@@ -1,5 +1,11 @@
 # Ryhmä Project
 
+## Usage 
+```
+npm i
+npm run start
+```
+[Trello](https://trello.com/invite/b/QtDdmnbT/ATTI520fa82bfd703db913ab50f0697c47db13D97CC7/group-project)
 ## Projektipäällikkö: Akonpelto Jooa
 
 ### Vastuut:
