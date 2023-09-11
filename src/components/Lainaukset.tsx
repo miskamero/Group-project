@@ -1,6 +1,7 @@
+import secureLocalStorage from "react-secure-storage";
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import secureLocalStorage from "react-secure-storage";
+// import { useParams } from "react-router-dom"
 
 // Define TypeScript interfaces to describe data structures
 interface Book {
@@ -12,7 +13,12 @@ interface Book {
 
 interface Lainaus {
   id: string;
-  tuoteet: string[]; // Assuming tuoteet is an array of strings (book IDs)
+  tuoteet: string[];
+}
+
+// props from the router for the url parameter
+interface LainauksetProps {
+  bookId: string | undefined;
 }
 
 // Define a functional component called GetUserName
@@ -56,8 +62,7 @@ const GetBookInfo: React.FC<{id: number}> = ({id}) => {
 }
 
 // Define the main functional component Lainaukset
-const Lainaukset: React.FC = () => {
-  // Define and initialize state variables using the useState hook
+const Lainaukset: React.FC<LainauksetProps> = ({ bookId }) => {
   const [kirjaID, setKirjaID] = useState<string>('');
   const [books, setBooks] = useState<Book[]>([]);
   const [returnBooks, setReturnBooks] = useState<string>('');
@@ -65,7 +70,7 @@ const Lainaukset: React.FC = () => {
   const [userName, setUserName] = useState<string>('');
   const [error, setError] = useState<string>('');
   const [search, setSearch] = useState<string>('');
-
+  const [count, setCount] = useState<number>(0);
   // Function to save the username to secure local storage and set it in state
   const saveUsernameToLocalStorage = (username: string) => {
       secureLocalStorage.setItem("username", username);
@@ -83,10 +88,28 @@ const Lainaukset: React.FC = () => {
 
   // useEffect hook to perform side effects when the component mounts
   useEffect(() => {
-    // Fetch the username from local storage when the component mounts
-    const storedUsername: string | null = secureLocalStorage.getItem('username') as string;
-    if (storedUsername) {
-      setUserName(storedUsername);
+  // Fetch the username from local storage when the component mounts
+  const storedUsername: string | null = secureLocalStorage.getItem('username') as string;
+  if (storedUsername) {
+    setUserName(storedUsername);
+  }
+
+  const fetchAndUpdateBookData = () => {
+    // Check if bookId is defined in the URL
+    if (bookId && count === 0) {
+      // Find the book with the given ID
+      const book = books.find((book) => book.id === Number(bookId));
+
+      if (book) {
+        // Set the bookId in state
+        lainaaKirja(bookId);
+        window.history.pushState({}, document.title, '/'); // This clears the bookId from the URL
+        // reset the bookId interface to an empty string
+        setCount(count + 1);
+      } else {
+        // Handle the case where the book with the given ID was not found
+        console.error("Book not found for ID:", bookId);
+      }
     }
 
     // Fetch books from an API endpoint
@@ -110,15 +133,27 @@ const Lainaukset: React.FC = () => {
         setError('Error fetching user lending information');
         console.log(error);
       });
-  }, []); // The empty dependency array ensures this effect runs once when the component mounts
+  };
+
+  // Fetch and update book data every second
+  const interval = setInterval(fetchAndUpdateBookData, 1000);
+
+  // Clear the interval when the component unmounts
+  return () => clearInterval(interval);
+}, [bookId, books]);
+
 
   // Function to handle borrowing a book
-  const lainaaKirja = () => {
+  const lainaaKirja = (kirjaID: string) => {
+
+    console.log(kirjaID);
+
     const usernamePattern = /^gr\d{6}$/;
     if (!usernamePattern.test(userName)) {
-      displayError('Invalid username format. It should start with "gr" followed by 6 numbers.');
+      setError('Invalid username format. It should start with "gr" followed by 6 numbers.');
       return;
     }
+
     // Find the selected book by its ID
     const book = books.find((book) => book.id === Number(kirjaID));
     // Find the user by their username
@@ -170,6 +205,7 @@ const Lainaukset: React.FC = () => {
             displayError('Error updating user lending information');
             console.log(error);
           });
+          setKirjaID('');
       }
     } else {
       displayError('Book not found or not available');
@@ -237,6 +273,7 @@ const Lainaukset: React.FC = () => {
           setError('Error updating book availability');
           console.log(error);
         });
+        setReturnBooks('');
     }
   };
 
@@ -259,7 +296,7 @@ const Lainaukset: React.FC = () => {
             value={kirjaID}
             onChange={(e) => setKirjaID(e.target.value)}
           />
-          <button onClick={lainaaKirja}>Lainaa kirja</button>
+          <button onClick={() => lainaaKirja(kirjaID)}>Lainaa Kirja</button>
           <br />
           
           <input type="text"
