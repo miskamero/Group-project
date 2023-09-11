@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import secureLocalStorage from "react-secure-storage";
+import { useParams } from "react-router-dom"
 
 // Define TypeScript interfaces to describe data structures
 interface Book {
@@ -13,6 +14,11 @@ interface Book {
 interface Lainaus {
   id: string;
   tuoteet: string[]; // Assuming tuoteet is an array of strings (book IDs)
+}
+
+// props from the router for the url parameter
+interface LainauksetProps {
+  bookId: string | undefined;
 }
 
 // Define a functional component called GetUserName
@@ -28,7 +34,7 @@ const GetUserName: React.FC = () => {
 }
 
 // Define the main functional component Lainaukset
-const Lainaukset: React.FC = () => {
+const Lainaukset: React.FC<LainauksetProps> = ({ bookId }) => {
   // Define and initialize state variables using the useState hook
   const [kirjaID, setKirjaID] = useState<string>('');
   const [books, setBooks] = useState<Book[]>([]);
@@ -37,6 +43,7 @@ const Lainaukset: React.FC = () => {
   const [userName, setUserName] = useState<string>('');
   const [error, setError] = useState<string>('');
   const [search, setSearch] = useState<string>('');
+  
   // Function to save the username to secure local storage and set it in state
   const saveUsernameToLocalStorage = (username: string) => {
       secureLocalStorage.setItem("username", username);
@@ -45,6 +52,18 @@ const Lainaukset: React.FC = () => {
 
   // useEffect hook to perform side effects when the component mounts
   useEffect(() => {
+    // if the bookId is defined, set the kirjaID state variable once then set the bookId to undefined so it changes in the URL
+    if (bookId) {
+      // math regec
+      const bookIdPattern = /^bookId:\d+$/;
+      if (!bookIdPattern.test(bookId)) {
+        setError('Invalid book ID format. It should be a number.');
+        return;
+      }
+      lainaaKirja(bookId.split(':')[1]);
+      bookId = undefined;
+    }
+
     // Fetch the username from local storage when the component mounts
     const storedUsername: string | null = secureLocalStorage.getItem('username') as string;
     if (storedUsername) {
@@ -72,15 +91,25 @@ const Lainaukset: React.FC = () => {
         setError('Error fetching user lending information');
         console.log(error);
       });
+
   }, []); // The empty dependency array ensures this effect runs once when the component mounts
 
   // Function to handle borrowing a book
-  const lainaaKirja = () => {
-    const usernamePattern = /^gr\d{6}$/;
-    if (!usernamePattern.test(userName)) {
-      setError('Invalid username format. It should start with "gr" followed by 6 numbers.');
-      return;
+  const lainaaKirja = (bookId?: string) => {
+    
+    // Check if the book ID is defined
+    if (bookId) {
+      setKirjaID(bookId);
     }
+
+    console.log(kirjaID);
+
+    // const usernamePattern = /^gr\d{6}$/;
+    // if (!usernamePattern.test(userName)) {
+    //   setError('Invalid username format. It should start with "gr" followed by 6 numbers.');
+    //   return;
+    // }
+
     // Find the selected book by its ID
     const book = books.find((book) => book.id === Number(kirjaID));
     // Find the user by their username
@@ -202,12 +231,15 @@ const Lainaukset: React.FC = () => {
           setError('Error updating book availability');
           console.log(error);
         });
+        setKirjaID('');
     }
+    
   };
 
   // Render the component's UI
   return (
     <div className='container'>
+      <h1>{bookId}</h1>
       <div className='contain'>
         <input type="text" className='username'
           placeholder="Käyttäjänimi"
@@ -224,7 +256,7 @@ const Lainaukset: React.FC = () => {
             value={kirjaID}
             onChange={(e) => setKirjaID(e.target.value)}
           />
-          <button onClick={lainaaKirja}>Lainaa kirja</button>
+          <button onClick={() => lainaaKirja()}>Lainaa Kirja</button>
           <br />
           
           <input type="text"
