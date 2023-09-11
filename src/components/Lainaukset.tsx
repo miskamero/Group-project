@@ -96,11 +96,11 @@ const Lainaukset: React.FC<LainauksetProps> = ({ bookId }) => {
 
   const fetchAndUpdateBookData = () => {
     // Check if bookId is defined in the URL
-    if (bookId) {
+    if (bookId && count === 0) {
       // Find the book with the given ID
       const book = books.find((book) => book.id === Number(bookId));
 
-      if (book && count === 0) {
+      if (book) {
         // Set the bookId in state
         lainaaKirja(bookId);
         window.history.pushState({}, document.title, '/'); // This clears the bookId from the URL
@@ -205,6 +205,7 @@ const Lainaukset: React.FC<LainauksetProps> = ({ bookId }) => {
             displayError('Error updating user lending information');
             console.log(error);
           });
+          setKirjaID('');
       }
     } else {
       displayError('Book not found or not available');
@@ -272,9 +273,8 @@ const Lainaukset: React.FC<LainauksetProps> = ({ bookId }) => {
           setError('Error updating book availability');
           console.log(error);
         });
-        setKirjaID('');
+        setReturnBooks('');
     }
-    
   };
 
   // Render the component's UI
