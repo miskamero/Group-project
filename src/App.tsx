@@ -7,8 +7,8 @@ const App = () => {
     return (
         <Router>
             <Routes>
-                {/* Define a route with a dynamic 'bookId' parameter */}
                 <Route path="/:bookId" element={<LainauksetContainer />} />
+                <Route path="/" element={<LainauksetContainer />} />
             </Routes>
         </Router>
     );

@@ -1,7 +1,7 @@
+import secureLocalStorage from "react-secure-storage";
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import secureLocalStorage from "react-secure-storage";
-import { useParams } from "react-router-dom"
+// import { useParams } from "react-router-dom"
 
 // Define TypeScript interfaces to describe data structures
 interface Book {
@@ -13,7 +13,7 @@ interface Book {
 
 interface Lainaus {
   id: string;
-  tuoteet: string[]; // Assuming tuoteet is an array of strings (book IDs)
+  tuoteet: string[];
 }
 
 // props from the router for the url parameter
@@ -89,22 +89,38 @@ const Lainaukset: React.FC<LainauksetProps> = ({ bookId }) => {
 
   // useEffect hook to perform side effects when the component mounts
   useEffect(() => {
-    // if the bookId is defined, set the kirjaID state variable once then set the bookId to undefined so it changes in the URL
-    if (bookId) {
-      // math regec
-      const bookIdPattern = /^bookId:\d+$/;
-      if (!bookIdPattern.test(bookId)) {
-        setError('Invalid book ID format. It should be a number.');
-        return;
-      }
-      lainaaKirja(bookId.split(':')[1]);
-      bookId = undefined;
-    }
+  // Fetch the username from local storage when the component mounts
+  const storedUsername: string | null = secureLocalStorage.getItem('username') as string;
+  if (storedUsername) {
+    setUserName(storedUsername);
+  }
 
-    // Fetch the username from local storage when the component mounts
-    const storedUsername: string | null = secureLocalStorage.getItem('username') as string;
-    if (storedUsername) {
-      setUserName(storedUsername);
+  const fetchAndUpdateBookData = () => {
+    // Check if bookId is defined in the URL
+    if (bookId) {
+      // Find the book with the given ID
+      const book = books.find((book) => book.id === Number(bookId));
+
+      if (book) {
+        // Set the bookId in state
+        lainaaKirja(bookId);
+
+        if (book.kpl > 0) {
+          // Update the book's availability
+          const updatedBook = {
+            ...book,
+            kpl: book.kpl - 1,
+          };
+          // Update the book in your books array or state
+          // You'll need to implement the logic to update your state or array here
+          // For example, if you're using React and managing books in state, you can do something like this:
+          // updateBookInState(updatedBook);
+        }
+        window.history.pushState({}, document.title, '/'); // This clears the bookId from the URL
+      } else {
+        // Handle the case where the book with the given ID was not found
+        console.error("Book not found for ID:", bookId);
+      }
     }
 
     // Fetch books from an API endpoint
@@ -128,24 +144,29 @@ const Lainaukset: React.FC<LainauksetProps> = ({ bookId }) => {
         setError('Error fetching user lending information');
         console.log(error);
       });
+  };
 
-  }, []); // The empty dependency array ensures this effect runs once when the component mounts
+  // Initial fetch and update of book data
+  // fetchAndUpdateBookData();
+
+  // Set up an interval to call fetchAndUpdateBookData every second
+  const interval = setInterval(fetchAndUpdateBookData, 1000);
+
+  // Clear the interval when the component unmounts
+  return () => clearInterval(interval);
+}, [bookId, books]);
+
 
   // Function to handle borrowing a book
-  const lainaaKirja = (bookId?: string) => {
-    
-    // Check if the book ID is defined
-    if (bookId) {
-      setKirjaID(bookId);
-    }
+  const lainaaKirja = (kirjaID: string) => {
 
     console.log(kirjaID);
 
-    const usernamePattern = /^gr\d{6}$/;
-    if (!usernamePattern.test(userName)) {
-      setError('Invalid username format. It should start with "gr" followed by 6 numbers.');
-      return;
-    }
+    // const usernamePattern = /^gr\d{6}$/;
+    // if (!usernamePattern.test(userName)) {
+    //   setError('Invalid username format. It should start with "gr" followed by 6 numbers.');
+    //   return;
+    // }
 
     // Find the selected book by its ID
     const book = books.find((book) => book.id === Number(kirjaID));
@@ -290,7 +311,7 @@ const Lainaukset: React.FC<LainauksetProps> = ({ bookId }) => {
             value={kirjaID}
             onChange={(e) => setKirjaID(e.target.value)}
           />
-          <button onClick={() => lainaaKirja()}>Lainaa Kirja</button>
+          <button onClick={() => lainaaKirja(kirjaID)}>Lainaa Kirja</button>
           <br />
           
           <input type="text"
