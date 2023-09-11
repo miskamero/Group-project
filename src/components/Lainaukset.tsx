@@ -27,6 +27,34 @@ const GetUserName: React.FC = () => {
   );
 }
 
+// Function that gets the book's name and writer by its ID
+const GetBookInfo: React.FC<{id: number}> = ({id}) => {
+  // Define and initialize state variables using the useState hook
+  const [book, setBook] = useState<Book | null>(null);
+  const [error, setError] = useState<string>('');  // Error handling works as follows:
+
+  // useEffect hook to perform side effects when the component mounts
+  useEffect(() => {
+    // Fetch the book's information from an API endpoint
+    axios
+      .get<Book>(`http://localhost:3001/kirjat/${id}`)
+      .then((response) => {
+        setBook(response.data);
+      })
+      .catch((error) => {
+        setError('Error fetching book information, please try refreshing the page, if the problem persists, contact the administrator');
+        console.log(error);
+      });
+  }, [id]); // The dependency array ensures this effect runs when the component mounts and when the ID changes
+
+  // Render the component's UI
+  return (
+    <div>
+      {book ? `${book.nimi} ${book.kirjoittaja}` : error}
+    </div>
+  );
+}
+
 // Define the main functional component Lainaukset
 const Lainaukset: React.FC = () => {
   // Define and initialize state variables using the useState hook
@@ -242,16 +270,16 @@ const Lainaukset: React.FC = () => {
           <button onClick={ReturnBooks}>Palauta Kirja</button>
         </div>
         <div className='lainaukset'>
-          <h1>Käyttäjän lainaukset:</h1>
+          {/* Use the GetBookInfo component to display the book's name and writer by its ID in the user's lending information and seperately display the ID of the book infront of the book's name and writer */}
+          <h1>Käyttäjän <GetUserName /> lainaukset:</h1>
           <ul>
-            {userName &&
-              users
-                .filter((user) => user.id === userName)
-                .map((user) => (
-                  <li key={user.id}>
-                    {user.id}<b>:</b> {user.tuoteet.join(', ')}
-                  </li>
-                ))}
+            {users.filter((user) => user.id === userName).map((user) => (
+              user.tuoteet.map((book) => (
+                <li key={book}>
+                  {book} <GetBookInfo id={Number(book)} /> 
+                </li>
+              ))
+            ))}
           </ul>
         </div>
         <div className="search-box">
