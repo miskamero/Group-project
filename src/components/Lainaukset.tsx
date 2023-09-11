@@ -71,7 +71,7 @@ const Lainaukset: React.FC<LainauksetProps> = ({ bookId }) => {
   const [userName, setUserName] = useState<string>('');
   const [error, setError] = useState<string>('');
   const [search, setSearch] = useState<string>('');
-
+  const [count, setCount] = useState<number>(0);
   // Function to save the username to secure local storage and set it in state
   const saveUsernameToLocalStorage = (username: string) => {
       secureLocalStorage.setItem("username", username);
@@ -97,7 +97,7 @@ const Lainaukset: React.FC<LainauksetProps> = ({ bookId }) => {
 
   const fetchAndUpdateBookData = () => {
     // Check if bookId is defined in the URL
-    if (bookId) {
+    if (bookId && count === 0) {
       // Find the book with the given ID
       const book = books.find((book) => book.id === Number(bookId));
 
@@ -117,6 +117,8 @@ const Lainaukset: React.FC<LainauksetProps> = ({ bookId }) => {
           // updateBookInState(updatedBook);
         }
         window.history.pushState({}, document.title, '/'); // This clears the bookId from the URL
+        // reset the bookId interface to an empty string
+        setCount(count + 1);
       } else {
         // Handle the case where the book with the given ID was not found
         console.error("Book not found for ID:", bookId);
