@@ -63,7 +63,6 @@ const GetBookInfo: React.FC<{id: number}> = ({id}) => {
 
 // Define the main functional component Lainaukset
 const Lainaukset: React.FC<LainauksetProps> = ({ bookId }) => {
-  // Define and initialize state variables using the useState hook
   const [kirjaID, setKirjaID] = useState<string>('');
   const [books, setBooks] = useState<Book[]>([]);
   const [returnBooks, setReturnBooks] = useState<string>('');
@@ -97,25 +96,13 @@ const Lainaukset: React.FC<LainauksetProps> = ({ bookId }) => {
 
   const fetchAndUpdateBookData = () => {
     // Check if bookId is defined in the URL
-    if (bookId && count === 0) {
+    if (bookId) {
       // Find the book with the given ID
       const book = books.find((book) => book.id === Number(bookId));
 
-      if (book) {
+      if (book && count === 0) {
         // Set the bookId in state
         lainaaKirja(bookId);
-
-        if (book.kpl > 0) {
-          // Update the book's availability
-          const updatedBook = {
-            ...book,
-            kpl: book.kpl - 1,
-          };
-          // Update the book in your books array or state
-          // You'll need to implement the logic to update your state or array here
-          // For example, if you're using React and managing books in state, you can do something like this:
-          // updateBookInState(updatedBook);
-        }
         window.history.pushState({}, document.title, '/'); // This clears the bookId from the URL
         // reset the bookId interface to an empty string
         setCount(count + 1);
@@ -148,10 +135,7 @@ const Lainaukset: React.FC<LainauksetProps> = ({ bookId }) => {
       });
   };
 
-  // Initial fetch and update of book data
-  // fetchAndUpdateBookData();
-
-  // Set up an interval to call fetchAndUpdateBookData every second
+  // Fetch and update book data every second
   const interval = setInterval(fetchAndUpdateBookData, 1000);
 
   // Clear the interval when the component unmounts
@@ -164,11 +148,11 @@ const Lainaukset: React.FC<LainauksetProps> = ({ bookId }) => {
 
     console.log(kirjaID);
 
-    // const usernamePattern = /^gr\d{6}$/;
-    // if (!usernamePattern.test(userName)) {
-    //   setError('Invalid username format. It should start with "gr" followed by 6 numbers.');
-    //   return;
-    // }
+    const usernamePattern = /^gr\d{6}$/;
+    if (!usernamePattern.test(userName)) {
+      setError('Invalid username format. It should start with "gr" followed by 6 numbers.');
+      return;
+    }
 
     // Find the selected book by its ID
     const book = books.find((book) => book.id === Number(kirjaID));
@@ -296,7 +280,6 @@ const Lainaukset: React.FC<LainauksetProps> = ({ bookId }) => {
   // Render the component's UI
   return (
     <div className='container'>
-      <h1>{bookId}</h1>
       <div className='contain'>
         <input type="text" className='username'
           placeholder="Käyttäjänimi"
