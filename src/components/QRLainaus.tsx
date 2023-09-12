@@ -17,7 +17,14 @@ const QRLainaus: React.FC<LainauksetProps> = ({ bookId }) => {
     const [book, setBook] = useState<Book[]>([]);
     const [loading, setLoading] = useState<boolean>(true);
     const [error, setError] = useState<string>("");
+    const [userName, setUserName] = useState<string>('');
+
     useEffect(() => {
+      const getUsername = () => {
+        const username: string | undefined = secureLocalStorage.getItem('username') as string;
+        setUserName(username);
+      }
+      getUsername();
       const fetchBook = async () => {
         try {
           const response = await Action.getBooks();
@@ -30,7 +37,7 @@ const QRLainaus: React.FC<LainauksetProps> = ({ bookId }) => {
       };
       fetchBook();
 
-      borrowBookHandler("gr111111", bookId);
+      borrowBookHandler(userName, bookId);
     }, []);
     
 
@@ -39,18 +46,10 @@ const QRLainaus: React.FC<LainauksetProps> = ({ bookId }) => {
       setError(result.message)
     };
 
-  const getUsername = (): React.ReactNode => {
-    const username = secureLocalStorage.getItem("username");
-    if (username) {
-      return <>{username}</>;
-    }
-    return "not logged in";
-  }
-
   return (
     <div>
       <h1>Lainataan Kirja {bookId}</h1>
-      <p>Kirja on lainattu käyttäjälle {getUsername()}</p>
+      <p>Kirja on lainattu käyttäjälle {userName}</p>
       <h1>{error}</h1>
     </div>
   );

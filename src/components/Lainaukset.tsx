@@ -70,189 +70,51 @@ const Lainaukset = () => {
     }, 3500); // Adjust the delay as needed
   };
 
-
-  // functions for calling information from the API
-  // Function that gets info from lainaukset API
-  const getUsers = () => {
-    axios
-      .get<UserInfo[]>('http://localhost:3002/lainaukset/')
-      .then((response) => {
-        setUsers(response.data);
-      }
-      )
-      .catch((error) => {
-        setError('Error fetching user lending information');
-        console.log(error);
-      }
-      );
-  };
-
-  // Function that gets info from kirjat API
-  const getBooks = () => {
-    axios
-      .get<Book[]>('http://localhost:3001/kirjat')
-      .then((response) => {
-        setBooks(response.data);
-      }
-      )
-      .catch((error) => {
-        setError('Error fetching books');
-        console.log(error);
-      }
-      );
-  };
-
-  // Make an function that API requests to update the book's information
-  const updateBook = (kirjaID: string, updatedBook: Book) => {
-    axios
-      .put<Book>(`http://localhost:3001/kirjat/${kirjaID}`, updatedBook)
-      .then((response) => {
-        setBooks(
-          books.map((book) => (book.id !== Number(kirjaID) ? book : response.data))
-        );
-      }
-      )
-      .catch((error) => {
-        setError('Error updating book availability');
-        console.log(error);
-      }
-      );
-  };
-
-  // Make an function that API requests to update the user's lending information
-  const updateUser = (userName: string, updatedUser: UserInfo) => {
-    axios
-      .put<UserInfo>(`http://localhost:3002/lainaukset/${userName}`, updatedUser)
-      .then((response) => {
-        setUsers(
-          users.map((user) => (user.id !== userName ? user : response.data))
-        );
-      }
-      )
-      .catch((error) => {
-        setError('Error updating user lending information');
-        console.log(error);
-      }
-      );
-  };
-
-  // useEffect hook to perform side effects when the component mounts
-  useEffect(() => {
+useEffect(() => {
   // Fetch the username from local storage when the component mounts
   const storedUsername: string | null = secureLocalStorage.getItem('username') as string;
-  if (storedUsername) {
-    setUserName(storedUsername);
-  }
-}, []);
-
-  // at the start of the program, get the information from the API
-  useEffect(() => {
+    if (storedUsername) {
+      setUserName(storedUsername);
+    }
+    // at the start of the program, get the information from the API
+    setInterval(() => {
+      getUsers();
+      getBooks();
+    }, 1000);
+  }, []);
+  const UpdateData = () => {
     getUsers();
     getBooks();
-  }, []);
-
-  // Function to handle borrowing a book
-  const BorrowBook = (kirjaID: string) => {
-
-    console.log(kirjaID);
-
-    const usernamePattern = /^gr\d{6}$/;
-    if (!usernamePattern.test(userName)) {
-      setError('Invalid username format. It should start with "gr" followed by 6 numbers.');
-      return;
-    }
-
-    // Find the selected book by its ID
-    const book = books.find((book) => book.id === Number(kirjaID));
-    // Find the user by their username
-    const user = users.find((user) => user.id === userName);
-
-    // Check if the book is already borrowed by the user
-    if (user && user.tuoteet.includes(kirjaID)) {
-      displayError('Book already borrowed by the user');
-      return;
-    }
-
-    // Check if the book is found and available
-    if (book && book.kpl > 0) {
-      // Update the book's availability
-      const updatedBook = {
-        ...book,
-        kpl: book.kpl - 1,
-      };
-
-      // Make an API request to update the book's information
-      updateBook(kirjaID, updatedBook);
-
-      // Add the borrowed book to the user's lending information
-      if (user) {
-        const updatedUser = {
-          ...user,
-          tuoteet: [...user.tuoteet, kirjaID],
-        };
-
-        // Make an API request to update the user's lending information
-        updateUser(userName, updatedUser);
-        setKirjaID('');
-      }
-    } else {
-      displayError('Book not found or not available');
-    }
+  };
+  // function handlers
+  const getUsers = async () => {
+    const response = await Action.getUsers();
+    setUsers(response.data);
   };
 
-  // Function to handle returning a borrowed book
-  const ReturnBook = () => {
-    const usernamePattern = /^gr\d{6}$/;
-    if (!usernamePattern.test(userName)) {
-      displayError('Invalid username format. It should start with "gr" followed by 6 numbers.');
-      return;
+  const getBooks = async () => {
+    const response = await Action.getBooks();
+    setBooks(response.data);
+  };
+
+  const BorrowBook = async (userName: string, bookID: string) => {
+    const result = await Action.borrowBook(userName, bookID);
+    // if the result is an error, display the error message
+    if (result.success === false) {
+      displayError(result.message);
+      console.log("error");
     }
-    // Find the user by their username
-    const user = users.find((user) => user.id === userName);
+    UpdateData();
+  };
 
-    // Check if the book is not found or not borrowed by the user
-    if (user && !user.tuoteet.includes(returnBooks)) {
-      displayError('Book not found or not borrowed by the user');
-      return;
+  const ReturnBook = async (userName: string, bookID: string) => {
+    const result = await Action.returnBook(userName, bookID);
+    // if the result is an error, display the error message
+    if (result.success === false) {
+      displayError(result.message);
+      console.log("error");
     }
-
-    // Update the user's lending information by removing the returned book
-    if (user) {
-      const updatedUser = {
-        ...user,
-        tuoteet: user.tuoteet.filter((book) => !returnBooks.includes(book)),
-      };
-
-      // Make an API request to update the user's lending information
-      updateUser(userName, updatedUser);
-    } else {
-      displayError('Book not found or not available');
-    }
-
-    // Update the book's availability by incrementing its count
-    const book = books.find((book) => book.id === Number(returnBooks));
-
-    // Check if the book is found
-    if (book) {
-      const updatedBook = {
-        ...book,
-        kpl: book.kpl + 1,
-      };
-
-      // Make an API request to update the book's availability
-      axios
-        .put<Book>(`http://localhost:3001/kirjat/${returnBooks}`, updatedBook)
-        .then((response) => {
-          setBooks(
-            books.map((book) => (book.id !== Number(returnBooks) ? book : response.data))
-          );
-        })
-        .catch((error) => {
-          setError('Error updating book availability');
-          console.log(error);
-        });
-        setReturnBooks('');
-    }
+    UpdateData();
   };
 
   // Render the component's UI
@@ -274,7 +136,7 @@ const Lainaukset = () => {
             value={kirjaID}
             onChange={(e) => setKirjaID(e.target.value)}
           />
-          <button onClick={() => BorrowBook(kirjaID)}>Lainaa Kirja</button>
+          <button onClick={() => BorrowBook(userName, kirjaID)}>Lainaa Kirja</button>
           <br />
           
           <input type="text"
@@ -282,7 +144,7 @@ const Lainaukset = () => {
             value={returnBooks}
             onChange={(e) => setReturnBooks(e.target.value)}
           />
-          <button onClick={ReturnBook}>Palauta Kirja</button>
+          <button onClick={() => ReturnBook(userName, returnBooks)}>Palauta Kirja</button>
         </div>
         <div className='lainaukset'>
           {/* Use the GetBookInfo component to display the book's name and writer by its ID in the user's lending information and seperately display the ID of the book infront of the book's name and writer */}

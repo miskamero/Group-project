@@ -78,42 +78,41 @@ export const borrowBook = async (userName, bookID) => {
 };
 
 export const returnBook = async (userName, bookID) => {
-    try {
-        // Fetch the user and book data first
-        const [userResponse, bookResponse] = await Promise.all([
-        axios.get(`${UsersURL}/${userName}`),
-        axios.get(`${BooksURL}/${bookID}`),
-        ]);
-    
-        const user = userResponse.data;
-        const book = bookResponse.data;
-    
-        // Check if the book is borrowed by the user
-        if (user && user.tuoteet.includes(bookID)) {
-        // Update the book's availability
-        const updatedBook = {
-            ...book,
-            kpl: book.kpl + 1,
-        };
-    
-        // Make an API request to update the book's information
-        await axios.put(`${BooksURL}/${bookID}`, updatedBook);
-    
-        // Remove the returned book from the user's lending information
-        const updatedUser = {
-            ...user,
-            tuoteet: user.tuoteet.filter((id) => id !== bookID),
-        };
-    
-        // Make an API request to update the user's lending information
-        await axios.put(`${UsersURL}/${userName}`, updatedUser);
-    
-        return { success: true, message: "Book returned successfully" };
-        } else {
-        return { success: false, message: "Book not borrowed by the user" };
-        }
-    } catch (error) {
-        return { success: false, message: "Error returning book" };
+  try {
+    // Fetch the user and book data first
+    const [userResponse, bookResponse] = await Promise.all([
+      axios.get(`${UsersURL}/${userName}`),
+      axios.get(`${BooksURL}/${bookID}`),
+    ]);
+
+    const user = userResponse.data;
+    const book = bookResponse.data;
+
+    // Check if the book is borrowed by the user
+    if (user && user.tuoteet.includes(bookID)) {
+      // Update the book's availability
+      const updatedBook = {
+        ...book,
+        kpl: book.kpl + 1,
+      };
+
+      // Make an API request to update the book's information
+      await axios.put(`${BooksURL}/${bookID}`, updatedBook);
+
+      // Remove the returned book from the user's lending information
+      const updatedUser = {
+        ...user,
+        tuoteet: user.tuoteet.filter((id) => id !== bookID),
+      };
+
+      // Make an API request to update the user's lending information
+      await axios.put(`${UsersURL}/${userName}`, updatedUser);
+
+      return { success: true, message: "Book returned successfully" };
+    } else {
+      return { success: false, message: "Book not borrowed by the user" };
     }
-    };
-    
+  } catch (error) {
+    return { success: false, message: "Error returning book: " + error.message };
+  }
+};
