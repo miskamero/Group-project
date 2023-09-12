@@ -1,5 +1,6 @@
 import './App.scss'
 import Lainaukset from './components/Lainaukset.tsx'
+import Kirjautuminen from './components/Kirjautuminen/Kirjautuminen.tsx'
 import * as React from 'react';
 import { BrowserRouter as Router, Routes, Route, useParams } from 'react-router-dom';
 
@@ -9,9 +10,12 @@ const App = () => {
             <Routes>
                 <Route path="/:bookId" element={<LainauksetContainer />} />
                 <Route path="/" element={<LainauksetContainer />} />
+                {/* laittakaa tää oikeeseen paikkaan */}
+                <Kirjautuminen/>
             </Routes>
-        </Router>
-    );
+        </Router>   
+
+    );    
 }
 
 export default App;
