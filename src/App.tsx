@@ -1,8 +1,6 @@
-import QRCode from 'qrcode.react';
 import './App.scss'
 import Lainaukset from './components/Lainaukset.tsx'
 import QRLainaus from './components/QRLainaus.tsx'
-import * as React from 'react';
 import { BrowserRouter as Router, Routes, Route, useParams } from 'react-router-dom';
 
 const App = () => {
@@ -22,5 +20,5 @@ export default App;
 const QR = () => {
     const { bookId } = useParams<{ bookId: string }>();
 
-    return <QRLainaus bookId={bookId} />;
+    return <QRLainaus bookId={bookId ?? ''} />;
 }

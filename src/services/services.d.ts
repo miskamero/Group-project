@@ -29,9 +29,10 @@ declare module '../services/services' {
   export function borrowBook(
     userName: string,
     bookID: string
-  ): Promise<AxiosResponse<UserInfo>>;
+  ): Promise<{ success: boolean; message: string }>;
+
     export function returnBook(
     userName: string,
     bookID: string
-    ): Promise<AxiosResponse<UserInfo>>;
+    ): Promise<{ success: boolean; message: string }>;
 }

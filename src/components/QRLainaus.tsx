@@ -1,19 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import secureLocalStorage from "react-secure-storage";
-import Lainaukset from './Lainaukset';
 import * as Action from '../services/services';
 
 interface LainauksetProps {
   bookId: string;
 }
 
-import { Book } from '../services/services'; // Adjust the path as needed
+import { Book } from '../services/services';
 
 const QRLainaus: React.FC<LainauksetProps> = ({ bookId }) => {
-    
-    // function that will get the name of the book from bookid. Action getBooks()
-
-
     const [book, setBook] = useState<Book[]>([]);
     const [loading, setLoading] = useState<boolean>(true);
     const [error, setError] = useState<string>("");
@@ -43,7 +38,7 @@ const QRLainaus: React.FC<LainauksetProps> = ({ bookId }) => {
 
     const borrowBookHandler = async (userName: string, bookID: string) => {
       const result = await Action.borrowBook(userName, bookID);
-      setError(result.message)
+      setError(result.message);
     };
 
   return (
