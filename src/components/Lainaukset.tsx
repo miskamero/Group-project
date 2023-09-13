@@ -56,6 +56,11 @@ const Lainaukset = () => {
   const [userName, setUserName] = useState<string>('');
   const [error, setError] = useState<string>('');
   const [search, setSearch] = useState<string>('');
+
+  window.onload = function() {
+    getUsers();
+    getBooks();
+  }
   // Function to save the username to secure local storage and set it in state
   const saveUsernameToLocalStorage = (username: string) => {
       secureLocalStorage.setItem("username", username);
@@ -105,6 +110,7 @@ useEffect(() => {
       console.log("error");
     }
     UpdateData();
+    setKirjaID('');
     
   };
 
@@ -116,6 +122,7 @@ useEffect(() => {
       console.log("error");
     }
     UpdateData();
+    setReturnBooks('');
   };
 
   // Render the component's UI

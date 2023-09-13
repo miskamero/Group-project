@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import secureLocalStorage from "react-secure-storage";
+import { useNavigate } from "react-router-dom";
 import * as Action from '../services/services';
 
 interface LainauksetProps {
@@ -11,8 +12,10 @@ import { Book } from '../services/services';
 const QRLainaus: React.FC<LainauksetProps> = ({ bookId }) => {
     const [book, setBook] = useState<Book[]>([]);
     const [loading, setLoading] = useState<boolean>(true);
-    const [error, setError] = useState<string>("");
+    const [result, setResult] = useState<string>("");
     const [userName, setUserName] = useState<string>('');
+
+    const navigate = useNavigate(); // Move it here
 
     useEffect(() => {
       const username: string | undefined = secureLocalStorage.getItem('username') as string;
@@ -23,7 +26,7 @@ const QRLainaus: React.FC<LainauksetProps> = ({ bookId }) => {
           setBook(response.data); // Extract the data from the Axios response
           setLoading(false);
         } catch (error) {
-          setError("Error fetching books");
+          setResult("Error fetching books");
           setLoading(false);
         }
       };
@@ -31,22 +34,30 @@ const QRLainaus: React.FC<LainauksetProps> = ({ bookId }) => {
 
       borrowBookHandler(username, bookId);
     }, []);
-    
 
     const borrowBookHandler = async (userName: string, bookID: string) => {
       const result = await Action.borrowBook(userName, bookID);
       // if the result is an error, display the error message
       if (result && result.success === false) {
-        setError(result.message);
+        setResult(result.message);
         console.log("error");
-      };
+        return;
+      }
+      else {
+        setResult("Kirja on lainattu käyttäjälle " + userName);
+        console.log("success");
+        // Below code redirects to the home page using react router usenavigate
+        setTimeout(() => {
+          navigate("/");
+        }, 2690);
+      }
     }
 
   return (
     <div>
       <h1>Lainataan Kirja {bookId}</h1>
       <p>Kirja on lainattu käyttäjälle {userName}</p>
-      <h1>{error}</h1>
+      <h1>{result}</h1>
     </div>
   );
 }
