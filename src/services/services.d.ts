@@ -9,8 +9,9 @@ interface Book {
   kpl: number;
 }
 
-interface UserInfo {
+export interface UserInfo {
   id: string;
+  password: string;
   tuoteet: string[];
 }
 
@@ -31,8 +32,15 @@ declare module '../services/services' {
     bookID: string
   ): Promise<{ success: boolean; message: string }>;
 
-    export function returnBook(
-    userName: string,
-    bookID: string
-    ): Promise<{ success: boolean; message: string }>;
+  export function returnBook(
+  userName: string,
+  bookID: string
+  ): Promise<{ success: boolean; message: string }>;
+
+  export function addUser(
+    id: string,
+    password: string,
+    tuoteet: string[],
+    user: UserInfo
+  ): Promise<AxiosResponse<UserInfo>>;
 }

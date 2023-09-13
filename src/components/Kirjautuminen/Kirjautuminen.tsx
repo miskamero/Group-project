@@ -8,7 +8,7 @@ import password_icon from '../../Assets/password.png'
 const Kirjautuminen = () => {
 
 /* 'rekisteröidy'-teksti siirtyy actionin avulla... */
-    const [action,setAction] = useState("Rekisteröidy");
+    const [action,setAction] = useState("Kirjaudu sisään");
 
     return (
         <div className='containerkirjautuminen'>
@@ -18,12 +18,6 @@ const Kirjautuminen = () => {
                 <div className="underline"></div>
             </div>
             <div className="inputs">
-{/* jos ollaan kirjautumisnäkymässä, näytä tyhjä div (ei nimi-kenttää) */}
-{/* ':' = else; näytä nimi */}
-                {action==="Login"?<div></div>:<div className="input">
-                    <img src={user_icon} alt="" />
-                    <input type="text" placeholder='Name' />
-                </div>}
     {/* sähköposti */}
                 <div className="input">
                     <img src={email_icon} alt="" />
@@ -37,13 +31,15 @@ const Kirjautuminen = () => {
             </div>
 {/* jos ollaan rekisteröitymisnäkymässä, näytä tyhjä div */}
 {/* ':' = else; näytä salasana hukassa */}
-            {action==="Rekisteröidy"?<div></div>:<div className="forgot-password">Salasana hukassa? <span>Klikkaa tästä!</span></div>}  
             <div className="submit-container">
 {/* '===' = if action equals, '?' = then, ':' = else */}
 {/* onClick saa napit toimimaan */}
-                <div className={action==="Rekisteröidy"?"submit gray":"submit"} onClick={()=>{setAction("Rekisteröidy")}}>Rekisteröidy</div>
-                <div className={action==="Sign Up"?"submit gray":"submit"} onClick={()=>{setAction("Kirjaudu sisään")}}>Kirjaudu sisään</div>
+                <div className={"submit"} onClick={()=>{setAction("Kirjaudu sisään")}}>Kirjaudu sisään</div>
             </div>
+            <div>
+                <h5>Eikö sinulla ole tiliä?  <a href='/signup'>Rekisteröidy</a></h5>
+            </div>
+
         </div>
     );
 };

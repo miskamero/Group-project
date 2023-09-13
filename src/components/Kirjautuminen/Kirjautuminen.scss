@@ -9,6 +9,15 @@
     margin-top: 200px;
     padding-bottom: 40px;
     width: 600px;
+
+    h5 {
+        color: #ff59b4;
+        font-size: 10px;
+        font-weight: 700;
+        margin: 0px;
+        padding: 0px;
+        text-align: center;
+    }
 }
 
 /* kirjaudu-otsikko */
@@ -66,8 +75,6 @@
 
 }
 
-
-
 /* salasana unohtunut */
 .forgot-password{
     color: cadetblue;
@@ -103,6 +110,19 @@
     font-size: 20px;
     font-weight: 700;
     cursor: pointer;
+    transition: all 0.01s ease-in-out;
+
+    // kun hiiri on napin päällä
+    &:hover{
+        box-shadow: 0px 0px 10px 0px #ff59b4;
+    }
+
+    // kun hiiri on napin päällä ja painettuna
+    &:active{
+        background-color: #000000;
+        transform: scale(0.95);
+        box-shadow: 0px 0px 10px 0px #ff59b4;
+    }
 }
 
 .gray{

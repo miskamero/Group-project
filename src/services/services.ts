@@ -5,9 +5,9 @@ const UsersURL = "http://localhost:3002/lainaukset/";
 const BooksURL = "http://localhost:3001/kirjat";
 
 export interface UserInfo {
-  nimi: string;
-  tuoteet: string[];
   id: string;
+  password: string;
+  tuoteet: string[];
 }
 
 export interface Book {
@@ -129,3 +129,8 @@ export const returnBook = async (userName: string, bookID: string) => {
     return { success: false, message: "Error returning book: " + (error.message || "Unknown error") };
   }
 };
+
+export const addUser = async (id: string, password: string) => {
+  const response = await axios.post(UsersURL, { id, password, tuoteet: [] });
+  return response;
+}
