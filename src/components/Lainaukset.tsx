@@ -57,6 +57,7 @@ const Lainaukset = () => {
   const [error, setError] = useState<string>('');
   const [search, setSearch] = useState<string>('');
 
+  // When the page loads, get the information from the JSON-database
   window.onload = function() {
     getUsers();
     getBooks();
@@ -66,13 +67,13 @@ const Lainaukset = () => {
       secureLocalStorage.setItem("username", username);
       setUserName(username);
   };
-
+  // Reusable function to display error messages, takes in the error message as a string as a parameter
   const displayError = (message: string) => {
     setError(message);
     document.getElementById('error-message')!.style.opacity = '1';
     setTimeout(() => {
       document.getElementById('error-message')!.style.opacity = '0';
-    }, 3500); // Adjust the delay as needed
+    }, 3500); // 3500ms = 3.5s
   };
 
 useEffect(() => {
@@ -81,27 +82,27 @@ useEffect(() => {
     if (storedUsername) {
       setUserName(storedUsername);
     }
-    // at the start of the program, get the information from the API
+    // Call the UpdateData function every second which updates the data from the JSON-database
     setInterval(() => {
-      getUsers();
-      getBooks();
+      UpdateData();
     }, 1000);
   }, []);
+  // Function to update the data from the JSON-database
   const UpdateData = () => {
     getUsers();
     getBooks();
   };
-  // function handlers
+  // Function for getting the users from the JSON-database, callable from other components
   const getUsers = async () => {
     const response = await Action.getUsers();
     setUsers(response.data);
   };
-
+  // Function for getting the books from the JSON-database, callable from other components
   const getBooks = async () => {
     const response = await Action.getBooks();
     setBooks(response.data);
   };
-
+  // Function for borrowing a book, takes in the username as a string and the book's ID as a string as parameters
   const BorrowBook = async (userName: string, bookID: string) => {
     const result = await Action.borrowBook(userName, bookID);
     // if the result is an error, display the error message
@@ -109,11 +110,12 @@ useEffect(() => {
       displayError(result.message);
       console.log("error");
     }
+    // Update the data from the JSON-database using the UpdateData function from earlier
     UpdateData();
     setKirjaID('');
     
   };
-
+  // Function for returning a book, takes in the username as a string and the book's ID as a string as parameters
   const ReturnBook = async (userName: string, bookID: string) => {
     const result = await Action.returnBook(userName, bookID);
     // if the result is an error, display the error message
@@ -127,8 +129,8 @@ useEffect(() => {
 
   // Render the component's UI
   return (
-    <div className='container'>
-      <div className='contain'>
+    <div className='container'> {/* main container for the page */}
+      <div className='contain'> {/* container for the page's content */}
         <input type="text" className='username'
           placeholder="Käyttäjänimi"
           value={userName}
@@ -137,14 +139,14 @@ useEffect(() => {
         <br />
         <div className='lainaa'>
           <h1>Käyttäjä: <GetUserName /></h1>
-          <p id={"error-message"}>Error: <span>{error}</span></p>
+          <p id={"error-message"}>Error: <span>{error}</span></p> {/* Error message paragraph */}
           <input
             type="text"
             placeholder="Kirjan kirjan ID"
             value={kirjaID}
             onChange={(e) => setKirjaID(e.target.value)}
           />
-          <button onClick={() => BorrowBook(userName, kirjaID)}>Lainaa Kirja</button>
+          <button onClick={() => BorrowBook(userName, kirjaID)}>Lainaa Kirja</button> {/* Button to borrow a book */}
           <br />
           
           <input type="text"
@@ -152,7 +154,7 @@ useEffect(() => {
             value={returnBooks}
             onChange={(e) => setReturnBooks(e.target.value)}
           />
-          <button onClick={() => ReturnBook(userName, returnBooks)}>Palauta Kirja</button>
+          <button onClick={() => ReturnBook(userName, returnBooks)}>Palauta Kirja</button> {/* Button to return a book */}
         </div>
         <div className='lainaukset'>
           {/* Use the GetBookInfo component to display the book's name and writer by its ID in the user's lending information and seperately display the ID of the book infront of the book's name and writer */}
@@ -167,16 +169,16 @@ useEffect(() => {
             ))}
           </ul>
         </div>
-        <div className="search-box">
+        <div className="search-box"> {/* Search box for searching books by their name */}
           <input type="text" 
           className="input-search"
           placeholder="Kirjoita hakusana..."
           onChange={(e) => setSearch(e.target.value)}
           />
         </div>
-        <div className='kirjat'>
+        <div className='kirjat'> {/* Display all the books in the JSON-database */}
           <h1>Kirjat:</h1>
-          <ul>
+          <ul> {/* Filter the books by the search input */}
             {books
               .filter((book) => book.nimi.toLowerCase().includes(search.toLowerCase()))
               .map((book) => (
