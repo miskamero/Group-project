@@ -100,11 +100,12 @@ useEffect(() => {
   const BorrowBook = async (userName: string, bookID: string) => {
     const result = await Action.borrowBook(userName, bookID);
     // if the result is an error, display the error message
-    if (result.success === false) {
+    if (result && result.success === false) {
       displayError(result.message);
       console.log("error");
     }
     UpdateData();
+    
   };
 
   const ReturnBook = async (userName: string, bookID: string) => {
