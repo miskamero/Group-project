@@ -35,8 +35,12 @@ const QRLainaus: React.FC<LainauksetProps> = ({ bookId }) => {
 
     const borrowBookHandler = async (userName: string, bookID: string) => {
       const result = await Action.borrowBook(userName, bookID);
-      setError(result.message);
-    };
+      // if the result is an error, display the error message
+      if (result && result.success === false) {
+        setError(result.message);
+        console.log("error");
+      };
+    }
 
   return (
     <div>
