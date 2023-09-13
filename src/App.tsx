@@ -8,9 +8,8 @@ const App = () => {
     return (
         <Router>
             <Routes>
-                <Route path="/:bookId" element={<LainauksetContainer />} />
-                <Route path="/" element={<LainauksetContainer />} />
-                {/* laittakaa tää oikeeseen paikkaan */}
+                <Route path="/:bookId" element={<QR />} />
+                <Route path="/" element={<Lainaukset />} />
                 <Route path="/login" element={<Kirjautuminen/>} />
             </Routes>
         </Router>   
