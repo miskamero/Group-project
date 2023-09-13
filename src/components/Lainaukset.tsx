@@ -5,6 +5,7 @@ import * as Action from '../services/services';
 
 import { Book } from '../services/services'; // Adjust the path as needed
 import { UserInfo } from '../services/services'; // Adjust the path as needed
+import { useNavigate } from "react-router-dom";
 
 // Define a functional component called GetUserName
 const GetUserName: React.FC = () => {
@@ -58,7 +59,11 @@ const Lainaukset = () => {
   const [search, setSearch] = useState<string>('');
 
   // When the page loads, get the information from the JSON-database
+  const navigate = useNavigate();
   window.onload = function() {
+    if (secureLocalStorage.getItem('username') === null || secureLocalStorage.getItem('username') === undefined) {
+      navigate("/login");
+    }
     getUsers();
     getBooks();
   }
