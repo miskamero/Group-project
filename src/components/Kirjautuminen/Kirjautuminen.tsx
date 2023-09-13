@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
-import './Kirjautuminen.css'
+import './Kirjautuminen.scss'
 // kopioi kansioon allaolevat kuvakkeet kun pystyt
-import user_icon from '../Assets/person.png'
-import email_icon from '../Assets/email.png'
-import password_icon from '../Assets/password.png'
+import user_icon from '../../Assets/person.png'
+import email_icon from '../../Assets/email.svg'
+import password_icon from '../../Assets/password.png'
 
 const Kirjautuminen = () => {
 
@@ -27,7 +27,7 @@ const Kirjautuminen = () => {
     {/* sähköposti */}
                 <div className="input">
                     <img src={email_icon} alt="" />
-                    <input type="email" placeholder='Email Id' />
+                    <input type="email" placeholder='Email' />
                 </div>
     {/* salasana */}
                 <div className="input">

@@ -11,7 +11,7 @@ const App = () => {
                 <Route path="/:bookId" element={<LainauksetContainer />} />
                 <Route path="/" element={<LainauksetContainer />} />
                 {/* laittakaa tää oikeeseen paikkaan */}
-                <Kirjautuminen/>
+                <Route path="/login" element={<Kirjautuminen/>} />
             </Routes>
         </Router>   
 
