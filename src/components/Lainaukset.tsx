@@ -134,7 +134,6 @@ useEffect(() => {
 
   // Render the component's UI
   return (
-    <div className='container'> {/* main container for the page */}
       <div className='contain'> {/* container for the page's content */}
         <input type="text" className='username'
           placeholder="Käyttäjänimi"
@@ -194,7 +193,6 @@ useEffect(() => {
           </ul>
         </div>
       </div>
-    </div>
   );
 };
 
