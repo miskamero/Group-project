@@ -5,7 +5,7 @@ import password_icon from '../../Assets/password.png'
 import * as Action from '../../services/services';
 import secureLocalStorage from "react-secure-storage";
 import { useNavigate } from "react-router-dom";
-
+import axios from "axios";
 interface UserInfo {    
   nimi: string;
   tuoteet: string[];
@@ -22,8 +22,6 @@ const Rekisteröinti = () => {
     const navigate = useNavigate(); // Move it here
 
     const HandleSubmit = () => {
-        console.log("grTunnus: " + grTunnus);
-        console.log("sala: " + password);
         const regex = /^gr\d{6}$/i;
         const trimmedGrTunnus = grTunnus.trim();
 
@@ -35,19 +33,33 @@ const Rekisteröinti = () => {
             setError("Salasana on liian lyhyt");
             return;
         }
-
+        
         setError("");
-        console.log("logged i n");
-        secureLocalStorage.setItem('username', grTunnus);
-        secureLocalStorage.setItem('password', password);
-
-        addUser(grTunnus, password);
-        navigate("/");
+        getUsers();
+        
     }
     const addUser = async (grTunnus: string, password: string) => {
-        await Action.addUser(grTunnus, password);        
-      }
+        
+        secureLocalStorage.setItem('username', grTunnus);
+        secureLocalStorage.setItem('password', password);
+        
+        await Action.addUser(grTunnus, password); 
+        console.log("fdsokofsjiddiu"); 
+        navigate("/");      
+    }
 
+    const getUsers = async () => {
+        try {
+            const users = await axios.get("http://localhost:3002/lainaukset/" + grTunnus);
+            if (Object.keys(users.data).length != 0) {
+                setError("Käyttäjä on jo olemassa");
+            }
+        }
+        catch (error) {
+            addUser(grTunnus, password);
+        }
+
+    }
     return (
         <div className='containerkirjautuminen'>
             <div className='headerrekisteroidy'>

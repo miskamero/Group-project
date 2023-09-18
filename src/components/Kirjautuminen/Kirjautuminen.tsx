@@ -13,27 +13,20 @@ const Kirjautuminen = () => {
     return (
         <div className='containerkirjautuminen'>
             <div className='headerrekisteroidy'>
-{/* ...tänne */}
                 <div className="text">{action}</div>
                 <div className="underline"></div>
             </div>
             <div className="inputs">
-    {/* sähköposti */}
                 <div className="input">
                     <img src={email_icon} alt="" />
                     <input type="email" placeholder='Email' />
                 </div>
-    {/* salasana */}
                 <div className="input">
                     <img src={password_icon} alt="" />
                     <input type="password" placeholder='Password' />
                 </div>
             </div>
-{/* jos ollaan rekisteröitymisnäkymässä, näytä tyhjä div */}
-{/* ':' = else; näytä salasana hukassa */}
             <div className="submit-container">
-{/* '===' = if action equals, '?' = then, ':' = else */}
-{/* onClick saa napit toimimaan */}
                 <div className={"submit"} onClick={()=>{setAction("Kirjaudu sisään")}}>Kirjaudu sisään</div>
             </div>
             <div>

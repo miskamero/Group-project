@@ -57,9 +57,9 @@ const Lainaukset = () => {
   const [userName, setUserName] = useState<string>('');
   const [error, setError] = useState<string>('');
   const [search, setSearch] = useState<string>('');
+  
+  const navigate = useNavigate(); // Move it here
 
-  // When the page loads, get the information from the JSON-database
-  const navigate = useNavigate();
   window.onload = function() {
     if (secureLocalStorage.getItem('username') === null || secureLocalStorage.getItem('username') === undefined) {
       navigate("/login");
