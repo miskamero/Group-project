@@ -1,21 +1,29 @@
 /* jotkut arvot+värit pistetty, en tiiä miltä näyttää */
 
-
+html {
+    height: 100%;
+}
+@media screen and (max-width: 756px) {
+    .containerkirjautuminen {
+        width: clamp(100%, 80%, 600px) !important;
+        height: 100vh !important;
+        margin: 0 !important;
+    }
+}
 .containerkirjautuminen{
     background: #fff;
     display: flex;
     flex-direction: column;
     margin: auto;
     margin-top: 200px;
-    padding-bottom: 40px;
-    width: 50%;
+    width: clamp(200px, 80%, 600px);
     justify-items: center;
 
     h5 {
         color: #ff59b4;
         font-size: 10px;
         font-weight: 700;
-        margin: 0px;
+        margin: 10px 0;
         padding: 0px;
         text-align: center;
     }
@@ -102,11 +110,11 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            width: 100%;
+            width: 200px;
             height: 59px;
+            border-radius: 5px;
             color: #fff;
             background: #ff59b4;
-            border-radius: 50px;
             font-size: 20px;
             font-weight: 700;
             cursor: pointer;
