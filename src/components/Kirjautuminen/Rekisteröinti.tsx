@@ -19,7 +19,13 @@ const Rekisteröinti = () => {
     const [password,setPassword] = useState("");
     const [error,setError] = useState("");
 
-    const navigate = useNavigate(); // Move it here
+    const navigate = useNavigate();
+
+    window.onload = function() {
+        if (secureLocalStorage.getItem('username') != null || secureLocalStorage.getItem('username') != undefined) {
+            navigate("/");
+        }
+    }
 
     const HandleSubmit = () => {
         const regex = /^gr\d{6}$/i;
@@ -42,7 +48,7 @@ const Rekisteröinti = () => {
         
         secureLocalStorage.setItem('username', grTunnus);
         secureLocalStorage.setItem('password', password);
-        
+
         await Action.addUser(grTunnus, password); 
         console.log("fdsokofsjiddiu"); 
         navigate("/");      
@@ -79,7 +85,7 @@ const Rekisteröinti = () => {
             </div>
             <h5>{error}</h5>
             <div className="submit-container">
-                <div className={"submit"} onClick={(e)=>{HandleSubmit()}}>Rekisteröidy</div>
+                <button className={"submit"} onClick={(e)=>{HandleSubmit()}}>Rekisteröidy</button>
             </div>
 
             <div>

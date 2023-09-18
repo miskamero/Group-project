@@ -4,11 +4,18 @@ import './Kirjautuminen.scss'
 import user_icon from '../../Assets/person.png'
 import email_icon from '../../Assets/email.svg'
 import password_icon from '../../Assets/password.png'
+import secureLocalStorage from "react-secure-storage";
+import { useNavigate } from "react-router-dom";
 
 const Kirjautuminen = () => {
-
-/* 'rekisteröidy'-teksti siirtyy actionin avulla... */
     const [action,setAction] = useState("Kirjaudu sisään");
+    const navigate = useNavigate();
+
+    window.onload = function() {
+        if (secureLocalStorage.getItem('username') != null || secureLocalStorage.getItem('username') != undefined) {
+            navigate("/");
+        }
+    }
 
     return (
         <div className='containerkirjautuminen'>
@@ -27,7 +34,7 @@ const Kirjautuminen = () => {
                 </div>
             </div>
             <div className="submit-container">
-                <div className={"submit"} onClick={()=>{setAction("Kirjaudu sisään")}}>Kirjaudu sisään</div>
+                <button className={"submit"} onClick={()=>{setAction("Kirjaudu sisään")}}>Kirjaudu sisään</button>
             </div>
             <div>
                 <h5>Eikö sinulla ole tiliä?  <a href='/signup'>Rekisteröidy</a></h5>
