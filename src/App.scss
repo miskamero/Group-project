@@ -1,6 +1,10 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Gloock&family=Qwitcher+Grypen&display=swap" rel="stylesheet');
 
+html, #root {
+    height: fit-content !important;
+}
+
 body {
     background-color: #29004e;
     background-image:
@@ -17,12 +21,9 @@ body {
     letter-spacing: 2px;
     margin: 0;
     padding: 0;
-    height: 100%;
+    height: 100% !important;
 }
 
-#root {
-    height: fit-content;
-}
 
 .contain {
     display: flex;
