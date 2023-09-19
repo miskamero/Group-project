@@ -99,7 +99,7 @@ useEffect(() => {
   };
   // Function for getting the users from the JSON-database, callable from other components
   const getUsers = async () => {
-    const response = await Action.getUsers(userName);
+    const response = await Action.getUsers();
     setUsers(response.data);
   };
   // Function for getting the books from the JSON-database, callable from other components

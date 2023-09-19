@@ -9,13 +9,14 @@ import secureLocalStorage from "react-secure-storage";
 import { useNavigate } from "react-router-dom";
 import * as Action from '../../services/services';
 import { UserInfo } from '../../services/services'; 
+import { log } from 'console';
 
 const Kirjautuminen = () => {
     const [grTunnus,setGrTunnus] = useState("");
     const [password,setPassword] = useState("");
     const [UserInfo,setUserInfo] = useState<UserInfo[]>([]);
     const [error,setError] = useState("");
-
+    let hashedPassword: string = "";
     const navigate = useNavigate();
 
     window.onload = function() {
@@ -31,23 +32,38 @@ const Kirjautuminen = () => {
     const getUsers = async () => {
         axios.get<UserInfo[]>("http://localhost:3002/lainaukset/" + grTunnus)
         .then((response) => {
+            if (response.data) {
             setUserInfo(response.data);
             if (Object.keys(response.data).length === 0) {
                 setError("Käyttäjää ei löytynyt");
             } else {
-                if (response.data.password === password) {
-                    secureLocalStorage.setItem('username', grTunnus);
-                    navigate("/");
-                } else {
-                    setError("Väärä salasana");
-                }
+                hashedPassword = response.data.password;
+                login(password);
+            }
+            } else {
+            setError("Käyttäjää ei löytynyt");
             }
         })
         .catch((error) => {
-            setError("Käyttäjää ei löytynyt");
+            setError("Virhe käyttäjätietoja haettaessa: " + error.message);
         });
     }
 
+    const login = async (password: string) => {
+        try {
+            const login = await Action.compare(password, hashedPassword);
+            if (login) {
+                secureLocalStorage.setItem('username', grTunnus);
+                secureLocalStorage.setItem('password', hashedPassword);
+                navigate("/");
+            } else {
+                setError("Salasana on väärä");
+            }
+        }
+        catch (error) {
+            setError("Virhe kirjautuessa: " + error.message);
+        }
+    }
     return (
         <div className='containerkirjautuminen'>
             <div className='headerrekisteroidy'>

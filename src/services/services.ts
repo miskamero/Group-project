@@ -1,7 +1,7 @@
 // services.js
 import axios from "axios";
 // import * as crypt from './crypt.ts'
-import * as argon2 from "argon2";
+import bcrypt from 'bcryptjs'
 
 
 const UsersURL = "http://localhost:3002/lainaukset/";
@@ -20,8 +20,8 @@ export interface Book {
   id: string;
 }
 
-export const getUsers = async (id: string) => {
-  const response = await axios.get(UsersURL + "/"+ id);
+export const getUsers = async () => {
+  const response = await axios.get(UsersURL);
   return response;
 };
 
@@ -135,9 +135,10 @@ export const returnBook = async (userName: string, bookID: string) => {
 
 export const addUser = async (id: string, password: string) => {
   // hash the password
+  const hash_pass = await hash(password)
   const response = await axios.post(UsersURL, {
     id: id,
-    password: password, 
+    password: hash_pass, 
     tuoteet: [],
   });
   // const response = await axios.post(UsersURL, { id, password, tuoteet: [] });
@@ -145,24 +146,10 @@ export const addUser = async (id: string, password: string) => {
 }
 
 export const hash = async (password: string): Promise<string> => {
-  try {
-    const hashedPassword = await argon2.hash(password);
-    return hashedPassword;
-  } catch (error) {
-    console.error("Error hashing password:", error);
-    throw error;
-  }
-};
+  const salt = await bcrypt.genSalt(10)
+  return bcrypt.hash(password, salt)
+}
 
-export const verify = async (
-  hash: string,
-  password: string
-): Promise<boolean> => {
-  try {
-    const isPasswordValid = await argon2.verify(hash, password);
-    return isPasswordValid;
-  } catch (error) {
-    console.error("Error verifying password:", error);
-    throw error;
-  }
-};
+export const compare = async (password: string, hash: string): Promise<boolean> => {
+  return bcrypt.compare(password, hash)
+}
