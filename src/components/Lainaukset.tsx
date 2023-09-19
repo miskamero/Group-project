@@ -90,7 +90,7 @@ useEffect(() => {
     // Call the UpdateData function every second which updates the data from the JSON-database
     setInterval(() => {
       UpdateData();
-    }, 100000);
+    }, 1000);
   }, []);
   // Function to update the data from the JSON-database
   const UpdateData = () => {
@@ -99,7 +99,7 @@ useEffect(() => {
   };
   // Function for getting the users from the JSON-database, callable from other components
   const getUsers = async () => {
-    const response = await Action.getUsers();
+    const response = await Action.getUsers(userName);
     setUsers(response.data);
   };
   // Function for getting the books from the JSON-database, callable from other components

@@ -1,5 +1,8 @@
 // services.js
 import axios from "axios";
+// import * as crypt from './crypt.ts'
+import * as argon2 from "argon2";
+
 
 const UsersURL = "http://localhost:3002/lainaukset/";
 const BooksURL = "http://localhost:3001/kirjat";
@@ -17,8 +20,8 @@ export interface Book {
   id: string;
 }
 
-export const getUsers = async () => {
-  const response = await axios.get(UsersURL);
+export const getUsers = async (id: string) => {
+  const response = await axios.get(UsersURL + "/"+ id);
   return response;
 };
 
@@ -131,6 +134,35 @@ export const returnBook = async (userName: string, bookID: string) => {
 };
 
 export const addUser = async (id: string, password: string) => {
-  const response = await axios.post(UsersURL, { id, password, tuoteet: [] });
+  // hash the password
+  const response = await axios.post(UsersURL, {
+    id: id,
+    password: password, 
+    tuoteet: [],
+  });
+  // const response = await axios.post(UsersURL, { id, password, tuoteet: [] });
   return response;
 }
+
+export const hash = async (password: string): Promise<string> => {
+  try {
+    const hashedPassword = await argon2.hash(password);
+    return hashedPassword;
+  } catch (error) {
+    console.error("Error hashing password:", error);
+    throw error;
+  }
+};
+
+export const verify = async (
+  hash: string,
+  password: string
+): Promise<boolean> => {
+  try {
+    const isPasswordValid = await argon2.verify(hash, password);
+    return isPasswordValid;
+  } catch (error) {
+    console.error("Error verifying password:", error);
+    throw error;
+  }
+};

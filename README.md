@@ -192,3 +192,7 @@ Tilanteessa, jos käyttäjä ei ole kirjautunut. Pitää käyttäjä välittää
 Kaikki tekee layout suunnitelmaa ja antaa omia ideoita siihen.
 
 Layout aloitetaan, kun on saatu koodin perusasiat tehtyä.
+
+
+argon2 ei voi käyttää, jostain ihmeen syystä 
+https://github.com/mapbox/node-pre-gyp/issues/661

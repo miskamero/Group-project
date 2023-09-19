@@ -45,7 +45,6 @@ const Rekisteröinti = () => {
         secureLocalStorage.setItem('username', grTunnus);
         secureLocalStorage.setItem('password', password);
         await Action.addUser(grTunnus, password); 
-        console.log("fdsokofsjiddiu"); 
         navigate("/");      
     }
 
