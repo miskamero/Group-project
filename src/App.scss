@@ -5,7 +5,11 @@ html, #root {
     height: fit-content !important;
 }
 
-body {
+// tää väri pitää olla html että ei lähe lagaamaan
+html {
+    min-height: 100%;
+    background-size: cover;
+    background-position: center center;
     background-color: #29004e;
     background-image:
 // eka % = sijainti vasemmalta oikeelle, toka % = sijainti ylhäältä alas
@@ -16,6 +20,9 @@ body {
         radial-gradient(at 90% 90%, rgb(62, 15, 156) 20px, transparent 40%),
         radial-gradient(at 30% 130%, rgb(89, 3, 105) 80px, transparent 50%);
     background-repeat: no-repeat;
+ }
+ 
+body {
     text-transform: uppercase;
     font-family: 'Poppins', sans-serif;
     letter-spacing: 2px;
@@ -23,9 +30,6 @@ body {
     padding: 0;
     height: 100% !important;
 }
-
-
-
 
     .username {
         width: 95%;
@@ -54,6 +58,7 @@ body {
             margin-top: 1rem;
             font-size: 1rem;
             text-indent: 5px;
+            font-family: 'Poppins', sans-serif;
         }
 
         button {
@@ -135,6 +140,7 @@ body {
         padding: 0;
         margin: 0;
         button, input {
+// Firefox ei tue fit-content, vissiin toimis display: table;
             width: fit-content !important;
             padding-left: 0.5em !important;
             padding-right: 0.5em !important;

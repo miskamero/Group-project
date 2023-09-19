@@ -3,9 +3,10 @@
 html {
     height: 100%;
 }
+
+// piilottaa scrollbarin
 body{
     overflow: hidden;
-    
 }
 
 @media screen and (max-width: 756px) {
@@ -15,6 +16,7 @@ body{
         width: clamp(100%, 80%, 600px) !important;
     }
 }
+
 .containerkirjautuminen{
     background: #fff;
     border-radius: 10px;
@@ -23,28 +25,34 @@ body{
     justify-items: center;
     margin: auto;
     margin-bottom: 150px;
-    margin-top: 100px;
+    margin-top: 70px;
     width: clamp(200px, 80%, 600px);
 
-// "eikö sinulla ole tiliä?"-teksti
+// "eikö sinulla ole tiliä?"/"onko sinulla käyttäjätili?"-teksti
     h5 {
         color: #ff59b4;
-        font-size: 10px;
+        font-size: 11px;
         font-weight: 700;
         margin: 10px 0;
-        padding: 0px;
-        padding-bottom: 15px;
-        padding-top: 20px;
+        padding-bottom: 30px;
         text-align: center;
     }
+    // error-teksti: "gr-tunnus on väärässä muodossa"
+    h6 {
+        color: #ff59b4;
+        font-size: 11px;
+        font-weight: 700;
+        margin: 10px 0;
+        text-align: center;
+}
 }
 
-/* "kirjaudu sisään"-otsikko */
+/* "kirjaudu sisään"/"rekisteröidy"-otsikko */
 .headerrekisteroidy{
     align-items: center;
     display: flex;
     flex-direction: column;
-    font-size: 20px;
+    font-size: 22px;
     gap: 10px;
     margin-top: 30px;
     width: 100%;
@@ -54,8 +62,8 @@ body{
 .underline{
     background: #ff59b4;
     border-radius: 9px;
-    height: 5px;
-    width: 70px;
+    height: 4px;
+    width: 90px;
 }
 
 /* tekstikenttien välit korkeussuunnassa */
@@ -69,7 +77,7 @@ body{
 /* tekstikenttien ympärillä olevat laatikot */
 .input{
     align-items: center;
-    background: #c4c4c4;
+    background: #e4e4e4;
     border-radius: 6px;
     display: flex;
     height: 70px;
@@ -86,27 +94,26 @@ body{
         border: none;
         color: #000000;
         font-family: 'Poppins', sans-serif;
-        font-size: 20px;
+        font-size: 18px;
         height: 50px;
         outline: none;
         width: 90%;
     }
 }
 
-/* salasana unohtunut */
+/* salasana unohtunut -- tätä ei oo (pitäis tehä) */
 .forgot-password{
     color: cadetblue;
     font-size: 18px;
     margin-top: 27px;
     padding-left: 62px;
     
-    /* "klikkaa tästä"-teksti */
+    /* (entinen) "klikkaa tästä"-teksti -- tätäkään ei oo (pitäis tehä) */
     span{
         color: #ff59b4;
         cursor: pointer;
     }
 }
-
 
     /* kirjaudu/rekisteröidy napit ja tekstit */
     .submit-container{
@@ -114,6 +121,8 @@ body{
         display: flex;
         flex-direction: column;
         justify-items: center;
+        padding-bottom: 30px;
+        padding-top: 30px;
 
         button {
             align-items: center;
@@ -127,9 +136,8 @@ body{
             font-weight: 700;
             height: 59px;
             justify-content: center;
-            margin-top: 40px;
             transition: all 0.01s ease-in-out;
-            width: 240px;
+            width: 290px;
 
             // kun hiiri on napin päällä
             &:hover{
@@ -141,14 +149,31 @@ body{
                 background-color: #ff84c7;
                 box-shadow: 0px 0px 10px 0px #ff59b4;
                 transform: scale(0.95);
-
         }
     }
 }
+/* linkki - avaamaton */
+a:link {
+    color: #ff32a3;
+  }
+  
+/* linkki - avattu */
+a:visited {
+    color: #ff32a3;
+}
+  
+/* linkki - hover */
+a:hover {
+    color: rgb(255, 139, 197);
+}
+  
+/* linkki - aktiivinen */
+a:active {
+    color: #ff008c;
+} 
 
-
+// en tiiä mikä tän tarkotus on
 .gray{
     background: #ffffff;
     color: darkgrey;
-    
 }

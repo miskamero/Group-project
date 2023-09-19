@@ -2,6 +2,7 @@ import secureLocalStorage from "react-secure-storage";
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import * as Action from '../services/services';
+import '../App.scss'
 
 import { Book } from '../services/services'; // Adjust the path as needed
 import { UserInfo } from '../services/services'; // Adjust the path as needed
@@ -60,13 +61,7 @@ const Lainaukset = () => {
 
   const navigate = useNavigate(); // Move it here
 
-  window.onload = function() {
-    if (secureLocalStorage.getItem('username') === null || secureLocalStorage.getItem('username') === undefined) {
-      navigate("/login");
-    }
-    getUsers();
-    getBooks();
-  }
+
   // Function to save the username to secure local storage and set it in state
   const saveUsernameToLocalStorage = (username: string) => {
       secureLocalStorage.setItem("username", username);
