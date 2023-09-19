@@ -90,7 +90,7 @@ useEffect(() => {
     // Call the UpdateData function every second which updates the data from the JSON-database
     setInterval(() => {
       UpdateData();
-    }, 1000);
+    }, 100000);
   }, []);
   // Function to update the data from the JSON-database
   const UpdateData = () => {

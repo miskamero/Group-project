@@ -6,12 +6,8 @@ import * as Action from '../../services/services';
 import secureLocalStorage from "react-secure-storage";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
-interface UserInfo {    
-  nimi: string;
-  tuoteet: string[];
-  id: string;
-  password: string;
-}
+
+
 const Rekisteröinti = () => {
     
     const [action,setAction] = useState("Rekisteröidy");
@@ -48,7 +44,6 @@ const Rekisteröinti = () => {
         
         secureLocalStorage.setItem('username', grTunnus);
         secureLocalStorage.setItem('password', password);
-
         await Action.addUser(grTunnus, password); 
         console.log("fdsokofsjiddiu"); 
         navigate("/");      
