@@ -1,39 +1,50 @@
-/* jotkut arvot+värit pistetty, en tiiä miltä näyttää */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
 
 html {
     height: 100%;
 }
+body{
+    overflow: hidden;
+    
+}
+
 @media screen and (max-width: 756px) {
     .containerkirjautuminen {
-        width: clamp(100%, 80%, 600px) !important;
         height: 100vh !important;
         margin: 0 !important;
+        width: clamp(100%, 80%, 600px) !important;
     }
 }
 .containerkirjautuminen{
     background: #fff;
+    border-radius: 10px;
     display: flex;
     flex-direction: column;
-    margin: auto;
-    margin-top: 200px;
-    width: clamp(200px, 80%, 600px);
     justify-items: center;
+    margin: auto;
+    margin-bottom: 150px;
+    margin-top: 100px;
+    width: clamp(200px, 80%, 600px);
 
+// "eikö sinulla ole tiliä?"-teksti
     h5 {
         color: #ff59b4;
         font-size: 10px;
         font-weight: 700;
         margin: 10px 0;
         padding: 0px;
+        padding-bottom: 15px;
+        padding-top: 20px;
         text-align: center;
     }
 }
 
-/* kirjaudu-otsikko */
+/* "kirjaudu sisään"-otsikko */
 .headerrekisteroidy{
     align-items: center;
     display: flex;
     flex-direction: column;
+    font-size: 20px;
     gap: 10px;
     margin-top: 30px;
     width: 100%;
@@ -61,7 +72,7 @@ html {
     background: #c4c4c4;
     border-radius: 6px;
     display: flex;
-    height: 80px;
+    height: 70px;
     margin: auto;
 
     /* kuvakkeet */
@@ -74,13 +85,12 @@ html {
         background: transparent;
         border: none;
         color: #000000;
+        font-family: 'Poppins', sans-serif;
         font-size: 20px;
         height: 50px;
         outline: none;
         width: 90%;
     }
-
-
 }
 
 /* salasana unohtunut */
@@ -100,36 +110,37 @@ html {
 
     /* kirjaudu/rekisteröidy napit ja tekstit */
     .submit-container{
+        align-items: center;
         display: flex;
         flex-direction: column;
         justify-items: center;
-        align-items: center;
-        
 
         button {
-            display: flex;
-            justify-content: center;
             align-items: center;
-            width: 200px;
-            height: 59px;
-            border-radius: 5px;
-            color: #fff;
             background: #ff59b4;
+            border-color: transparent;
+            border-radius: 9px;
+            color: #fcfcfc;
+            cursor: pointer;display: flex;
+            font-family: 'Poppins', sans-serif;
             font-size: 20px;
             font-weight: 700;
-            cursor: pointer;
+            height: 59px;
+            justify-content: center;
+            margin-top: 40px;
             transition: all 0.01s ease-in-out;
-        
+            width: 240px;
+
             // kun hiiri on napin päällä
             &:hover{
-                box-shadow: 0px 0px 10px 0px #ff59b4;
+                box-shadow: 0px 0px 10px 0px #ffb0db;
             }
         
             // kun hiiri on napin päällä ja painettuna
             &:active{
-                background-color: #000000;
-                transform: scale(0.95);
+                background-color: #ff84c7;
                 box-shadow: 0px 0px 10px 0px #ff59b4;
+                transform: scale(0.95);
 
         }
     }
@@ -139,4 +150,5 @@ html {
 .gray{
     background: #ffffff;
     color: darkgrey;
+    
 }
