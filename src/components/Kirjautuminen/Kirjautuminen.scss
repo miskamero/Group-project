@@ -77,11 +77,17 @@ body{
 /* tekstikenttien ympärillä olevat laatikot */
 .input{
     align-items: center;
-    background: #e4e4e4;
+    background: #d1d1d1;
     border-radius: 6px;
     display: flex;
     height: 70px;
     margin: auto;
+    // Animate the box-shadow property
+    transition: all 0.3s ease-in-out;
+    &:focus-within{
+        box-shadow: 0px 0px 10px 1px #ff59b4;
+        background: #ffffff;
+    }
 
     /* kuvakkeet */
     img{
@@ -136,12 +142,13 @@ body{
             font-weight: 700;
             height: 59px;
             justify-content: center;
-            transition: all 0.01s ease-in-out;
+            transition: all 0.1s ease-in-out;
             width: 290px;
 
             // kun hiiri on napin päällä
             &:hover{
-                box-shadow: 0px 0px 10px 0px #ffb0db;
+                box-shadow: 0px 0px 10px 0px #fca6d5;
+                transform: scale(1.02);
             }
         
             // kun hiiri on napin päällä ja painettuna
