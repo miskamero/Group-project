@@ -51,6 +51,10 @@ const GetBookInfo: React.FC<{id: number}> = ({id}) => {
 
 // Define the main functional component Lainaukset
 const Lainaukset = () => {
+  const check: number = 0;
+  if (0 === check) {
+    document.body.style.overflow = "visible";
+  }
   const [kirjaID, setKirjaID] = useState<string>('');
   const [books, setBooks] = useState<Book[]>([]);
   const [returnBooks, setReturnBooks] = useState<string>('');

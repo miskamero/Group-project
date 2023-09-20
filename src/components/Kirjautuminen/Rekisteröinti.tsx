@@ -13,6 +13,12 @@ interface UserInfo {
   password: string;
 }
 const Rekisteröinti = () => {
+    const check: number = 1;
+  if (0 === check) {
+    document.body.style.overflow = "visible";
+  } else if (1 === check) {
+    document.body.style.overflow = "hidden";
+    }
     
     const [action,setAction] = useState("Rekisteröidy");
     const [grTunnus,setGrTunnus] = useState("");

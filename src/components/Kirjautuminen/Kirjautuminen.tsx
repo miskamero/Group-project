@@ -11,9 +11,12 @@ import { useNavigate } from "react-router-dom";
 const Kirjautuminen = () => {
     const [action,setAction] = useState("Kirjaudu sisään");
     const navigate = useNavigate();
-
-
-
+    const check: number = 1;
+  if (0 === check) {
+    document.body.style.overflow = "visible";
+  } else if (1 === check) {
+    document.body.style.overflow = "hidden";
+    }
     return (
         <div className='containerkirjautuminen'>
             <div className='headerrekisteroidy'>
