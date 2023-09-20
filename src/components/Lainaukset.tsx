@@ -2,8 +2,8 @@ import secureLocalStorage from "react-secure-storage";
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import * as Action from '../services/services';
-import '../App.scss'
-import Frame from 'react-frame-component';
+import '../App.scss';
+import NavBar from './NavBar';
 
 import { Book } from '../services/services'; // Adjust the path as needed
 import { UserInfo } from '../services/services'; // Adjust the path as needed
@@ -150,22 +150,11 @@ useEffect(() => {
   // Render the component's UI
   return (
     <div className="pageContainer">
-      <div className="navBar">
-        <button onClick={() => navigate("/")} className="navButton">Etusivu</button> {/* Button to navigate to the home page */}
-        <button onClick={() => navigate("/lainaukset")} className="navButton">Lainaukset</button> {/* Button to navigate to the lending page */}
-        <button onClick={() => navigate("/kirjat")} className="navButton">Kirjat</button> {/* Button to navigate to the books page */}
-        {/* Logout button */}
-        <button onClick={() => {
-          secureLocalStorage.removeItem("username");
-          navigate("/login");
-        }} className="navButton">Kirjaudu Ulos</button>
-        <button onClick={() => navigate("/admin")} className="navButton">Admin</button>
-      </div>
+      <NavBar />
       <div className='contain'> {/* container for the page's content */}
         <div className="userInfoContainer">
           <div className='lainaa'>
-            <h1>Käyttäjä: <GetUserName /></h1>
-            <p id={"error-message"}>Error: <span>{error}</span></p> {/* Error message paragraph */}
+            <p id={"error-message"}>Error: <br/><span>{error}</span></p> {/* Error message paragraph */}
             <input
               type="text"
               placeholder="Kirjan kirjan ID"
@@ -184,7 +173,7 @@ useEffect(() => {
           </div>
           <div className='lainaukset'>
             {/* Use the GetBookInfo component to display the book's name and writer by its ID in the user's lending information and seperately display the ID of the book infront of the book's name and writer */}
-            <h1>Käyttäjän <GetUserName /> lainaukset:</h1>
+            <h1>Lainauksesi:</h1>
             <ul>
               {users.filter((user) => user.id === userName).map((user) => (
                 user.tuoteet.map((book) => (
