@@ -1,5 +1,8 @@
 // services.js
 import axios from "axios";
+// import * as crypt from './crypt.ts'
+import bcrypt from 'bcryptjs'
+
 
 const UsersURL = "http://localhost:3002/lainaukset/";
 const BooksURL = "http://localhost:3001/kirjat";
@@ -131,6 +134,22 @@ export const returnBook = async (userName: string, bookID: string) => {
 };
 
 export const addUser = async (id: string, password: string) => {
-  const response = await axios.post(UsersURL, { id, password, tuoteet: [] });
+  // hash the password
+  const hash_pass = await hash(password)
+  const response = await axios.post(UsersURL, {
+    id: id,
+    password: hash_pass, 
+    tuoteet: [],
+  });
+  // const response = await axios.post(UsersURL, { id, password, tuoteet: [] });
   return response;
+}
+
+export const hash = async (password: string): Promise<string> => {
+  const salt = await bcrypt.genSalt(10)
+  return bcrypt.hash(password, salt)
+}
+
+export const compare = async (password: string, hash: string): Promise<boolean> => {
+  return bcrypt.compare(password, hash)
 }

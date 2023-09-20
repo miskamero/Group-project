@@ -2,33 +2,7 @@
   "lainaukset": [
     {
       "id": "gr123456",
-      "password": "fdsfdsfdfds",
-      "tuoteet": [
-        "1",
-        "2",
-        "3"
-      ]
-    },
-    {
-      "id": "gr123455",
-      "password": "kjscnjsanckjsa",
-      "tuoteet": [
-        "2"
-      ]
-    },
-    {
-      "id": "gr999999",
-      "password": "ashonsac",
-      "tuoteet": []
-    },
-    {
-      "id": "gr555555",
-      "password": "sadsad",
-      "tuoteet": []
-    },
-    {
-      "id": "gr872332",
-      "password": "asdadsasd",
+      "password": "$2a$10$V4W65peaSBB4jsN2/kRm2.SCVRHUnCmRUFqV.jTKSjmWBseEGwtw6",
       "tuoteet": []
     }
   ]
