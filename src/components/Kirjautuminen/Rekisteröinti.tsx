@@ -9,6 +9,12 @@ import axios from "axios";
 
 
 const Rekisteröinti = () => {
+    const check: number = 1;
+  if (0 === check) {
+    document.body.style.overflow = "visible";
+  } else if (1 === check) {
+    document.body.style.overflow = "hidden";
+    }
     
     const [action,setAction] = useState("Rekisteröidy");
     const [grTunnus,setGrTunnus] = useState("");
@@ -17,18 +23,14 @@ const Rekisteröinti = () => {
 
     const navigate = useNavigate();
 
-    window.onload = function() {
-        if (secureLocalStorage.getItem('username') != null || secureLocalStorage.getItem('username') != undefined) {
-            navigate("/");
-        }
-    }
+
 
     const HandleSubmit = () => {
         const regex = /^gr\d{6}$/i;
         const trimmedGrTunnus = grTunnus.trim();
 
         if (!regex.test(trimmedGrTunnus)) {
-            setError("Gr-tunnus on väärässä muodossa, grXXXXXX");
+            setError("Gr-tunnus on väärässä muodossa");
             return;
         }
         if (password.length < 6) {
@@ -74,10 +76,10 @@ const Rekisteröinti = () => {
                 {/* salasana */}
                 <div className="input">
                     <img src={password_icon} alt="" />
-                    <input type="password" placeholder='Password' onChange={(e)=>{setPassword(e.target.value)}}/>
+                    <input type="password" placeholder='Salasana' onChange={(e)=>{setPassword(e.target.value)}}/>
                 </div>
             </div>
-            <h5>{error}</h5>
+        <h6>{error}</h6>
             <div className="submit-container">
                 <button className={"submit"} onClick={(e)=>{HandleSubmit()}}>Rekisteröidy</button>
             </div>

@@ -1,39 +1,58 @@
-/* jotkut arvot+värit pistetty, en tiiä miltä näyttää */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
 
 html {
     height: 100%;
 }
+
+// piilottaa scrollbarin
+body{
+    overflow: hidden;
+}
+
 @media screen and (max-width: 756px) {
     .containerkirjautuminen {
-        width: clamp(100%, 80%, 600px) !important;
         height: 100vh !important;
         margin: 0 !important;
+        width: clamp(100%, 80%, 600px) !important;
     }
 }
+
 .containerkirjautuminen{
     background: #fff;
+    border-radius: 10px;
     display: flex;
     flex-direction: column;
-    margin: auto;
-    margin-top: 200px;
-    width: clamp(200px, 80%, 600px);
     justify-items: center;
+    margin: auto;
+    margin-bottom: 150px;
+    margin-top: 70px;
+    width: clamp(200px, 80%, 600px);
 
+// "eikö sinulla ole tiliä?"/"onko sinulla käyttäjätili?"-teksti
     h5 {
         color: #ff59b4;
-        font-size: 10px;
+        font-size: 11px;
         font-weight: 700;
         margin: 10px 0;
-        padding: 0px;
+        padding-bottom: 30px;
         text-align: center;
     }
+    // error-teksti: "gr-tunnus on väärässä muodossa"
+    h6 {
+        color: #ff59b4;
+        font-size: 11px;
+        font-weight: 700;
+        margin: 10px 0;
+        text-align: center;
+}
 }
 
-/* kirjaudu-otsikko */
+/* "kirjaudu sisään"/"rekisteröidy"-otsikko */
 .headerrekisteroidy{
     align-items: center;
     display: flex;
     flex-direction: column;
+    font-size: 22px;
     gap: 10px;
     margin-top: 30px;
     width: 100%;
@@ -43,8 +62,8 @@ html {
 .underline{
     background: #ff59b4;
     border-radius: 9px;
-    height: 5px;
-    width: 70px;
+    height: 4px;
+    width: 90px;
 }
 
 /* tekstikenttien välit korkeussuunnassa */
@@ -58,10 +77,10 @@ html {
 /* tekstikenttien ympärillä olevat laatikot */
 .input{
     align-items: center;
-    background: #c4c4c4;
+    background: #e4e4e4;
     border-radius: 6px;
     display: flex;
-    height: 80px;
+    height: 70px;
     margin: auto;
 
     /* kuvakkeet */
@@ -74,68 +93,86 @@ html {
         background: transparent;
         border: none;
         color: #000000;
-        font-size: 20px;
+        font-family: 'Poppins', sans-serif;
+        font-size: 18px;
         height: 50px;
         outline: none;
         width: 90%;
     }
-
-
 }
 
-/* salasana unohtunut */
+/* salasana unohtunut -- tätä ei oo (pitäis tehä) */
 .forgot-password{
     color: cadetblue;
     font-size: 18px;
     margin-top: 27px;
     padding-left: 62px;
     
-    /* "klikkaa tästä"-teksti */
+    /* (entinen) "klikkaa tästä"-teksti -- tätäkään ei oo (pitäis tehä) */
     span{
         color: #ff59b4;
         cursor: pointer;
     }
 }
 
-
     /* kirjaudu/rekisteröidy napit ja tekstit */
     .submit-container{
+        align-items: center;
         display: flex;
         flex-direction: column;
         justify-items: center;
-        align-items: center;
-        
+        padding-bottom: 30px;
+        padding-top: 30px;
 
         button {
-            display: flex;
-            justify-content: center;
             align-items: center;
-            width: 200px;
-            height: 59px;
-            border-radius: 5px;
-            color: #fff;
             background: #ff59b4;
+            border-color: transparent;
+            border-radius: 9px;
+            color: #fcfcfc;
+            cursor: pointer;display: flex;
+            font-family: 'Poppins', sans-serif;
             font-size: 20px;
             font-weight: 700;
-            cursor: pointer;
+            height: 59px;
+            justify-content: center;
             transition: all 0.01s ease-in-out;
-        
+            width: 290px;
+
             // kun hiiri on napin päällä
             &:hover{
-                box-shadow: 0px 0px 10px 0px #ff59b4;
+                box-shadow: 0px 0px 10px 0px #ffb0db;
             }
         
             // kun hiiri on napin päällä ja painettuna
             &:active{
-                background-color: #000000;
-                transform: scale(0.95);
+                background-color: #ff84c7;
                 box-shadow: 0px 0px 10px 0px #ff59b4;
-
+                transform: scale(0.95);
         }
     }
 }
+/* linkki - avaamaton */
+a:link {
+    color: #ff32a3;
+  }
+  
+/* linkki - avattu */
+a:visited {
+    color: #ff32a3;
+}
+  
+/* linkki - hover */
+a:hover {
+    color: rgb(255, 139, 197);
+}
+  
+/* linkki - aktiivinen */
+a:active {
+    color: #ff008c;
+} 
 
-
+// en tiiä mikä tän tarkotus on
 .gray{
     background: #ffffff;
     color: darkgrey;
