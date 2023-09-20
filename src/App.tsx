@@ -6,7 +6,9 @@ import Items from './components/Lisäys.tsx'
 import Rekisteröinti from './components/Kirjautuminen/Rekisteröinti.tsx'
 import { BrowserRouter as Router, Routes, Route, useParams } from 'react-router-dom';
 
+
 const App = () => {
+    
     return (
         <Router>
             <Routes>

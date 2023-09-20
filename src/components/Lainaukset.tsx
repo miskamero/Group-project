@@ -3,6 +3,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import * as Action from '../services/services';
 import '../App.scss'
+import Frame from 'react-frame-component';
 
 import { Book } from '../services/services'; // Adjust the path as needed
 import { UserInfo } from '../services/services'; // Adjust the path as needed
@@ -131,46 +132,69 @@ useEffect(() => {
     setReturnBooks('');
   };
 
+  const checkIfLoggedIn = () => {
+    // Fetch the username from local storage when the component mounts
+    const storedUsername: string | null = secureLocalStorage.getItem('username') as string;
+    if (storedUsername) {
+      setUserName(storedUsername);
+    }
+    // If the username is not in local storage, navigate to the login page
+    if (storedUsername === null) {
+      navigate("/login");
+    }
+  };
+  // Call the checkIfLoggedIn function when the component mounts
+  useEffect(() => {
+    checkIfLoggedIn();
+  }, []);
   // Render the component's UI
   return (
+    <div className="pageContainer">
+      <div className="navBar">
+        <button onClick={() => navigate("/")} className="navButton">Etusivu</button> {/* Button to navigate to the home page */}
+        <button onClick={() => navigate("/lainaukset")} className="navButton">Lainaukset</button> {/* Button to navigate to the lending page */}
+        <button onClick={() => navigate("/kirjat")} className="navButton">Kirjat</button> {/* Button to navigate to the books page */}
+        {/* Logout button */}
+        <button onClick={() => {
+          secureLocalStorage.removeItem("username");
+          navigate("/login");
+        }} className="navButton">Kirjaudu Ulos</button>
+        <button onClick={() => navigate("/admin")} className="navButton">Admin</button>
+      </div>
       <div className='contain'> {/* container for the page's content */}
-        <input type="text" className='username'
-          placeholder="Käyttäjänimi"
-          value={userName}
-          onChange={(e) => saveUsernameToLocalStorage(e.target.value)}
-        />
-        <br />
-        <div className='lainaa'>
-          <h1>Käyttäjä: <GetUserName /></h1>
-          <p id={"error-message"}>Error: <span>{error}</span></p> {/* Error message paragraph */}
-          <input
-            type="text"
-            placeholder="Kirjan kirjan ID"
-            value={kirjaID}
-            onChange={(e) => setKirjaID(e.target.value)}
-          />
-          <button onClick={() => BorrowBook(userName, kirjaID)}>Lainaa Kirja</button> {/* Button to borrow a book */}
-          <br />
-          
-          <input type="text"
-            placeholder="Palautettavan kirjan ID"
-            value={returnBooks}
-            onChange={(e) => setReturnBooks(e.target.value)}
-          />
-          <button onClick={() => ReturnBook(userName, returnBooks)}>Palauta Kirja</button> {/* Button to return a book */}
-        </div>
-        <div className='lainaukset'>
-          {/* Use the GetBookInfo component to display the book's name and writer by its ID in the user's lending information and seperately display the ID of the book infront of the book's name and writer */}
-          <h1>Käyttäjän <GetUserName /> lainaukset:</h1>
-          <ul>
-            {users.filter((user) => user.id === userName).map((user) => (
-              user.tuoteet.map((book) => (
-                <li key={book}>
-                  {book} <GetBookInfo id={Number(book)} /> 
-                </li>
-              ))
-            ))}
-          </ul>
+        <div className="userInfoContainer">
+          <div className='lainaa'>
+            <h1>Käyttäjä: <GetUserName /></h1>
+            <p id={"error-message"}>Error: <span>{error}</span></p> {/* Error message paragraph */}
+            <input
+              type="text"
+              placeholder="Kirjan kirjan ID"
+              value={kirjaID}
+              onChange={(e) => setKirjaID(e.target.value)}
+            />
+            <button onClick={() => BorrowBook(userName, kirjaID)}>Lainaa Kirja</button> {/* Button to borrow a book */}
+            <br />
+            
+            <input type="text"
+              placeholder="Palautettavan kirjan ID"
+              value={returnBooks}
+              onChange={(e) => setReturnBooks(e.target.value)}
+            />
+            <button onClick={() => ReturnBook(userName, returnBooks)}>Palauta Kirja</button> {/* Button to return a book */}
+          </div>
+          <div className='lainaukset'>
+            {/* Use the GetBookInfo component to display the book's name and writer by its ID in the user's lending information and seperately display the ID of the book infront of the book's name and writer */}
+            <h1>Käyttäjän <GetUserName /> lainaukset:</h1>
+            <ul>
+              {users.filter((user) => user.id === userName).map((user) => (
+                user.tuoteet.map((book) => (
+                  <li key={book}>
+                    {book} <GetBookInfo id={Number(book)} /> 
+                  </li>
+                ))
+              ))}
+            </ul>
+          </div>
         </div>
         <div className="search-box"> {/* Search box for searching books by their name */}
           <input type="text" 
@@ -192,6 +216,7 @@ useEffect(() => {
           </ul>
         </div>
       </div>
+    </div>
   );
 };
 

@@ -7,7 +7,6 @@ import secureLocalStorage from "react-secure-storage";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
-
 const Rekisteröinti = () => {
     const check: number = 1;
   if (0 === check) {
@@ -20,36 +19,38 @@ const Rekisteröinti = () => {
     const [grTunnus,setGrTunnus] = useState("");
     const [password,setPassword] = useState("");
     const [error,setError] = useState("");
-
     const navigate = useNavigate();
-
-
-
+    window.onload = function() {
+        if (secureLocalStorage.getItem('username') != null || secureLocalStorage.getItem('username') != undefined) {
+            navigate("/");
+        }
+    }   
     const HandleSubmit = () => {
         const regex = /^gr\d{6}$/i;
         const trimmedGrTunnus = grTunnus.trim();
-
+        if (grTunnus === "admin") {
+            setError("");
+            getUsers();
+        }
         if (!regex.test(trimmedGrTunnus)) {
             setError("Gr-tunnus on väärässä muodossa");
             return;
         }
-        if (password.length < 6) {
+        else if (password.length < 6) {
             setError("Salasana on liian lyhyt");
             return;
         }
-        
+        else {
         setError("");
         getUsers();
-        
+        }
     }
     const addUser = async (grTunnus: string, password: string) => {
-        
         secureLocalStorage.setItem('username', grTunnus);
         secureLocalStorage.setItem('password', password);
-        await Action.addUser(grTunnus, password); 
-        navigate("/");      
+        await Action.addUser(grTunnus, password);
+        navigate("/");
     }
-
     const getUsers = async () => {
         try {
             const users = await axios.get("http://localhost:3002/lainaukset/" + grTunnus);
@@ -60,7 +61,6 @@ const Rekisteröinti = () => {
         catch (error) {
             addUser(grTunnus, password);
         }
-
     }
     return (
         <div className='containerkirjautuminen'>
@@ -83,7 +83,6 @@ const Rekisteröinti = () => {
             <div className="submit-container">
                 <button className={"submit"} onClick={(e)=>{HandleSubmit()}}>Rekisteröidy</button>
             </div>
-
             <div>
                 <h5>Onko sinulla käyttäjätili? <a href='/login'>Kirjaudu sisään</a></h5>
             </div>
