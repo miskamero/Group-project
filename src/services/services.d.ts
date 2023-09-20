@@ -43,4 +43,9 @@ declare module '../services/services' {
     tuoteet: string[],
     user: UserInfo
   ): Promise<AxiosResponse<UserInfo>>;
+  export function login(
+    id: string,
+    password: string,
+    user: UserInfo
+  ): Promise<{ success: boolean; message: string }>;
 }

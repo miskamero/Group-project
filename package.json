@@ -14,10 +14,10 @@
     "server2": "json-server -p3002 --watch lainaukset.json"
   },
   "dependencies": {
+    "@types/bcryptjs": "^2.4.4",
     "axios": "^1.5.0",
+    "bcryptjs": "^2.4.3",
     "concurrently": "^8.2.1",
-    "crypto-js": "^4.1.1",
-    "crypto-ts": "^1.0.2",
     "file-saver": "^2.0.5",
     "json-server": "^0.17.3",
     "qrcode.react": "^3.1.0",

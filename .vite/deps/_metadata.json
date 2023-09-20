@@ -1,0 +1,53 @@
+{
+  "hash": "2bcf2615",
+  "browserHash": "12089ae6",
+  "optimized": {
+    "react": {
+      "src": "../../node_modules/react/index.js",
+      "file": "react.js",
+      "fileHash": "9707a2ba",
+      "needsInterop": true
+    },
+    "react-dom/client": {
+      "src": "../../node_modules/react-dom/client.js",
+      "file": "react-dom_client.js",
+      "fileHash": "f984cb10",
+      "needsInterop": true
+    },
+    "react-router-dom": {
+      "src": "../../node_modules/react-router-dom/dist/index.js",
+      "file": "react-router-dom.js",
+      "fileHash": "afecb429",
+      "needsInterop": false
+    },
+    "react-secure-storage": {
+      "src": "../../node_modules/react-secure-storage/dist/index.js",
+      "file": "react-secure-storage.js",
+      "fileHash": "c965c1d5",
+      "needsInterop": true
+    },
+    "axios": {
+      "src": "../../node_modules/axios/index.js",
+      "file": "axios.js",
+      "fileHash": "2a9816bf",
+      "needsInterop": false
+    },
+    "bcryptjs": {
+      "src": "../../node_modules/bcryptjs/dist/bcrypt.js",
+      "file": "bcryptjs.js",
+      "fileHash": "9262db6a",
+      "needsInterop": true
+    }
+  },
+  "chunks": {
+    "chunk-YDMPIDXF": {
+      "file": "chunk-YDMPIDXF.js"
+    },
+    "chunk-7AMTDEL5": {
+      "file": "chunk-7AMTDEL5.js"
+    },
+    "chunk-WNKWOKNR": {
+      "file": "chunk-WNKWOKNR.js"
+    }
+  }
+}
