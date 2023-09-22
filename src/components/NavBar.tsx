@@ -5,9 +5,10 @@ import { useNavigate } from "react-router-dom";
 const NavBar: React.FC = () => {
     const navigate = useNavigate();
     const username: string | null = secureLocalStorage.getItem('username') as string;
+    const isAdmin: string | null = secureLocalStorage.getItem('admin') as string;
 
     const adminButton = document.getElementById("adminButton");
-    if (username === "admin") {
+    if (isAdmin === "true" || username === "admin") {
         if (adminButton) {
             document.getElementById("adminButton")!.style.display = "inline";
         }
@@ -23,7 +24,9 @@ const NavBar: React.FC = () => {
         <h3>Tervetuloa {username}</h3>
         {/* Logout button */}
         <button onClick={() => {
-          secureLocalStorage.removeItem("username");
+            secureLocalStorage.removeItem("username");
+            secureLocalStorage.removeItem("password");
+            secureLocalStorage.removeItem("admin");
           navigate("/login");
         }}>Kirjaudu Ulos</button>
         <button onClick={() => navigate("/admin")} id="adminButton">Admin</button>

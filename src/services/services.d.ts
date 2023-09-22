@@ -7,6 +7,7 @@ interface Book {
   nimi: string;
   kirjoittaja: string;
   kpl: number;
+  kuva: string;
 }
 
 export interface UserInfo {
@@ -48,4 +49,12 @@ declare module '../services/services' {
     password: string,
     user: UserInfo
   ): Promise<{ success: boolean; message: string }>;
+
+  export function addBook(
+    nimi: string,
+    kirjoittaja: string,
+    kpl: number,
+    book: Book,
+    kuva: string
+  ): Promise<AxiosResponse<Book>>;
 }

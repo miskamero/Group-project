@@ -1,58 +1,21 @@
 {
   "lainaukset": [
     {
-      "id": "gr123456",
-      "password": "$2a$10$V4W65peaSBB4jsN2/kRm2.SCVRHUnCmRUFqV.jTKSjmWBseEGwtw6",
+      "id": "admin",
+      "password": "$2a$10$eEC83JKN8d/9oGUIJiSwaeW4V.rs.oUa6Mb/pppIXGL47yXOGA1te",
       "tuoteet": []
     },
     {
       "id": "gr123455",
-      "password": "$2a$10$pYtJ.XjKfikI074WAmuIpOxQdoYWs5d5OOvpCAFCn7DyghkttfD0K",
       "tuoteet": [
-        "2"
+        1,
+        2
       ]
     },
     {
-      "id": "admin",
-      "password": "$2a$10$eEC83JKN8d/9oGUIJiSwaeW4V.rs.oUa6Mb/pppIXGL47yXOGA1te",
-      "tuoteet": [
-        "1",
-        "2",
-        "3",
-        "4",
-        "6",
-        "7"
-      ]
-    },
-    {
-      "id": "gr123457",
-      "password": "$2a$10$0Aeic4JMnZSeimQ.My07iuZjqN9lLMFUd23vT5Kh.poF9Hmii.nWq",
+      "id": "gr654321",
+      "password": "$2a$10$x/4cP1unSzl87/9ZPTBtAORRDBDfgzlu8HZGrKGBsidkW/vAvErWi",
       "tuoteet": []
-    },
-    {
-      "id": "gr123458",
-      "password": "$2a$10$uVvdrgn760I5d2xKntgHwuLBJ8krtQK0oFGovYAhzBDRd6VRIBAt2",
-      "tuoteet": [
-        "3"
-      ]
-    },
-    {
-      "id": "gr111112",
-      "password": "$2a$10$pNb7nQojxQuHL68ijP4JmOylszx5DqOryJ9NAtc/Yi.WxRA.5QKpW",
-      "tuoteet": []
-    },
-    {
-      "id": "gr122121",
-      "password": "$2a$10$O/yBQEExiQ0RSccy.e2ACeZDmCkXoPhoaemA1j54KRf/1Rm/N.L0C",
-      "tuoteet": [
-        "1",
-        "2",
-        "3",
-        "4",
-        "5",
-        "6",
-        "7"
-      ]
     }
   ]
 }

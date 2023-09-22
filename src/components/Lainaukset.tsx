@@ -50,7 +50,7 @@ const GetBookInfo: React.FC<{id: number}> = ({id}) => {
   );
 }
 
-// Define the main functional component Lainaukset
+// Define the main functional component Lainauksetnavi
 const Lainaukset = () => {
   const check: number = 0;
   if (0 === check) {
@@ -67,11 +67,6 @@ const Lainaukset = () => {
   const navigate = useNavigate(); // Move it here
 
 
-  // Function to save the username to secure local storage and set it in state
-  const saveUsernameToLocalStorage = (username: string) => {
-      secureLocalStorage.setItem("username", username);
-      setUserName(username);
-  };
   // Reusable function to display error messages, takes in the error message as a string as a parameter
   const displayError = (message: string) => {
     setError(message);
