@@ -1,80 +1,83 @@
 
-// need to do, Sakke
+// need to do, /* Sakke */ Jooa
 // Tee uusi function services.d.ts ja services.ts jossa on funktio joka lisää kirjan tietokantaan
 
 import { useEffect, useState } from 'react';
 import "../Lisäys_scss.scss";
-import kirjat from "../../kirjatdb.json";
+import * as Action from '../services/services';
+import axios from 'axios';
+import secureLocalStorage from "react-secure-storage";
+import { useNavigate } from "react-router-dom";
+import NavBar from './NavBar';
 
-interface Item {
-  id: number;
+interface Book {
+  id: string;
   nimi: string;
   kirjoittaja: string;
   kpl: number;
-  kuva: string | undefined;
+  kuva: string;
 }
+  
+const Items = () => {
+  const [books, setBooks] = useState<any>([]);
+  const [newName, setNewName] = useState("");
+  const [newAuthor, setNewAuthor] = useState("");
+  const [newImg, setNewImg] = useState("");
+  const [newAmount, setNewAmount] = useState(0);
+  const [newId, setNewId] = useState(0);
+  const [userName, setUserName] = useState("");
 
-interface FormProps {
-  addItem: (newItem: Item) => void;
-  jsonData: Item[];
-  handleClick: () => void;
-}
+  const navigate = useNavigate();
 
-const Form: React.FC<FormProps> = ({ addItem, jsonData, handleClick }) => {
-  const [newName, setNewName] = useState<string>("");
-  const [newAuthor, setNewAuthor] = useState<string>("");
-  const [newAmount, setNewAmount] = useState<number>(0);
-  const [newImg, setNewImg] = useState<string | undefined>(undefined);
-
-  const lastItem = jsonData.slice(-1)[0];
-  const newId = lastItem ? lastItem.id + 1 : 1;
-
-  const handleNameChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleNameChange = (event: any) => {
     setNewName(event.target.value);
   }
 
-  const handleAuthorChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleAuthorChange = (event: any) => {
     setNewAuthor(event.target.value);
   }
 
-  const handleAmountChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setNewAmount(parseInt(event.target.value, 10));
+  const handleImgChange = (event: any) => {
+    setNewImg(event.target.value);
   }
 
-  const handleImgChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    if (event.target.files && event.target.files[0]) {
-      setNewImg(URL.createObjectURL(event.target.files[0]));
-    }
+  const handleAmountChange = (event: any) => {
+    setNewAmount(event.target.value);
   }
 
   const handleAdd = () => {
-    if (newName.trim() === "" || newAuthor.trim() === "") {
-      alert("Täytä kaikki tarvittavat kentät");
-      return;
-    }
-
-    if (jsonData.some((item) => item.nimi === newName && item.kirjoittaja === newAuthor)) {
-      alert(newName + " on jo lisätty");
-      return;
-    }
-
-    const newItem: Item = {
-      id: newId,
-      nimi: newName,
-      kirjoittaja: newAuthor,
-      kpl: newAmount,
-      kuva: newImg,
-    }
-
-    addItem(newItem);
+    Action.addBook(newName, newAuthor, 1, newImg, newAmount);
     setNewName("");
     setNewAuthor("");
-    setNewImg(undefined);
-    handleClick();
+    setNewImg("");
+    setNewAmount(0);
+    setNewId(newId + 1);
+    setBooks(books.concat({ id: newId, nimi: newName, kirjoittaja: newAuthor, kpl: 1, kuva: newImg}));
   }
+
+  const checkIfLoggedIn = () => {
+    // Fetch the username from local storage when the component mounts
+    const storedUsername: string | null = secureLocalStorage.getItem('username') as string;
+    if (storedUsername) {
+      setUserName(storedUsername);
+    }
+    // If the username is not in local storage, navigate to the login page
+    if (storedUsername === null || storedUsername === undefined || storedUsername === "" ){
+      navigate("/login");
+    }
+    if ( secureLocalStorage.getItem('username') != "admin") {
+      navigate("/");
+    }
+  };
+
+  // Call the checkIfLoggedIn function when the component mounts
+  useEffect(() => {
+    checkIfLoggedIn();
+  }, []);
 
   return (
     <div>
+      <NavBar />
       <div className="form">
         <form>
           Nimi:<br />
@@ -95,9 +98,9 @@ const Form: React.FC<FormProps> = ({ addItem, jsonData, handleClick }) => {
             value={newAuthor}
             autoComplete="off"
           /><br />
-          Kuva: <br />
+          Kuva <i>url</i>: <br />
           <input
-            type="file"
+            type="text"
             id="add-img"
             name="add-img"
             onChange={handleImgChange}
@@ -112,55 +115,168 @@ const Form: React.FC<FormProps> = ({ addItem, jsonData, handleClick }) => {
             autoComplete="off"
           /><br />
         </form>
-        <p>Id: {newId}</p>
         <button id="add-button" type="button" onClick={handleAdd}>Lisää</button>
-        <button id="cancel-button" type="button" onClick={handleClick}>Peru</button>
+      </div>
+      <Books />
+
+      <Users />
+    </div>
+  )
+}
+
+
+
+const Users = () => {
+  // can see users and delete them
+  const [users, setUsers] = useState<any>([]);
+  const [tuoteet, setTuoteet] = useState<any>([]);
+  const [newName, setNewName] = useState("");
+
+  const navigate = useNavigate(); // Move it here
+
+
+  useEffect(() => {
+    secureLocalStorage.setItem('admin', "false");
+    Action.getUsers().then((response: any) => {
+      setUsers(response.data);
+    });
+  }, []);
+
+  // update user function 
+  const updateUser = (id: string, tuoteet: string[]) => {
+    var name = prompt("Muokkaa käyttäjän nimeä", id);
+
+    // Check if the prompts returned non-null values before using them
+    if (name !== null) {
+      Action.updateUser(id, name, tuoteet);
+      setUsers(users.map((user: any) => {
+        if (user.id === id) {
+          if (name !== null) {
+            user.id = name;
+          }
+        }
+        return user;
+      }));
+    } else {
+      // Handle the case where the user clicked Cancel or the prompt failed
+      // You can show an error message or handle it as needed.
+      console.log("One of the prompts was canceled or failed.");
+    }
+  }
+
+  const redirectToUser = (id: string) => {
+    secureLocalStorage.setItem('username', id);
+    secureLocalStorage.setItem('admin', "true");
+    navigate("/");
+  }
+
+
+  return (
+    <div>
+      <div className="users">
+        {users.map((user: any) => (
+          <div className="user" key={user.id}>
+            <h2>{user.id}</h2>
+            <h3>{user.tuoteet}</h3>
+            <button type="button" className="edit-button"
+              onClick={() => {
+                updateUser(user.id, user.tuoteet);
+              }}
+            >Muokkaa</button>
+            <button type="button" className="delete-button"
+              onClick={() => {
+                Action.deleteUser(user.id).then((response: any) => {
+                  setUsers(users.filter((u: any) => u.id !== user.id));
+                  window.location.reload();
+                });
+              }}
+            >Poista</button>
+
+            <button
+              onClick={() => {
+                redirectToUser(user.id);
+              }}
+            >Siirry</button>
+          </div>
+        ))}
       </div>
     </div>
   )
 }
 
-const Items: React.FC = () => {
-  const images = {
-    width: "75px",
-    height: "100px"
+const Books = ({  }: any) => {
+  const [books, setBooks] = useState<any>([]);
+  const [uniqueBooksButton, setUniqueBooksButton] = useState(false);
+
+    useEffect(() => {
+    setInterval(() => {
+      Action.getBooks().then((response: any) => {
+        setBooks(response.data);
+      });
+  }, 500);
+  }, []);
+
+  const updateBook = (id: string, nimi: string, kirjoittaja: string, kpl: number, kuva: string) => {
+    var name = prompt("Anna kirjan nimi", nimi);
+    var author = prompt("Anna kirjan kirjoittaja", kirjoittaja);
+    var amount = prompt("Anna kirjan määrä", kpl.toString());
+    var img = prompt("Anna kirjan kuva url", kuva);
+
+    // Check if the prompts returned non-null values before using them
+    if (name !== null && author !== null && amount !== null && img !== null) {
+      Action.updateBook(id, name, author, Number(amount), img);
+      setBooks(books.map((book: Book) => {
+        if (book.id === id) {
+          if (name !== null && author !== null && amount !== null && img !== null) {
+          book.nimi = name;
+          book.kirjoittaja = author;
+          book.kpl = Number(amount);
+          book.kuva = img;
+          }
+        }
+        return book;
+      }));
+    } else {
+      // Handle the case where the user clicked Cancel or the prompt failed
+      // You can show an error message or handle it as needed.
+      console.log("One of the prompts was canceled or failed.");
+    }
   }
-
-  const [jsonData, setJsonData] = useState<Item[]>(kirjat.kirjat);
-
-  const addItem = (newItem: Item) => {
-    setJsonData([...jsonData, newItem]);
-  }
-
-  const [show, setShow] = useState<boolean>(false);
-
-  const handleClick = () => {
-    setShow((current) => !current);
-  }
-
-  return (
-    <div>
-      <div className={show ? "deactive" : ""}>
-        <h2>Kirjat</h2>
-        <button id="add" onClick={handleClick}>Lisää kirja</button>
+    return(
+      <div className="books">
+        {books.map((book: Book) => (
+          <div className="book" key={book.id}>
+            <img src={book.kuva} alt="" style={image}/>
+            <h2>{book.id}</h2>
+            <h3>{book.nimi}</h3>
+            <h4>{book.kirjoittaja}</h4>
+            <h4>{book.kpl} kpl</h4>
+            {/* edit button */}
+            <button type="button" className="edit-button"
+              onClick={() => {
+                updateBook(book.id, book.nimi, book.kirjoittaja, book.kpl, book.kuva);
+              }}
+            >Muokkaa</button>
+            {/* delete button */}
+            <button type="button" className="delete-button"
+              onClick={() => {
+                Action.deleteBook(book.id).then((response: any) => {
+                  setBooks(books.filter((b: Book) => b.id !== book.id));
+                  // window.location.reload();
+                });
+              }}
+            >Poista</button>
+          </div>
+        ))}
       </div>
+    )
+}
 
-      {show ? <Form addItem={addItem} jsonData={jsonData} handleClick={handleClick} /> : null}
 
-      <div className={show ? "deactive" : ""}>
-        <h2>Kirjat</h2>
-        {jsonData &&
-          jsonData.map((item) => (
-            <div key={item.id}>
-              <img src={item.kuva} style={images} alt={item.nimi} />
-              <p>{item.nimi}</p>
-              <p>{item.kirjoittaja}</p>
-              <p>{item.kpl}</p>
-            </div>
-          ))}
-      </div>
-    </div>
-  )
+const image = {
+  width: "77px",
+  height: "auto",
+  borderRadius: "10px",
 }
 
 export default Items;

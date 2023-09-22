@@ -45,3 +45,27 @@ input {
 	margin-left: 25px;
 	padding-left: 25px;
 }
+
+.books {
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: center;
+	text-align: center;
+	font-size: large;
+	margin: auto;
+	padding: 10px;
+	background-color: $background-color_1;
+	border-radius: 20px;
+	width: 75vw;
+	margin-left: 25px;
+	padding-left: 25px;
+
+	.book {
+		margin: 10px;
+		padding: 10px;
+		background-color: #ffffff;
+		border-radius: 20px;
+		width: 400px;
+		height: fit-content;
+	}
+}

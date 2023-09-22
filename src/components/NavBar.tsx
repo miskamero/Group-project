@@ -5,9 +5,10 @@ import { useNavigate } from "react-router-dom";
 const NavBar: React.FC = () => {
     const navigate = useNavigate();
     const username: string | null = secureLocalStorage.getItem('username') as string;
+    const isAdmin: string | null = secureLocalStorage.getItem('admin') as string;
 
     const adminButton = document.getElementById("adminButton");
-    if (username === "admin") {
+    if (isAdmin === "true") {
         if (adminButton) {
             document.getElementById("adminButton")!.style.display = "inline";
         }
