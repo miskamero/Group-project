@@ -4,22 +4,50 @@
       "id": 1,
       "nimi": "Harry Potter ja viisasten kivi",
       "kirjoittaja": "J.K. Rowling",
-      "kpl": 0,
+      "kpl": 8,
       "kuva": "https://kirja.s3.amazonaws.com/prod/9789513111465_frontcover_final_original.jpg"
     },
     {
       "id": 2,
       "nimi": "Harry Potter ja salaisuuksien kammio",
       "kirjoittaja": "J.K. Rowling",
-      "kpl": 1,
+      "kpl": 8,
       "kuva": "https://kirja.s3.amazonaws.com/prod/9789513114725_frontcover_final_original.jpg"
     },
     {
       "id": 3,
       "nimi": "Harry Potter ja Azkabanin vanki",
       "kirjoittaja": "J.K. Rowling",
-      "kpl": 2,
+      "kpl": 8,
       "kuva": "https://upload.wikimedia.org/wikipedia/fi/thumb/e/ef/Harry_Potter_ja_Azkabanin_vanki_-kirjan_kansikuva.jpg/197px-Harry_Potter_ja_Azkabanin_vanki_-kirjan_kansikuva.jpg"
+    },
+    {
+      "id": 4,
+      "nimi": "Harry Potter ja liekehtivä pikari",
+      "kirjoittaja": "J.K. Rowling",
+      "kpl": 7,
+      "kuva": "https://upload.wikimedia.org/wikipedia/fi/thumb/0/0b/Harry_Potter_ja_liekehtiv%C3%A4_pikari_-kirjan_kansikuva.jpg/197px-Harry_Potter_ja_liekehtiv%C3%A4_pikari_-kirjan_kansikuva.jpg"
+    },
+    {
+      "id": 5,
+      "nimi": "Harry Potter ja Feeniksin kilta",
+      "kirjoittaja": "J.K. Rowling",
+      "kpl": 8,
+      "kuva": "https://upload.wikimedia.org/wikipedia/fi/thumb/0/0b/Harry_Potter_ja_Feeniksin_kilta_-kirjan_kansikuva.jpg/197px-Harry_Potter_ja_Feeniksin_kilta_-kirjan_kansikuva.jpg"
+    },
+    {
+      "id": 6,
+      "nimi": "Harry Potter ja puoliverinen prinssi",
+      "kirjoittaja": "J.K. Rowling",
+      "kpl": 7,
+      "kuva": "https://upload.wikimedia.org/wikipedia/fi/thumb/0/0b/Harry_Potter_ja_puoliverinen_prinssi_-kirjan_kansikuva.jpg/197px-Harry_Potter_ja_puoliverinen_prinssi_-kirjan_kansikuva.jpg"
+    },
+    {
+      "id": 7,
+      "nimi": "Harry Potter ja kuoleman varjelukset",
+      "kirjoittaja": "J.K. Rowling",
+      "kpl": 7,
+      "kuva": "https://upload.wikimedia.org/wikipedia/fi/thumb/0/0b/Harry_Potter_ja_kuoleman_varjelukset_-kirjan_kansikuva.jpg/197px-Harry_Potter_ja_kuoleman_varjelukset_-kirjan_kansikuva.jpg"
     }
   ]
 }

@@ -8,6 +8,7 @@ html, #root {
 // tää väri pitää olla html että ei lähe lagaamaan
 html {
     min-height: 100%;
+    min-width: 100%;
     background-size: cover;
     background-position: center center;
     background-color: #29004e;
@@ -31,14 +32,73 @@ body {
     height: 100% !important;
 }
 
-    .username {
-        width: 95%;
-        padding: 0.5rem;
+.pageContainer {
+    width: clamp(200px, 100%, 100%);
+}
+
+.navBar {
+    background: rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(5px);
+    height: 70px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    width: 90%;
+    z-index: 100;
+    backdrop-filter: blur(5px);
+    transition: all 0.2s ease-in-out;
+    padding: 0 16px;
+    margin: auto;
+    box-shadow: 0 6px 20px -2px rgba(0,0,0,0.75);
+    button, h3 {
+        background: none;
         border: none;
-        border-radius: 0.5rem;
-        margin-top: 1rem;
+        color: white;
         font-size: 1rem;
-        text-align: center;
+        transition: all 0.5s ease-in-out;
+    }
+    h3 {
+        margin-right: auto;
+    }
+    button {
+        margin-left: 1rem;
+        cursor: pointer;
+        font-weight: bold;
+    }
+    button:after {
+        content: '';
+        display: block;
+        width: 0;
+        height: 2px;
+        background: white;
+        transition: width .3s;
+    }
+    button:hover:after {
+        width: 100%;
+        transition: width .3s;
+    }
+}
+
+.contain{
+    height: 100%;
+    border-radius: 0px 0px 10px 10px;
+    padding: 1rem;
+    margin: 1rem;
+    width: 90%;
+    background: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(5px);
+    margin: auto;
+    padding-bottom: clamp(1rem, 10%, 4rem);
+
+    .userInfoContainer {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    column-gap: 1em;
+    }
+
+    h1 {
+        font-size: clamp(16px, 5vw, 24px);
     }
 
     .lainaa {
@@ -49,13 +109,15 @@ body {
         text-align: center;
         margin-top: 1rem;
         align-items: center;
+        width: 14rem;
+        text-wrap: wrap;
 
         input {
             width: 100%;
             padding: 0.5rem 0rem;
             border: none;
             border-radius: 0.5rem;
-            margin-top: 1rem;
+            margin: 0;
             font-size: 1rem;
             text-indent: 5px;
             font-family: 'Poppins', sans-serif;
@@ -92,11 +154,32 @@ body {
         text-shadow: 2px 2px 2px black;
         text-align: center;
         margin-top: 1rem;
+        scroll-behavior: smooth;
+        margin-left: auto;
+        margin-right: auto;
+        width: 100%;
 
-        // no dots in list
         ul {
             list-style-type: none;
             padding: 0;
+            height: clamp(100px, 50vh, 300px);
+            overflow-y: scroll;
+            width: 100%;
+            scroll-behavior: smooth;
+            // Style the scroll amazingly well
+            scrollbar-width: thin;
+            scrollbar-color: rgb(255, 255, 255) rgba(0, 0, 0, 0.5);
+            &::-webkit-scrollbar {
+                width: 12px;
+            }
+            &::-webkit-scrollbar-track {
+                background: rgba(0, 0, 0, 0.5);
+            }
+            &::-webkit-scrollbar-thumb {
+                background-color: rgb(255, 255, 255);
+                border-radius: 6px;
+                border: 3px solid rgba(0, 0, 0, 0.5);
+            }
         }
     }
 
@@ -110,12 +193,14 @@ body {
         align-items: center;
 
         input {
-            width: 100%;
+            width: 90%;
             padding: 0.5rem;
             border: none;
             border-radius: 0.5rem;
             margin-top: 1rem;
             font-size: 1rem;
+            margin-left: auto;
+            margin-right: auto;
         }
 
         button {
@@ -131,16 +216,41 @@ body {
             cursor: pointer;
         }
     }
+}
 
 
 @media screen and (max-width: 868px) {
+    html {
+        width: 99vw !important;
+    }
+    .lainaa {
+        margin-left: auto;
+        margin-right: auto;
+    }
+    .pageContainer {
+        margin-left: auto !important;
+        margin-right: auto !important;
+    }
+    .navBar {
+        width: 90%;
+        button h3 {
+            font-size: 0.8rem;
+        }
+        button {
+            margin-right: 2rem;
+        }
+        h3 {
+            margin-left: 2rem;
+        }
+    }
+    .userInfoContainer {
+        flex-direction: column !important;
+    }
     .contain {
-        width: 100%;
+        width: 90% !important;
         border-radius: 0%;
-        padding: 0;
-        margin: 0;
+        padding: 20px 0;
         button, input {
-// Firefox ei tue fit-content, vissiin toimis display: table;
             width: fit-content !important;
             padding-left: 0.5em !important;
             padding-right: 0.5em !important;
@@ -153,10 +263,58 @@ body {
             margin-right: auto;
         }
     }
+    .lainaukset {
+        ul {
+            height: clamp(100px, 50vh, 300px) !important;
+        }
+        li {
+            font-size: 0.8rem !important;
+        }
+    }
+    #error-message {
+        text-wrap: nowrap;
+    }
 }
+
+@media screen and (max-width: 670px) {
+    .navBar {
+        h3 {
+            font-size: 0.8rem;
+            width: 120px;
+            text-wrap: wrap;
+        }
+        button {
+            font-size: 0.8rem;
+        }
+        button {
+            margin-right: 1rem;
+        }
+        h3 {
+            margin-left: 1rem;
+        }
+    }
+    .contain {
+        width: 90% !important;
+        border-radius: 0%;
+        padding: 10px 10px;
+        button, input {
+            width: fit-content !important;
+            padding-left: 0.5em !important;
+            padding-right: 0.5em !important;
+        }
+    }
+}
+
+@media screen and (max-width: 460px) {
+    #error-message {
+        text-wrap: wrap;
+    }
+}
+
 #error-message {
     opacity: 0;
     transition: opacity 0.3s ease-in-out, height 0.5s ease-in-out;
+    height: 90px;
     span {
         color: red;
         text-decoration: underline;
