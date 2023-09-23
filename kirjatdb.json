@@ -1,25 +1,25 @@
 {
   "kirjat": [
     {
-      "nimi": "Harry Potter ja viisasten",
+      "nimi": "Harry Potter ja viisasten kiviii",
       "kirjoittaja": "J.K. Rowling",
-      "kpl": 1,
+      "kpl": 0,
       "kuva": "https://kirja.s3.amazonaws.com/prod/9789513111465_frontcover_final_original.jpg",
       "id": 1
     },
     {
       "nimi": "Harry Potter ja salaisuuksien",
       "kirjoittaja": "J.K. Rowling",
-      "kpl": 1,
+      "kpl": 0,
       "kuva": "https://kirja.s3.amazonaws.com/prod/9789513114725_frontcover_final_original.jpg",
       "id": 2
     },
     {
-      "id": 3,
       "nimi": "Harry Potter ja Azkabanin vanki",
       "kirjoittaja": "J.K. Rowling",
-      "kpl": 1,
-      "kuva": "https://upload.wikimedia.org/wikipedia/fi/thumb/e/ef/Harry_Potter_ja_Azkabanin_vanki_-kirjan_kansikuva.jpg/197px-Harry_Potter_ja_Azkabanin_vanki_-kirjan_kansikuva.jpg"
+      "kpl": 6,
+      "kuva": "https://upload.wikimedia.org/wikipedia/fi/thumb/e/ef/Harry_Potter_ja_Azkabanin_vanki_-kirjan_kansikuva.jpg/197px-Harry_Potter_ja_Azkabanin_vanki_-kirjan_kansikuva.jpg",
+      "id": 3
     },
     {
       "id": 4,
@@ -69,20 +69,6 @@
       "kpl": 1,
       "kuva": "",
       "id": 10
-    },
-    {
-      "nimi": "fdssdfsfd",
-      "kirjoittaja": "sfdsfdsdfsf",
-      "kpl": 1,
-      "kuva": "",
-      "id": 11
-    },
-    {
-      "nimi": "fdssdfsfd",
-      "kirjoittaja": "sfdsfdsdfsf",
-      "kpl": 1,
-      "kuva": "",
-      "id": 12
     }
   ]
 }

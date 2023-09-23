@@ -1,7 +1,3 @@
-
-// need to do, /* Sakke */ Jooa
-// Tee uusi function services.d.ts ja services.ts jossa on funktio joka lisää kirjan tietokantaan
-
 import { useEffect, useState } from 'react';
 import "../Lisäys_scss.scss";
 import * as Action from '../services/services';
@@ -79,8 +75,9 @@ const Items = () => {
     <div>
       <NavBar />
       <div className="form">
+        <h2 className='formHeader'>Lisää kirja</h2>
         <form>
-          Nimi:<br />
+          <p>Nimi:</p>
           <input
             type="text"
             id="name"
@@ -89,7 +86,7 @@ const Items = () => {
             value={newName}
             autoComplete="off"
           /><br />
-          Kirjoittaja: <br />
+          <p>Kirjoittaja:</p>
           <input
             type="text"
             id="author"
@@ -98,14 +95,14 @@ const Items = () => {
             value={newAuthor}
             autoComplete="off"
           /><br />
-          Kuva <i>url</i>: <br />
+          <p>Kuva <i>url</i>:</p>
           <input
             type="text"
             id="add-img"
             name="add-img"
             onChange={handleImgChange}
           /><br />
-          Määrä: <br />
+          <p>Määrä:</p>
           <input
             type="number"
             id="amount"
@@ -174,10 +171,23 @@ const Users = () => {
   return (
     <div>
       <div className="users">
+      <h2 className='usersHeader'>Käyttäjät</h2>
+      {/* Filter the shown users by the search input */}
+      {/* Here is better code for the search input and it works better and modifies the search when the search input is modified */}
+      <input type="text" id="userSearch" name="user-search" placeholder="Etsi käyttäjää" onChange={(event) => {
+          const search = event.target.value;
+          Action.getUsers().then((response: any) => {
+            const filteredUsers = response.data.filter((user: any) => {
+              return user.id.toLowerCase().includes(search.toLowerCase());
+            });
+            setUsers(filteredUsers);
+          });
+        }}
+      /> 
         {users.map((user: any) => (
           <div className="user" key={user.id}>
             <h2>{user.id}</h2>
-            <h3>{user.tuoteet}</h3>
+              <h3>{user.tuoteet}</h3>
             <button type="button" className="edit-button"
               onClick={() => {
                 updateUser(user.id, user.tuoteet);
@@ -244,6 +254,9 @@ const Books = ({  }: any) => {
   }
     return(
       <div className="books">
+        <div className="headerContainer">
+          <h2 className='booksHeader'>Kirjat</h2>
+        </div>
         {books.map((book: Book) => (
           <div className="book" key={book.id}>
             <img src={book.kuva} alt="" style={image}/>
@@ -251,21 +264,23 @@ const Books = ({  }: any) => {
             <h3>{book.nimi}</h3>
             <h4>{book.kirjoittaja}</h4>
             <h4>{book.kpl} kpl</h4>
+            <div className="buttonContainer">
             {/* edit button */}
-            <button type="button" className="edit-button"
-              onClick={() => {
-                updateBook(book.id, book.nimi, book.kirjoittaja, book.kpl, book.kuva);
-              }}
-            >Muokkaa</button>
-            {/* delete button */}
-            <button type="button" className="delete-button"
-              onClick={() => {
-                Action.deleteBook(book.id).then((response: any) => {
-                  setBooks(books.filter((b: Book) => b.id !== book.id));
-                  // window.location.reload();
-                });
-              }}
-            >Poista</button>
+              <button type="button" className="edit-button"
+                onClick={() => {
+                  updateBook(book.id, book.nimi, book.kirjoittaja, book.kpl, book.kuva);
+                }}
+              >Muokkaa</button>
+              {/* delete button */}
+              <button type="button" className="delete-button"
+                onClick={() => {
+                  Action.deleteBook(book.id).then((response: any) => {
+                    setBooks(books.filter((b: Book) => b.id !== book.id));
+                    // window.location.reload();
+                  });
+                }}
+              >Poista</button>
+            </div>
           </div>
         ))}
       </div>
