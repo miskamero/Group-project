@@ -3,18 +3,22 @@
     {
       "id": "admin",
       "password": "$2a$10$eEC83JKN8d/9oGUIJiSwaeW4V.rs.oUa6Mb/pppIXGL47yXOGA1te",
-      "tuoteet": []
+      "tuoteet": [
+        "1"
+      ]
     },
     {
       "id": "gr123455",
-      "tuoteet": [
-        1,
-        2
-      ]
+      "tuoteet": []
     },
     {
       "id": "gr654321",
       "password": "$2a$10$x/4cP1unSzl87/9ZPTBtAORRDBDfgzlu8HZGrKGBsidkW/vAvErWi",
+      "tuoteet": []
+    },
+    {
+      "id": "gr111111",
+      "password": "$2a$10$GvWYQKdEaMwOMKotGap1aO87SY9ht//R1Fk086M/f2XdFovdZNq1u",
       "tuoteet": []
     }
   ]

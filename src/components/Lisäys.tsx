@@ -2,13 +2,19 @@
 // need to do, /* Sakke */ Jooa
 // Tee uusi function services.d.ts ja services.ts jossa on funktio joka lisää kirjan tietokantaan
 
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import "../Lisäys_scss.scss";
 import * as Action from '../services/services';
 import axios from 'axios';
 import secureLocalStorage from "react-secure-storage";
 import { useNavigate } from "react-router-dom";
 import NavBar from './NavBar';
+
+import React from "react";
+import ReactDOM from "react-dom";
+import QRCode from "react-qr-code";
+import { Printd } from 'printd'
+
 
 interface Book {
   id: string;
@@ -242,6 +248,9 @@ const Books = ({  }: any) => {
       console.log("One of the prompts was canceled or failed.");
     }
   }
+
+
+
     return(
       <div className="books">
         {books.map((book: Book) => (
@@ -251,6 +260,10 @@ const Books = ({  }: any) => {
             <h3>{book.nimi}</h3>
             <h4>{book.kirjoittaja}</h4>
             <h4>{book.kpl} kpl</h4>
+            {/* qr code */}
+            <div className="qr">
+              <PrintableQR id={book.id} />
+            </div>
             {/* edit button */}
             <button type="button" className="edit-button"
               onClick={() => {
@@ -278,5 +291,39 @@ const image = {
   height: "auto",
   borderRadius: "10px",
 }
+ 
+const QR = ({ id }: any) => {
+  return (
+    <div>
+      <QRCode value={"http:localhost:5173" + id} size={100} />
+    </div>
+  )
+}
+
+const PrintableQR = ({ id }: any) => {
+  const componentRef = useRef(null);
+
+  const handlePrint = () => {
+    const printd = new Printd();
+    const elementToPrint = componentRef.current;
+
+    if (elementToPrint) {
+      // Print the element with custom styles
+      printd.print(elementToPrint, [`h1 { color: black; font-family: sans-serif; }`]);
+    } else {
+      console.error("Element not found or not yet rendered.");
+    }
+  };
+
+
+  return (
+    <div>
+      <div ref={componentRef}>
+        <QR id={id} />
+      </div>
+      <button onClick={handlePrint}>Lataa QR</button>
+    </div>
+  );
+};
 
 export default Items;

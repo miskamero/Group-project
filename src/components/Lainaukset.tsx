@@ -150,6 +150,11 @@ useEffect(() => {
         <div className="userInfoContainer">
           <div className='lainaa'>
             <p id={"error-message"}>Error: <br/><span>{error}</span></p> {/* Error message paragraph */}
+            <input type="button"
+              value="Skannaa QR-koodi"
+              onClick={() => navigate("/qr")
+            }
+            />
             <input
               type="text"
               placeholder="Kirjan kirjan ID"

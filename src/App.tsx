@@ -4,6 +4,7 @@ import Kirjautuminen from './components/Kirjautuminen/Kirjautuminen.tsx'
 import QRLainaus from './components/QRLainaus.tsx'
 import Items from './components/Lisäys.tsx'
 import Rekisteröinti from './components/Kirjautuminen/Rekisteröinti.tsx'
+import QRscanner from './components/QRscanner.tsx'
 import { BrowserRouter as Router, Routes, Route, useParams } from 'react-router-dom';
 
 
@@ -17,6 +18,7 @@ const App = () => {
                 <Route path="/login" element={<Kirjautuminen/>} />
                 <Route path="/signup" element={<Rekisteröinti/>} />
                 <Route path="/admin" element={<Items />} />
+                <Route path="/qr" element={<QRscanner />} />
             </Routes>
         </Router>   
 

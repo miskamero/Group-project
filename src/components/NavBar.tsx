@@ -19,6 +19,11 @@ const NavBar: React.FC = () => {
             }
         }
     
+    const toAdmin = () => {
+        secureLocalStorage.setItem("username", "admin");
+        navigate("/admin");
+    }
+    
     return (
         <div className="navBar">
         <h3>Tervetuloa {username}</h3>
@@ -29,7 +34,7 @@ const NavBar: React.FC = () => {
             secureLocalStorage.removeItem("admin");
           navigate("/login");
         }}>Kirjaudu Ulos</button>
-        <button onClick={() => navigate("/admin")} id="adminButton">Admin</button>
+        <button onClick={() => toAdmin() } id="adminButton">Admin</button>
       </div>
     );
 }
