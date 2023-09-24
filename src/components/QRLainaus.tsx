@@ -58,6 +58,11 @@ const QRLainaus: React.FC<LainauksetProps> = ({ bookId }) => {
       <h1>Lainataan Kirja {bookId}</h1>
       <p>Kirja on lainattu käyttäjälle {userName}</p>
       <h1>{result}</h1>
+      <button
+        onClick={() => {
+          navigate("/");
+        }}
+      >Takaisin etusivulle...</button>
     </div>
   );
 }

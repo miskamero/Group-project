@@ -151,11 +151,11 @@ const Users = () => {
 
   // update user function 
   const updateUser = (id: string, tuoteet: string[]) => {
-    var name = prompt("Muokkaa käyttäjän nimeä", id);
+    let name = prompt("Muokkaa käyttäjän nimeä", id);
 
     // Check if the prompts returned non-null values before using them
     if (name !== null) {
-      Action.updateUser(id, name, tuoteet);
+      Action.updateUser(id, name);
       setUsers(users.map((user: any) => {
         if (user.id === id) {
           if (name !== null) {
@@ -197,7 +197,11 @@ const Users = () => {
         {users.map((user: any) => (
           <div className="user" key={user.id}>
             <h2>{user.id}</h2>
-              <h3>{user.tuoteet}</h3>
+              {user.tuoteet.map((tuote: any) => (
+                <div className="tuote" key={tuote.id}>
+                  {tuote}
+                </div>
+              ))}
             <button type="button" className="edit-button"
               onClick={() => {
                 updateUser(user.id, user.tuoteet);
@@ -272,11 +276,14 @@ const Books = ({  }: any) => {
         </div>
         {books.map((book: Book) => (
           <div className="book" key={book.id}>
-            <img src={book.kuva} alt="" style={image}/>
             <h2>{book.id}</h2>
+            <img src={book.kuva} alt="" style={image}/>
             <h3>{book.nimi}</h3>
             <h4>{book.kirjoittaja}</h4>
             <h4>{book.kpl} kpl</h4>
+            <div className="qr">
+              <PrintableQR id={book.id} />
+            </div>
             {/* edit button */}
               <button type="button" className="edit-button"
                 onClick={() => {
@@ -293,8 +300,7 @@ const Books = ({  }: any) => {
                 }}
               >Poista</button>
             </div>
-          </div>
-        ))}
+        ))} 
       </div>
     )
 }
@@ -309,7 +315,7 @@ const image = {
 const QR = ({ id }: any) => {
   return (
     <div>
-      <QRCode value={"http:localhost:5173" + id} size={100} />
+      <QRCode value={"http://localhost:5173/" + id} size={100} />
     </div>
   )
 }
@@ -329,7 +335,6 @@ const PrintableQR = ({ id }: any) => {
     }
   };
 
-
   return (
     <div>
       <div ref={componentRef}>
@@ -339,5 +344,6 @@ const PrintableQR = ({ id }: any) => {
     </div>
   );
 };
+
 
 export default Items;

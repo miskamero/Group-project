@@ -19,13 +19,6 @@
         "1",
         "2"
       ]
-      "id": "gr123455",
-      "tuoteet": []
-    },
-    {
-      "id": "gr123457",
-      "password": "$2a$10$aDxpvhTv.28EN5UjncOxKej.WAvf2kUdzbhMSXfR1vR8VqhHRKGsW",
-      "tuoteet": []
     },
     {
       "id": "gr123458",
@@ -35,7 +28,10 @@
     {
       "id": "gr111111",
       "password": "$2a$10$GvWYQKdEaMwOMKotGap1aO87SY9ht//R1Fk086M/f2XdFovdZNq1u",
-      "tuoteet": []
+      "tuoteet": [
+        "3",
+        "4"
+      ]
     }
   ]
 }
