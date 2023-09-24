@@ -134,6 +134,11 @@ body {
             color: rgb(0, 0, 0);
             font-weight: bold;
             cursor: pointer;
+            transition: all 0.2s ease-in-out;
+            &:hover {
+                transform: scale(1.05);
+                box-shadow: 0 0 6px rgba(255, 255, 255, 0.5); 
+            }
         }
     }
 
