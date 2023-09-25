@@ -57,8 +57,7 @@ const Rekisteröinti = () => {
         try {
           const usersResponse = await axios.get("/lainaukset/" + grTunnus);
           const users = usersResponse.data;
-      
-          console.log("Users from API:", users);
+          console.log("Users from API:", usersResponse);
       
           if (Object.keys(users).length !== 0) {
             setError("Käyttäjä on jo olemassa");
