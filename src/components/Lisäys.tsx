@@ -1,7 +1,3 @@
-
-// need to do, /* Sakke */ Jooa
-// Tee uusi function services.d.ts ja services.ts jossa on funktio joka lisää kirjan tietokantaan
-
 import { useEffect, useState, useRef } from 'react';
 import "../Lisäys_scss.scss";
 import * as Action from '../services/services';
@@ -277,7 +273,7 @@ const Books = ({  }: any) => {
         {books.map((book: Book) => (
           <div className="book" key={book.id}>
             <h2>{book.id}</h2>
-            <img src={book.kuva} alt="" style={image}/>
+            <img src={book.kuva} alt=""/>
             <h3>{book.nimi}</h3>
             <h4>{book.kirjoittaja}</h4>
             <h4>{book.kpl} kpl</h4>
@@ -305,13 +301,6 @@ const Books = ({  }: any) => {
     )
 }
 
-
-const image = {
-  width: "77px",
-  height: "auto",
-  borderRadius: "10px",
-}
- 
 const QR = ({ id }: any) => {
   return (
     <div>
