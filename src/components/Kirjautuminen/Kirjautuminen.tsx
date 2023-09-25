@@ -30,7 +30,7 @@ const Kirjautuminen = () => {
  
     const getUsers = async () => {
         try {
-          const response = await axios.get<UserInfo>("http://localhost:3002/lainaukset/" + grTunnus);
+          const response = await axios.get<UserInfo>("/lainaukset/" + grTunnus);
       
           if (response.data) {
             const userPassword = response.data.password;

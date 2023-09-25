@@ -304,7 +304,7 @@ const Books = ({  }: any) => {
 const QR = ({ id }: any) => {
   return (
     <div>
-      <QRCode value={"http://localhost:5173/" + id} size={100} />
+      <QRCode value={"/" + id} size={100} />
     </div>
   )
 }

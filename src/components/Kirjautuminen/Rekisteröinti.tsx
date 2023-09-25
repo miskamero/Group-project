@@ -55,7 +55,7 @@ const Rekisteröinti = () => {
     }
     const getUsers = async () => {
         try {
-            const users = await axios.get("http://localhost:3002/lainaukset/" + grTunnus);
+            const users = await axios.get("/lainaukset/" + grTunnus);
             if (Object.keys(users.data).length != 0) {
                 setError("Käyttäjä on jo olemassa");
             }

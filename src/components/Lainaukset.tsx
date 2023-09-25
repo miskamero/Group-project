@@ -19,7 +19,7 @@ const GetBookInfo: React.FC<{id: number}> = ({id}) => {
   useEffect(() => {
     // Fetch the book's information from an API endpoint
     axios
-      .get<Book>(`http://localhost:3001/kirjat/${id}`)
+      .get<Book>(`/kirjat/${id}`)
       .then((response) => {
         setBook(response.data);
       })
