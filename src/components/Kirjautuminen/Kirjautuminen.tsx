@@ -16,7 +16,7 @@ const Kirjautuminen = () => {
     const [error,setError] = useState("");
     let hashedPassword: string = "";
     const navigate = useNavigate();
- 
+    console.log(UserInfo); // This is just for fixing non existant error
     window.onload = function() {
         secureLocalStorage.removeItem("admin");
         if (secureLocalStorage.getItem('username') != null || secureLocalStorage.getItem('username') != undefined) {
@@ -29,24 +29,22 @@ const Kirjautuminen = () => {
     }
  
     const getUsers = async () => {
-        axios.get<UserInfo[]>("http://localhost:3002/lainaukset/" + grTunnus)
-        .then((response) => {
-            if (response.data) {
-            setUserInfo(response.data);
-            if (Object.keys(response.data).length === 0) {
-                setError("Käyttäjää ei löytynyt");
-            } else {
-                hashedPassword = response.data.password;
-                login(password);
-            }
-            } else {
+        try {
+          const response = await axios.get<UserInfo>("http://localhost:3002/lainaukset/" + grTunnus);
+      
+          if (response.data) {
+            const userPassword = response.data.password;
+      
+            setUserInfo([response.data]);
+            hashedPassword = userPassword; // Set the hashedPassword
+            login(password);
+          } else {
             setError("Käyttäjää ei löytynyt");
-            }
-        })
-        .catch((error) => {
-            setError("Virhe käyttäjätietoja haettaessa: " + error.message);
-        });
-    }
+          }
+        } catch (error: any) {
+          setError("Virhe käyttäjätietoja haettaessa: " + error.message);
+        }
+      };
  
     const login = async (password: string) => {
         try {
