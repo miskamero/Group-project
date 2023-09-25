@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import './Kirjautuminen.scss'
-import user_icon from '../../Assets/person.png'
-import password_icon from '../../Assets/password.png'
+import user_icon from '../../assets/person.png'
+import password_icon from '../../assets/password.png'
 import * as Action from '../../services/services';
 import secureLocalStorage from "react-secure-storage";
 import { useNavigate } from "react-router-dom";
