@@ -277,7 +277,7 @@ const Books = ({  }: any) => {
         {books.map((book: Book) => (
           <div className="book" key={book.id}>
             <h2>{book.id}</h2>
-            <img src={book.kuva} alt=""/>
+            <img src={book.kuva} alt="Kuva puuttuu"/>
             <h3>{book.nimi}</h3>
             <h4>{book.kirjoittaja}</h4>
             <h4>{book.kpl} kpl</h4>

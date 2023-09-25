@@ -43,12 +43,21 @@ const GetBookInfo: React.FC<{id: number}> = ({id}) => {
   }, [id]); // The dependency array ensures this effect runs when the component mounts and when the ID changes
 
   // Render the component's UI
-  return (
-    <div>
-      {book ? `${book.nimi} ${book.kirjoittaja}` : error}
-    </div>
-  );
+  if (book) {
+    return (
+      <div>
+        Kirja: {book.nimi}<br/> Kirjoittaja: {book.kirjoittaja}
+      </div>
+    );
+  } else {
+    return (
+      <div>
+        {error}
+      </div>
+    );
+  }
 }
+
 
 // Define the main functional component Lainauksetnavi
 const Lainaukset = () => {
@@ -76,6 +85,10 @@ const Lainaukset = () => {
     }, 3500); // 3500ms = 3.5s
   };
 
+  const UpdateData = () => {
+    getUsers();
+    getBooks();
+  };
 useEffect(() => {
   // Fetch the username from local storage when the component mounts
   const storedUsername: string | null = secureLocalStorage.getItem('username') as string;
@@ -83,15 +96,11 @@ useEffect(() => {
       setUserName(storedUsername);
     }
     // Call the UpdateData function every second which updates the data from the JSON-database
-    setInterval(() => {
+    // setInterval(() => {
       UpdateData();
-    }, 1000);
-  }, []);
+      //   }, 1000);
+    }, []);
   // Function to update the data from the JSON-database
-  const UpdateData = () => {
-    getUsers();
-    getBooks();
-  };
   // Function for getting the users from the JSON-database, callable from other components
   const getUsers = async () => {
     const response = await Action.getUsers();
@@ -127,6 +136,23 @@ useEffect(() => {
     setReturnBooks('');
   };
 
+  const BookAmount: React.FC<{id: number}> = ({id}) => {
+    if (id >= 1) {
+      return (
+        <div>
+          <p>Saatavilla {id} kpl</p>
+        </div>
+      );
+    } else {
+      return (
+        <div>
+          <p>Ei saatavilla</p>
+        </div>
+      );
+    }
+  }
+
+
   const checkIfLoggedIn = () => {
     // Fetch the username from local storage when the component mounts
     const storedUsername: string | null = secureLocalStorage.getItem('username') as string;
@@ -149,7 +175,7 @@ useEffect(() => {
       <div className='contain'> {/* container for the page's content */}
         <div className="userInfoContainer">
           <div className='lainaa'>
-            <p id={"error-message"}>Error: <br/><span>{error}</span></p> {/* Error message paragraph */}
+            <h3>Lainaa tai palauta kirja:</h3>
             <button className="QRButton" onClick={() => navigate("/qr")}>Skannaa QR-Koodi</button>
             <input
               type="text"
@@ -166,6 +192,7 @@ useEffect(() => {
               onChange={(e) => setReturnBooks(e.target.value)}
             />
             <button onClick={() => ReturnBook(userName, returnBooks)}>Palauta Kirja</button> {/* Button to return a book */}
+            <p id={"error-message"}>Error: <br/><span>{error}</span></p> {/* Error message paragraph */}
           </div>
           <div className='lainaukset'>
             {/* Use the GetBookInfo component to display the book's name and writer by its ID in the user's lending information and seperately display the ID of the book infront of the book's name and writer */}
@@ -174,7 +201,7 @@ useEffect(() => {
               {users.filter((user) => user.id === userName).map((user) => (
                 user.tuoteet.map((book) => (
                   <li key={book}>
-                    {book} <GetBookInfo id={Number(book)} /> 
+                    ID: {book} <GetBookInfo id={Number(book)} /> <br/>
                   </li>
                 ))
               ))}
@@ -195,7 +222,7 @@ useEffect(() => {
               .filter((book) => book.nimi.toLowerCase().includes(search.toLowerCase()))
               .map((book) => (
                 <li key={book.id}>
-                  {book.id} {book.nimi} {book.kirjoittaja} {book.kpl}
+                  ID: {book.id} <br/> Kirja: {book.nimi}<br/> Kirjoittaja: {book.kirjoittaja}<br/> <BookAmount id={book.kpl} />
                 </li>
               ))}
           </ul>

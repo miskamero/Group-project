@@ -2,35 +2,7 @@
   "lainaukset": [
     {
       "id": "admin",
-      "password": "$2a$10$eEC83JKN8d/9oGUIJiSwaeW4V.rs.oUa6Mb/pppIXGL47yXOGA1te",
-      "tuoteet": [
-        "1"
-      ]
-    },
-    {
-      "id": "gr123456",
-      "password": "$2a$10$PcuhVypbwqEoYGJlP6dZQeFcFCGgNsurxptuV/GzUb2Sm/XJdVjgm",
-      "tuoteet": [
-        "1",
-        "2"
-      ]
-    },
-    {
-      "id": "gr123458",
-      "password": "$2a$10$rlVT6KV3r19y8p2ckkavRO3b2OsJNjXyK7pJJnGaJiTYisv2.d.6q",
-      "tuoteet": []
-    },
-    {
-      "id": "gr111111",
-      "password": "$2a$10$GvWYQKdEaMwOMKotGap1aO87SY9ht//R1Fk086M/f2XdFovdZNq1u",
-      "tuoteet": [
-        "3",
-        "4"
-      ]
-    },
-    {
-      "id": "gr000000",
-      "password": "$2a$10$XY9SlbRaEijDpsjd0XIIP.O5OqP1Ty3r0GImPYzvGNBGFBFzpJD0.",
+      "password": "$2a$10$FF1UlVC84BLy041Me2ARyuD7RkxUTvXvGhLvzoQdmpGSS4isas6tK",
       "tuoteet": []
     }
   ]
