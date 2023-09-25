@@ -52,6 +52,7 @@ const Rekisteröinti = () => {
         secureLocalStorage.setItem('password', password);
         await Action.addUser(grTunnus, password);
         navigate("/");
+        console.log( "Käyttäjä lisätty")
     }
     const getUsers = async () => {
         try {
