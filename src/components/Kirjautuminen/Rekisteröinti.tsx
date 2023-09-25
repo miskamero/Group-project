@@ -55,15 +55,22 @@ const Rekisteröinti = () => {
     }
     const getUsers = async () => {
         try {
-            const users = await axios.get("/lainaukset/" + grTunnus);
-            if (Object.keys(users.data).length != 0) {
-                setError("Käyttäjä on jo olemassa");
-            }
-        }
-        catch (error) {
+          const usersResponse = await axios.get("/lainaukset/" + grTunnus);
+          const users = usersResponse.data;
+      
+          console.log("Users from API:", users);
+      
+          if (Object.keys(users).length !== 0) {
+            setError("Käyttäjä on jo olemassa");
+          } else {
+            // User doesn't exist, proceed with registration
             addUser(grTunnus, password);
+          }
+        } catch (error) {
+          console.error("Error while checking for existing users:", error);
+          // You might want to handle this error more gracefully.
         }
-    }
+      };
     return (
         <div className='containerkirjautuminen'>
             <div className='headerrekisteroidy'>
