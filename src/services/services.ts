@@ -41,7 +41,6 @@ export const updateBookid = async (kirjaID: string, updatedBook: string) => {
 
 export const updateUser = async (id: string, newId: string, newPassword: string) => {
   let currentPassword = "";
-  console.log(currentPassword)
   let tuoteet: string[] = [];
   let newPasswordHash = await hash(newPassword)
 

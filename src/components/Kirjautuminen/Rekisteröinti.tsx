@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import React, { useState } from 'react';
 import './Kirjautuminen.scss'
 import user_icon from '../../Assets/person.png'
 import password_icon from '../../Assets/password.png'
@@ -16,7 +16,6 @@ const Rekisteröinti = () => {
     }
     
     const [action,setAction] = useState("Rekisteröidy");
-    console.log(setAction)
     const [grTunnus,setGrTunnus] = useState("");
     const [password,setPassword] = useState("");
     const [error,setError] = useState("");
@@ -83,7 +82,7 @@ const Rekisteröinti = () => {
             </div>
         <h6>{error}</h6>
             <div className="submit-container">
-                <button className={"submit"} onClick={()=>{HandleSubmit()}}>Rekisteröidy</button>
+                <button className={"submit"} onClick={(e)=>{HandleSubmit()}}>Rekisteröidy</button>
             </div>
             <div>
                 <h5>Onko sinulla käyttäjätili? <a href='/login'>Kirjaudu sisään</a></h5>

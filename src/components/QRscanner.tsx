@@ -1,7 +1,10 @@
 import React, { useEffect } from "react";
 import { Html5QrcodeScanner } from "html5-qrcode";
+import { useNavigate } from "react-router-dom";
 
-const QRscanner: React.FC = () => {    
+const QRscanner: React.FC = () => {
+    const navigate = useNavigate();
+    
   function onScanSuccess(decodedText: any, decodedResult: any) {
     // handle the scanned code as you like, for example:
     console.log(`Code matched = ${decodedText}`, decodedResult);
