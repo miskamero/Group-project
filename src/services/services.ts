@@ -39,9 +39,10 @@ export const updateBookid = async (kirjaID: string, updatedBook: string) => {
   return response;
 };
 
-export const updateUser = async (id: string, newId: string) => {
+export const updateUser = async (id: string, newId: string, newPassword: string) => {
   let currentPassword = "";
   let tuoteet: string[] = [];
+  let newPasswordHash = await hash(newPassword)
 
   const response = await axios.get(`${UsersURL}/${id}`);
   const user = response.data;
@@ -54,7 +55,7 @@ export const updateUser = async (id: string, newId: string) => {
 
   const updatedUser = {
     id: newId,
-    password: currentPassword,
+    password: newPasswordHash,
     tuoteet,
   };
   await axios.post(UsersURL, updatedUser);

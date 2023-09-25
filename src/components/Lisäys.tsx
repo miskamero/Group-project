@@ -134,7 +134,7 @@ const Users = () => {
   const [users, setUsers] = useState<any>([]);
   const [tuoteet, setTuoteet] = useState<any>([]);
   const [newName, setNewName] = useState("");
-
+  const [newPassword, setNewPassword] = useState("");
   const navigate = useNavigate(); // Move it here
 
 
@@ -148,14 +148,18 @@ const Users = () => {
   // update user function 
   const updateUser = (id: string, tuoteet: string[]) => {
     let name = prompt("Muokkaa käyttäjän nimeä", id);
-
+    let password = prompt("Muokkaa käyttäjän salasanaa", "");
     // Check if the prompts returned non-null values before using them
-    if (name !== null) {
-      Action.updateUser(id, name);
+    if (password === "") {
+      password = null;
+    }
+    if (name !== null && password !== null) {
+      Action.updateUser(id, name, password);
       setUsers(users.map((user: any) => {
         if (user.id === id) {
-          if (name !== null) {
+          if (name !== null && password !== null) {
             user.id = name;
+            user.password = password;
           }
         }
         return user;

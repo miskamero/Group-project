@@ -103,7 +103,7 @@
 	}
 	.book {
 		width: clamp(250px, 30%, 80%);
-		height: 600px;
+		height: fit-content;
 		margin: 0.6rem auto 0.6rem auto;
 		padding: 0.8rem 0.5rem 0.8rem 0.5rem;
 		border-radius: 0.5rem;
