@@ -3,12 +3,9 @@
     {
       "id": "admin",
       "password": "$2a$10$eEC83JKN8d/9oGUIJiSwaeW4V.rs.oUa6Mb/pppIXGL47yXOGA1te",
-      "tuoteet": []
-    },
-    {
-      "id": "gr654321",
-      "password": "$2a$10$x/4cP1unSzl87/9ZPTBtAORRDBDfgzlu8HZGrKGBsidkW/vAvErWi",
-      "tuoteet": []
+      "tuoteet": [
+        "1"
+      ]
     },
     {
       "id": "gr123456",
@@ -19,14 +16,17 @@
       ]
     },
     {
-      "id": "gr123457",
-      "password": "$2a$10$aDxpvhTv.28EN5UjncOxKej.WAvf2kUdzbhMSXfR1vR8VqhHRKGsW",
-      "tuoteet": []
-    },
-    {
       "id": "gr123458",
       "password": "$2a$10$rlVT6KV3r19y8p2ckkavRO3b2OsJNjXyK7pJJnGaJiTYisv2.d.6q",
       "tuoteet": []
+    },
+    {
+      "id": "gr111111",
+      "password": "$2a$10$GvWYQKdEaMwOMKotGap1aO87SY9ht//R1Fk086M/f2XdFovdZNq1u",
+      "tuoteet": [
+        "3",
+        "4"
+      ]
     }
   ]
 }

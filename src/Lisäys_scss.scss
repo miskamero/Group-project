@@ -78,6 +78,7 @@
 	padding: 0;
 	scrollbar-width: thin;
 	scrollbar-color: rgb(255, 255, 255) rgba(0, 0, 0, 0.5);
+	scroll-behavior: smooth;
 	&::-webkit-scrollbar {
 		width: 12px;
 	}
@@ -94,27 +95,48 @@
 		height: 70px;
 		border-radius: 0.5rem;
 		text-align: center;
-		// blur the background
-		background: rgba(0, 0, 0, 0.9);
+		background: linear-gradient(to bottom, rgba(0, 0, 0, 1), rgba(0, 0, 0, 0.7));
 		backdrop-filter: blur(5px);
-		// make the header stay on top of the scrollbar and not move with it when scrolling down
 		position: sticky;
 		top: 0px;
 		transform: translateY(-1px);
 	}
 	.book {
 		width: clamp(250px, 30%, 80%);
-		// Good height options for the book:
-		height: 470px;
+		height: 600px;
 		margin: 0.6rem auto 0.6rem auto;
 		padding: 0.8rem 0.5rem 0.8rem 0.5rem;
 		border-radius: 0.5rem;
 		background: rgba(0, 0, 0, 0.5);
 		transition: all 0.2s ease-in-out;
-		display: flex;
-		flex-direction: column;
-		justify-content: flex-end;
 		overflow-wrap: break-word;
+		display: grid;
+		grid-template-rows: 1fr 1fr 1fr 1fr;
+		// More grid styling
+		grid-template-columns: 1fr;
+		row-gap: 0px;
+		img {
+			aspect-ratio: 1/1.5;
+			width: 6em;
+			object-fit: cover;
+			border-radius: 0.5rem;
+		}
+		h3 {
+			margin: 0;
+			padding: 0;
+			font-size: 1.5rem;
+			font-weight: bold;
+			text-align: center;
+			height: fit-content;
+		}
+		h4 {
+			margin: 0;
+			padding: 0;
+			font-size: 1.2rem;
+			font-weight: bold;
+			text-align: center;
+			height: fit-content;
+		}
 		.buttonContainer {
 			display: flex;
 			flex-direction: row;
@@ -191,7 +213,7 @@
 	}
 }
 
-@media screen and (max-width: 615px) {
+@media screen and (max-width: 616px) {
 	.book {
 		width: 100% !important;
 	}

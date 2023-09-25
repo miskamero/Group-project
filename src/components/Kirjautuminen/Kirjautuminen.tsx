@@ -1,22 +1,13 @@
 import { useState } from 'react';
-
 import axios from 'axios';
-
 import './Kirjautuminen.scss'
-// kopioi kansioon allaolevat kuvakkeet kun pystyt
 
 import email_icon from '../../Assets/email.svg'
-
 import password_icon from '../../Assets/password.png'
-
 import secureLocalStorage from "react-secure-storage";
-
 import { useNavigate } from "react-router-dom";
-
 import * as Action from '../../services/services';
-
 import { UserInfo } from '../../services/services';
- 
 
 const Kirjautuminen = () => {
     const [grTunnus,setGrTunnus] = useState("");
@@ -27,6 +18,7 @@ const Kirjautuminen = () => {
     const navigate = useNavigate();
  
     window.onload = function() {
+        secureLocalStorage.removeItem("admin");
         if (secureLocalStorage.getItem('username') != null || secureLocalStorage.getItem('username') != undefined) {
             navigate("/");
         }
@@ -64,9 +56,11 @@ const Kirjautuminen = () => {
                 secureLocalStorage.setItem('username', grTunnus);
                 secureLocalStorage.setItem('password', hashedPassword);
                 if (grTunnus === "admin") {
+                    secureLocalStorage.removeItem("admin");
                     navigate("/admin")
                 }
                 else {
+                secureLocalStorage.removeItem("admin");
                 navigate("/");
                 }
             } else {
