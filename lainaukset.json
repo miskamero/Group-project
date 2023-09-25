@@ -2,7 +2,12 @@
   "lainaukset": [
     {
       "id": "admin",
-      "password": "$2a$10$FF1UlVC84BLy041Me2ARyuD7RkxUTvXvGhLvzoQdmpGSS4isas6tK",
+      "password": "$2a$10$TVqdfW2.wnEhX6IjVPiSvucsBAKlVBfH/fuOY2at3vtVaGInO5W4C",
+      "tuoteet": []
+    },
+    {
+      "id": "gr123456",
+      "password": "$2a$10$47sxGAWMlhL8vi0yEL7Bh.d/Xnn0t004jijOMcuCQKughhMiITJwi",
       "tuoteet": []
     }
   ]

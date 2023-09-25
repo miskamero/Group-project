@@ -12,6 +12,8 @@ import { Book } from '../services/services';
 const QRLainaus: React.FC<LainauksetProps> = ({ bookId }) => {
     const [book, setBook] = useState<Book[]>([]);
     const [loading, setLoading] = useState<boolean>(true);
+    console.log(book)
+    console.log(loading)
     const [result, setResult] = useState<string>("");
     const [userName, setUserName] = useState<string>('');
 

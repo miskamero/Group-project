@@ -1,13 +1,10 @@
 import { useEffect, useState, useRef } from 'react';
 import "../Lisäys_scss.scss";
 import * as Action from '../services/services';
-import axios from 'axios';
 import secureLocalStorage from "react-secure-storage";
 import { useNavigate } from "react-router-dom";
 import NavBar from './NavBar';
 
-import React from "react";
-import ReactDOM from "react-dom";
 import QRCode from "react-qr-code";
 import { Printd } from 'printd'
 
@@ -28,6 +25,7 @@ const Items = () => {
   const [newAmount, setNewAmount] = useState(0);
   const [newId, setNewId] = useState(0);
   const [userName, setUserName] = useState("");
+  console.log(userName)
 
   const navigate = useNavigate();
 
@@ -132,9 +130,6 @@ const Items = () => {
 const Users = () => {
   // can see users and delete them
   const [users, setUsers] = useState<any>([]);
-  const [tuoteet, setTuoteet] = useState<any>([]);
-  const [newName, setNewName] = useState("");
-  const [newPassword, setNewPassword] = useState("");
   const navigate = useNavigate(); // Move it here
 
 
@@ -146,7 +141,7 @@ const Users = () => {
   }, []);
 
   // update user function 
-  const updateUser = (id: string, tuoteet: string[]) => {
+  const updateUser = (id: string) => {
     let name = prompt("Muokkaa käyttäjän nimeä", id);
     let password = prompt("Muokkaa käyttäjän salasanaa", "");
     // Check if the prompts returned non-null values before using them
@@ -204,7 +199,7 @@ const Users = () => {
               ))}
             <button type="button" className="edit-button"
               onClick={() => {
-                updateUser(user.id, user.tuoteet);
+                updateUser(user.id);
               }}
             >Muokkaa</button>
             <button type="button" className="delete-button"
@@ -212,6 +207,7 @@ const Users = () => {
                 Action.deleteUser(user.id).then((response: any) => {
                   setUsers(users.filter((u: any) => u.id !== user.id));
                   window.location.reload();
+                  console.log(response)
                 });
               }}
             >Poista</button>
@@ -230,7 +226,6 @@ const Users = () => {
 
 const Books = ({  }: any) => {
   const [books, setBooks] = useState<any>([]);
-  const [uniqueBooksButton, setUniqueBooksButton] = useState(false);
 
     useEffect(() => {
     setInterval(() => {
@@ -296,6 +291,7 @@ const Books = ({  }: any) => {
                   Action.deleteBook(book.id).then((response: any) => {
                     setBooks(books.filter((b: Book) => b.id !== book.id));
                     // window.location.reload();
+                    console.log(response)
                   });
                 }}
               >Poista</button>
