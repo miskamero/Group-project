@@ -52,24 +52,19 @@ const Rekisteröinti = () => {
         secureLocalStorage.setItem('password', password);
         await Action.addUser(grTunnus, password);
         navigate("/");
+        console.log( "Käyttäjä lisätty")
     }
     const getUsers = async () => {
         try {
-          const usersResponse = await axios.get("/lainaukset/" + grTunnus);
-          const users = usersResponse.data;
-          console.log("Users from API:", usersResponse);
-      
-          if (Object.keys(users).length !== 0) {
-            setError("Käyttäjä on jo olemassa");
-          } else {
-            // User doesn't exist, proceed with registration
-            addUser(grTunnus, password);
-          }
-        } catch (error) {
-          console.error("Error while checking for existing users:", error);
-          // You might want to handle this error more gracefully.
+            const users = await axios.get("http://localhost:3002/lainaukset/" + grTunnus);
+            if (Object.keys(users.data).length != 0) {
+                setError("Käyttäjä on jo olemassa");
+            }
         }
-      };
+        catch (error) {
+            addUser(grTunnus, password);
+        }
+    }
     return (
         <div className='containerkirjautuminen'>
             <div className='headerrekisteroidy'>

@@ -4,8 +4,8 @@ import axios from "axios";
 import bcrypt from 'bcryptjs'
 
 
-const UsersURL = "/lainaukset/";
-const BooksURL = "/kirjat";
+const UsersURL = "http://localhost:3002/lainaukset/";
+const BooksURL = "http://localhost:3001/kirjat";
 
 export interface UserInfo {
   id: string;
@@ -33,7 +33,7 @@ export const getBooks = async () => {
 
 export const updateBookid = async (kirjaID: string, updatedBook: string) => {
   const response = await axios.put(
-    `/kirjat/${kirjaID}`,
+    `http://localhost:3001/kirjat/${kirjaID}`,
     updatedBook
   );
   return response;
@@ -177,19 +177,19 @@ export const addBook = async (nimi: string, kirjoittaja: string, kpl: number, ku
 
 export const updateBook = async (kirjaID: string, name: string, author: string, amount: number, image: string) => {
   const response = await axios.put(
-    `/kirjat/${kirjaID}`,
+    `http://localhost:3001/kirjat/${kirjaID}`,
     { nimi: name, kirjoittaja: author, kpl: amount, kuva: image }
   );
   return response;
 };
 
 export const deleteBook = async (kirjaID: string) => {
-  const response = await axios.delete(`/kirjat/${kirjaID}`);
+  const response = await axios.delete(`http://localhost:3001/kirjat/${kirjaID}`);
   return response;
 };
 
 export const deleteUser = async (userName: string) => {
-  const response = await axios.delete(`/lainaukset/${userName}`);
+  const response = await axios.delete(`http://localhost:3002/lainaukset/${userName}`);
   return response;
 };
 
