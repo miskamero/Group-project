@@ -55,6 +55,7 @@ body {
         border: none;
         color: white;
         font-size: 1rem;
+        font-family: 'Poppins', sans-serif;
         transition: all 0.5s ease-in-out;
     }
     h3 {
@@ -98,33 +99,47 @@ body {
     }
 
     h1 {
-        font-size: clamp(16px, 5vw, 24px);
+        font-size: clamp(33px, 5vw, 24px);
     }
 
     .lainaa {
         display: flex;
         flex-direction: column;
         color: rgb(255, 255, 255);
-        text-shadow: 2px 2px 2px black;
         text-align: center;
         margin-top: 1rem;
+        padding-left: 10px;
         align-items: center;
-        width: 14rem;
+        width: 16rem;
         text-wrap: wrap;
 
         input {
+            background-color: hsla(0, 0%, 100%, 0.13);
+            color: white;
             width: 100%;
-            padding: 0.5rem 0rem;
+            padding: 0.5rem 0.2rem;
             border: none;
             border-radius: 0.5rem;
-            margin: 0;
+            margin: 3px;
             font-size: 1rem;
             text-indent: 5px;
             font-family: 'Poppins', sans-serif;
         }
 
+// nää 2x focus poistaa sinisen reunuksen kun tekstikenttä valittuna
+        input:focus { 
+            outline: none !important;
+            border-color: #000000;
+            box-shadow: 0 0 10px #ffd4f6;
+        }
+        textarea:focus { 
+            outline: none !important;
+            border-color: #000000;
+            box-shadow: 0 0 10px #ffd4f6;
+        }
+
         .QRButton {
-            margin-bottom: 0.6rem;
+            margin-bottom: 70px;
         }
 
         button {
@@ -133,6 +148,8 @@ body {
             border: none;
             border-radius: 0.5rem;
             margin-top: 1rem;
+            margin-bottom: 60px;
+            font-family: 'Poppins', sans-serif;
             font-size: 1rem;
             background: rgb(255, 255, 255);
             color: rgb(0, 0, 0);
@@ -160,7 +177,6 @@ body {
 
     .lainaukset {
         color: rgb(255, 255, 255);
-        text-shadow: 2px 2px 2px black;
         text-align: center;
         margin-top: 1rem;
         scroll-behavior: smooth;
@@ -192,6 +208,7 @@ body {
         }
     }
 
+// 'kirjoita hakusana...'
     .search-box {
         display: flex;
         flex-direction: column;
@@ -199,17 +216,28 @@ body {
         text-shadow: 2px 2px 2px black;
         text-align: center;
         margin-top: 1rem;
+        margin-bottom: 3rem;
         align-items: center;
 
         input {
+            font-family: 'Poppins', sans-serif;
             width: 90%;
-            padding: 0.5rem;
+            padding: 0.8rem;
             border: none;
             border-radius: 0.5rem;
             margin-top: 1rem;
             font-size: 1rem;
             margin-left: auto;
             margin-right: auto;
+        }
+        // nää 2x focus poistaa sinisen reunuksen kun tekstikenttä valittuna
+        input:focus { 
+            outline: none !important;
+            border-color: #000000;
+        }
+        textarea:focus { 
+            outline: none !important;
+            border-color: #000000;
         }
 
         button {

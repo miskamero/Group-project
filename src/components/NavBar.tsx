@@ -33,7 +33,7 @@ const NavBar: React.FC = () => {
             secureLocalStorage.removeItem("password");
             secureLocalStorage.removeItem("admin");
           navigate("/login");
-        }}>Kirjaudu Ulos</button>
+        }}>Kirjaudu ulos</button>
         <button onClick={() => toAdmin() } id="adminButton">Admin</button>
       </div>
     );

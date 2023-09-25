@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import secureLocalStorage from "react-secure-storage";
 import { useNavigate } from "react-router-dom";
 import * as Action from '../services/services';
+import '../QRscanner.scss';
 
 interface LainauksetProps {
   bookId: string;

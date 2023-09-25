@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import { Html5QrcodeScanner } from "html5-qrcode";
 import { useNavigate } from "react-router-dom";
 
+
 const QRscanner: React.FC = () => {
     const navigate = useNavigate();
     

@@ -2,7 +2,8 @@ import { useState } from 'react';
 import axios from 'axios';
 import './Kirjautuminen.scss'
 
-import email_icon from '../../Assets/email.svg'
+// email pitää olla toi harmaa kuvake niinku muutkin
+import email_icon from '../../Assets/email.png'
 import password_icon from '../../Assets/password.png'
 import secureLocalStorage from "react-secure-storage";
 import { useNavigate } from "react-router-dom";

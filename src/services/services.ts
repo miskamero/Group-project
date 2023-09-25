@@ -3,7 +3,6 @@ import axios from "axios";
 // import * as crypt from './crypt.ts'
 import bcrypt from 'bcryptjs'
 
-
 const UsersURL = "http://localhost:3002/lainaukset/";
 const BooksURL = "http://localhost:3001/kirjat";
 
@@ -18,7 +17,6 @@ export interface Book {
   kirjoittaja: string;
   kpl: number;
   id: string;
-  kuva: string;
 }
 
 export const getUsers = async () => {
@@ -31,7 +29,7 @@ export const getBooks = async () => {
   return response;
 };
 
-export const updateBookid = async (kirjaID: string, updatedBook: string) => {
+export const updateBook = async (kirjaID: string, updatedBook: string) => {
   const response = await axios.put(
     `http://localhost:3001/kirjat/${kirjaID}`,
     updatedBook
@@ -39,32 +37,13 @@ export const updateBookid = async (kirjaID: string, updatedBook: string) => {
   return response;
 };
 
-export const updateUser = async (id: string, newId: string, newPassword: string) => {
-  let currentPassword = "";
-  let tuoteet: string[] = [];
-  let newPasswordHash = await hash(newPassword)
-
-  const response = await axios.get(`${UsersURL}/${id}`);
-  const user = response.data;
-  if (user) {
-    currentPassword = user.password;
-    tuoteet = user.tuoteet;
-  }
-
-  await axios.delete(`${UsersURL}/${id}`);
-
-  const updatedUser = {
-    id: newId,
-    password: newPasswordHash,
-    tuoteet,
-  };
-  await axios.post(UsersURL, updatedUser);
-
-
+export const updateUser = async (userName: string, updatedUser: string) => {
+  const response = await axios.put(
+    `http://localhost:3002/lainaukset/${userName}`,
+    updatedUser
+  );
+  return response;
 };
-
-
-
 
 export const borrowBook = async (userName: string, bookID: string) => {
   try {
@@ -164,33 +143,6 @@ export const addUser = async (id: string, password: string) => {
   // const response = await axios.post(UsersURL, { id, password, tuoteet: [] });
   return response;
 }
-
-export const addBook = async (nimi: string, kirjoittaja: string, kpl: number, kuva: string, amount: number ) => {
-  let response;
-  for (let i = 0; i < amount; i++) {
-    response = await axios.post(BooksURL, { nimi, kirjoittaja, kpl, kuva });
-  }
-  // const response = await axios.post(BooksURL, { nimi, kirjoittaja, kpl, kuva });
-  return response;
-};
-
-export const updateBook = async (kirjaID: string, name: string, author: string, amount: number, image: string) => {
-  const response = await axios.put(
-    `http://localhost:3001/kirjat/${kirjaID}`,
-    { nimi: name, kirjoittaja: author, kpl: amount, kuva: image }
-  );
-  return response;
-};
-
-export const deleteBook = async (kirjaID: string) => {
-  const response = await axios.delete(`http://localhost:3001/kirjat/${kirjaID}`);
-  return response;
-};
-
-export const deleteUser = async (userName: string) => {
-  const response = await axios.delete(`http://localhost:3002/lainaukset/${userName}`);
-  return response;
-};
 
 export const hash = async (password: string): Promise<string> => {
   const salt = await bcrypt.genSalt(10)
