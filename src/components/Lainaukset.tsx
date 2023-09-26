@@ -176,10 +176,10 @@ useEffect(() => {
         <div className="userInfoContainer">
           <div className='lainaa'>
             <h3>Lainaa tai palauta kirja:</h3>
-            <button className="QRButton" onClick={() => navigate("/qr")}>Skannaa QR-Koodi</button>
+            <button className="QRButton" onClick={() => navigate("/qr")}>Skannaa QR-koodi</button>
             <input
               type="text"
-              placeholder="Kirjan kirjan ID"
+              placeholder="Lainattavan kirjan ID"
               value={kirjaID}
               onChange={(e) => setKirjaID(e.target.value)}
             />
@@ -192,7 +192,8 @@ useEffect(() => {
               onChange={(e) => setReturnBooks(e.target.value)}
             />
             <button onClick={() => ReturnBook(userName, returnBooks)}>Palauta Kirja</button> {/* Button to return a book */}
-            <p id={"error-message"}>Error: <br/><span>{error}</span></p> {/* Error message paragraph */}
+{/* ei tarvii lukee 'error' ennen span, muuten lukee error kaks kertaa peräkkäin */}
+            <p id={"error-message"}><span>{error}</span></p> {/* Error message paragraph */}
           </div>
           <div className='lainaukset'>
             {/* Use the GetBookInfo component to display the book's name and writer by its ID in the user's lending information and seperately display the ID of the book infront of the book's name and writer */}
@@ -211,7 +212,7 @@ useEffect(() => {
         <div className="search-box"> {/* Search box for searching books by their name */}
           <input type="text" 
           className="input-search"
-          placeholder="Kirjoita hakusana..."
+          placeholder="Etsi kirjaa nimellä..."
           onChange={(e) => setSearch(e.target.value)}
           />
         </div>
