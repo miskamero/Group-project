@@ -27,6 +27,9 @@ const Items = () => {
   const [userName, setUserName] = useState("");
   console.log(userName)
 
+  window.onload = function() {
+        secureLocalStorage.removeItem('admin');
+  }
   const navigate = useNavigate();
 
   const handleNameChange = (event: any) => {
@@ -134,7 +137,6 @@ const Users = () => {
 
 
   useEffect(() => {
-    secureLocalStorage.setItem('admin', "false");
     Action.getUsers().then((response: any) => {
       setUsers(response.data);
     });
