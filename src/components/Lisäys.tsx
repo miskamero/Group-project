@@ -49,7 +49,7 @@ const Items = () => {
   }
 
   const handleAdd = () => {
-    Action.addBook(newName, newAuthor, 1, newImg, newAmount);
+    Action.addBook(newName, newAuthor, newAmount, newImg, newAmount);
     setNewName("");
     setNewAuthor("");
     setNewImg("");
@@ -108,6 +108,7 @@ const Items = () => {
             id="add-img"
             name="add-img"
             onChange={handleImgChange}
+            value={newImg}
           /><br />
           <p>Määrä:</p>
           <input
@@ -206,11 +207,17 @@ const Users = () => {
             >Muokkaa</button>
             <button type="button" className="delete-button"
               onClick={() => {
-                Action.deleteUser(user.id).then((response: any) => {
-                  setUsers(users.filter((u: any) => u.id !== user.id));
-                  window.location.reload();
-                  console.log(response)
-                });
+                if (window.confirm("Haluatko varmasti poistaa käyttäjän " + user.id + "?" + "\nSinun pitää itse palauttaa kirjat käyttäjältä.") === true) {
+                  Action.deleteUser(user.id).then((response: any) => {
+                    setUsers(users.filter((u: any) => u.id !== user.id));
+                    // Below is the code for returning the books that the user has borrowed. All the books are returned when the user is deleted.
+                    window.location.reload();
+                    console.log(response)
+                  });
+                } else {
+                  console.log("Käyttäjää ei poistettu");
+                  return;
+                }
               }}
             >Poista</button>
 
@@ -238,10 +245,10 @@ const Books = ({  }: any) => {
   }, []);
 
   const updateBook = (id: string, nimi: string, kirjoittaja: string, kpl: number, kuva: string) => {
-    var name = prompt("Anna kirjan nimi", nimi);
-    var author = prompt("Anna kirjan kirjoittaja", kirjoittaja);
-    var amount = prompt("Anna kirjan määrä", kpl.toString());
-    var img = prompt("Anna kirjan kuva url", kuva);
+    let name = prompt("Anna kirjan nimi", nimi);
+    let author = prompt("Anna kirjan kirjoittaja", kirjoittaja);
+    let amount = prompt("Anna kirjan määrä", kpl.toString());
+    let img = prompt("Anna kirjan kuva url", kuva);
 
     // Check if the prompts returned non-null values before using them
     if (name !== null && author !== null && amount !== null && img !== null) {

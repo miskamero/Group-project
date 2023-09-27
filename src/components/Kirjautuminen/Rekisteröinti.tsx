@@ -19,8 +19,11 @@ const Rekisteröinti = () => {
     console.log(setAction)
     const [grTunnus,setGrTunnus] = useState("");
     const [password,setPassword] = useState("");
-    const [error,setError] = useState("");
+    const [error,setError] = useState("‎ ");
     const navigate = useNavigate();
+
+    // const errorHandling = (error: string) => {
+        // Take the error message as a parameter and set it to the error state variable and set opacity to 1
     
     window.onload = function() {
         secureLocalStorage.removeItem("admin");       
@@ -32,11 +35,15 @@ const Rekisteröinti = () => {
         const regex = /^gr\d{6}$/i;
         const trimmedGrTunnus = grTunnus.trim();
         if (grTunnus === "admin") {
-            setError("");
+            setError("‎ ");
             getUsers();
         }
         if (!regex.test(trimmedGrTunnus)) {
             setError("Gr-tunnus on väärässä muodossa");
+            setTimeout(() => {
+                setError("‎ ");
+            }
+            , 3000);
             return;
         }
         else if (password.length < 6) {
@@ -44,7 +51,7 @@ const Rekisteröinti = () => {
             return;
         }
         else {
-        setError("");
+        setError("‎ ");
         getUsers();
         }
     }

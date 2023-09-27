@@ -167,12 +167,7 @@ export const addUser = async (id: string, password: string) => {
 }
 
 export const addBook = async (nimi: string, kirjoittaja: string, kpl: number, kuva: string, amount: number ) => {
-  let response;
-  for (let i = 0; i < amount; i++) {
-    response = await axios.post(BooksURL, { nimi, kirjoittaja, kpl, kuva });
-  }
-  // const response = await axios.post(BooksURL, { nimi, kirjoittaja, kpl, kuva });
-  return response;
+  return await axios.post(BooksURL, { nimi, kirjoittaja, kpl, kuva });
 };
 
 export const updateBook = async (kirjaID: string, name: string, author: string, amount: number, image: string) => {

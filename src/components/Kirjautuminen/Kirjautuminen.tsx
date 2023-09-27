@@ -13,7 +13,7 @@ const Kirjautuminen = () => {
     const [grTunnus,setGrTunnus] = useState("");
     const [password,setPassword] = useState("");
     const [UserInfo,setUserInfo] = useState<UserInfo[]>([]);
-    const [error,setError] = useState("");
+    const [error,setError] = useState(" ‎ ");
     let hashedPassword: string = "";
     const navigate = useNavigate();
     console.log(UserInfo); // This is just for fixing non existant error
@@ -40,9 +40,15 @@ const Kirjautuminen = () => {
             login(password);
           } else {
             setError("Käyttäjää ei löytynyt");
+            setInterval(() => {
+                setError(" ‎ ");
+                }, 3000);
           }
         } catch (error: any) {
-          setError("Virhe käyttäjätietoja haettaessa: " + error.message);
+          setError("Käyttäjää ei löytynyt");
+            setInterval(() => {
+                setError(" ‎ ");
+                }, 3000);
         }
       };
  
@@ -62,7 +68,11 @@ const Kirjautuminen = () => {
                 navigate("/");
                 }
             } else {
-                setError("Salasana on väärä");
+                document.getElementById("unohdus")!.style.opacity = "1";
+                setError("Salasana tai käyttäjätunnus on väärin");
+                setInterval(() => {
+                    setError(" ‎ ");
+                    }, 3000);
             }
         }
         catch (error: any) {
@@ -91,6 +101,7 @@ const Kirjautuminen = () => {
             </div>
             <div>
                 <h5>Eikö sinulla ole tiliä?  <a href='/signup'>Rekisteröidy</a></h5>
+                <h5 id='unohdus'>Unohditko salasanasi? Ota yhteyttä ylläpitäjään.</h5>
             </div>
  
         </div>
