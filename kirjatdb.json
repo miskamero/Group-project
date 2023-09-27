@@ -3,7 +3,7 @@
     {
       "nimi": "Harry Potter ja viisasten kiviii",
       "kirjoittaja": "J.K. Rowling",
-      "kpl": 2,
+      "kpl": 1,
       "kuva": "https://kirja.s3.amazonaws.com/prod/9789513111465_frontcover_final_original.jpg",
       "id": 1
     },
@@ -41,48 +41,6 @@
       "kirjoittaja": "J.K. Rowling",
       "kpl": 0,
       "kuva": "https://upload.wikimedia.org/wikipedia/fi/thumb/0/0b/Harry_Potter_ja_puoliverinen_prinssi_-kirjan_kansikuva.jpg/197px-Harry_Potter_ja_puoliverinen_prinssi_-kirjan_kansikuva.jpg"
-    },
-    {
-      "nimi": "fdssdfsfd",
-      "kirjoittaja": "sfdsfdsdfsf",
-      "kpl": 1,
-      "kuva": "",
-      "id": 7
-    },
-    {
-      "nimi": "fdssdfsfd",
-      "kirjoittaja": "sfdsfdsdfsf",
-      "kpl": 1,
-      "kuva": "",
-      "id": 8
-    },
-    {
-      "nimi": "fdssdfsfd",
-      "kirjoittaja": "sfdsfdsdfsf",
-      "kpl": 1,
-      "kuva": "",
-      "id": 9
-    },
-    {
-      "nimi": "fdssdfsfd",
-      "kirjoittaja": "sfdsfdsdfsf",
-      "kpl": 1,
-      "kuva": "",
-      "id": 10
-    },
-    {
-      "nimi": "fdssdfsfd",
-      "kirjoittaja": "sfdsfdsdfsf",
-      "kpl": 1,
-      "kuva": "",
-      "id": 11
-    },
-    {
-      "nimi": "fdssdfsfd",
-      "kirjoittaja": "sfdsfdsdfsf",
-      "kpl": 1,
-      "kuva": "",
-      "id": 12
     }
   ]
 }

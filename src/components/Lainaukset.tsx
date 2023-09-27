@@ -166,7 +166,7 @@ useEffect(() => {
             <button className="QRButton" onClick={() => navigate("/qr")}>Skannaa QR-Koodi</button>
             <input
               type="text"
-              placeholder="Kirjan kirjan ID"
+              placeholder="Kirjan ID"
               value={kirjaID}
               onChange={(e) => setKirjaID(e.target.value)}
             />
