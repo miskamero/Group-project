@@ -9,19 +9,6 @@ import { Book } from '../services/services'; // Adjust the path as needed
 import { UserInfo } from '../services/services'; // Adjust the path as needed
 import { useNavigate } from "react-router-dom";
 
-// Define a functional component called GetUserName
-const GetUserName: React.FC = () => {
-  // Retrieve the username from secure local storage
-  const username: string | null = secureLocalStorage.getItem('username') as string;
-
-  return (
-    <div>
-      {username}
-    </div>
-  );
-}
-
-
 // Function that gets the book's name and writer by its ID
 const GetBookInfo: React.FC<{id: number}> = ({id}) => {
   // Define and initialize state variables using the useState hook

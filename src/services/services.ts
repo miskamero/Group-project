@@ -37,12 +37,29 @@ export const updateBook = async (kirjaID: string, updatedBook: string) => {
   return response;
 };
 
-export const updateUser = async (userName: string, updatedUser: string) => {
-  const response = await axios.put(
-    `http://localhost:3002/lainaukset/${userName}`,
-    updatedUser
-  );
-  return response;
+export const updateUser = async (id: string, newId: string, newPassword: string) => {
+  let currentPassword = "";
+  console.log(currentPassword)
+  let tuoteet: string[] = [];
+  let newPasswordHash = await hash(newPassword)
+
+  const response = await axios.get(`${UsersURL}/${id}`);
+  const user = response.data;
+  if (user) {
+    currentPassword = user.password;
+    tuoteet = user.tuoteet;
+  }
+
+  await axios.delete(`${UsersURL}/${id}`);
+
+  const updatedUser = {
+    id: newId,
+    password: newPasswordHash,
+    tuoteet,
+  };
+  await axios.post(UsersURL, updatedUser);
+
+
 };
 
 export const borrowBook = async (userName: string, bookID: string) => {

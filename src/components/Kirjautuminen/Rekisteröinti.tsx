@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import './Kirjautuminen.scss'
-import user_icon from '../../Assets/person.png'
-import password_icon from '../../Assets/password.png'
+import user_icon from '../../assets/person.png'
+import password_icon from '../../assets/password.png'
 import * as Action from '../../services/services';
 import secureLocalStorage from "react-secure-storage";
 import { useNavigate } from "react-router-dom";
@@ -16,10 +16,12 @@ const Rekisteröinti = () => {
     }
     
     const [action,setAction] = useState("Rekisteröidy");
+    console.log(setAction)
     const [grTunnus,setGrTunnus] = useState("");
     const [password,setPassword] = useState("");
     const [error,setError] = useState("");
     const navigate = useNavigate();
+    
     window.onload = function() {
         secureLocalStorage.removeItem("admin");       
         if (secureLocalStorage.getItem('username') != null || secureLocalStorage.getItem('username') != undefined) {
@@ -51,6 +53,7 @@ const Rekisteröinti = () => {
         secureLocalStorage.setItem('password', password);
         await Action.addUser(grTunnus, password);
         navigate("/");
+        console.log( "Käyttäjä lisätty")
     }
     const getUsers = async () => {
         try {
@@ -82,7 +85,7 @@ const Rekisteröinti = () => {
             </div>
         <h6>{error}</h6>
             <div className="submit-container">
-                <button className={"submit"} onClick={(e)=>{HandleSubmit()}}>Rekisteröidy</button>
+                <button className={"submit"} onClick={()=>{HandleSubmit()}}>Rekisteröidy</button>
             </div>
             <div>
                 <h5>Onko sinulla käyttäjätili? <a href='/login'>Kirjaudu sisään</a></h5>
