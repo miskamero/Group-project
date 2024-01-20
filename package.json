@@ -48,7 +48,7 @@
     "sass": "^1.66.1",
     "sass-loader": "^13.3.2",
     "typescript": "^5.0.2",
-    "vite": "^4.4.9"
+    "vite": "^4.5.2"
   },
   "server": {
     "port": 3000,
